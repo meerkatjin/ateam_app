@@ -8,13 +8,13 @@
     tools:context=".LoginActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/loginTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:gravity="center"
         android:text="속보이는 냉장고"
-        android:textSize="60sp"
+        android:textSize="45sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,26 +24,26 @@
         android:id="@+id/user_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginRight="16dp"
         android:hint="E-MAIL"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/loginTitle" />
 
     <EditText
         android:id="@+id/user_pw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginRight="16dp"
         android:hint="Password"
         android:textSize="20sp"
@@ -83,7 +83,7 @@
     <Button
         android:id="@+id/btnKakaoLogin"
         android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/kakao_login"
         android:text="카카오 계정으로 로그인"
@@ -95,7 +95,7 @@
     <Button
         android:id="@+id/btnGoogleLogin"
         android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/google_login_button"
         android:text="구글 계정으로 로그인"
