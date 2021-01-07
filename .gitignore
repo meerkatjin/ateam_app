@@ -1,9 +1,3 @@
-tartget/
-.settings/
-src/test/
-.classpath
-.project
-.springBeans
-
-/.metadata/
-Servers/
+app/build/
+.gradle/
+.idea/
