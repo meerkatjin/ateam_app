@@ -141,8 +141,8 @@
 
     <Button
         android:id="@+id/btnJoinConfirm"
-        android:layout_width="133dp"
-        android:layout_height="45dp"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="36dp"
         android:layout_marginBottom="80dp"
@@ -155,8 +155,8 @@
 
     <Button
         android:id="@+id/btnJoinCancle"
-        android:layout_width="133dp"
-        android:layout_height="45dp"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="80dp"
