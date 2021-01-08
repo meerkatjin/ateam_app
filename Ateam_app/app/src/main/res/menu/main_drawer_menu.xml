@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_userInfoChange"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="회원정보 수정"/>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="로그아웃"/>
+
+    </group>
+
+    <item
+        android:id="@+id/admin_item"
+        android:title="Admin"
+        android:visible="false">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_admin"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="관리자 페이지"/>
+
+
+        </menu>
+
+    </item>
+
+</menu>
