@@ -25,6 +25,5 @@ public class CommonMethod {
             Log.d("isconnected : ", "False => 데이터 통신 불가!!!" );
             return false;
         }
-
     }
 }
