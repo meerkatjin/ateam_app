@@ -20,13 +20,14 @@ import static com.example.ateam_app.Common.CommonMethod.ipConfig;
 
 public class JoinInsert extends AsyncTask<Void, Void, String> {
 
-    String email, pw, name, addr;
+    String email, pw, name, addr, phone_no;
 
-    public JoinInsert(String email, String pw, String name, String addr) {
+    public JoinInsert(String email, String pw, String name, String addr, String phone_no) {
         this.email = email;
         this.pw = pw;
         this.name = name;
         this.addr = addr;
+        this.phone_no = phone_no;
     }
 
     // 데이터베이스에 삽입결과 0보다크면 삽입성공, 같거나 작으면 실패
@@ -49,8 +50,8 @@ public class JoinInsert extends AsyncTask<Void, Void, String> {
             builder.addTextBody("email", email, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("pw", pw, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("name", name, ContentType.create("Multipart/related", "UTF-8"));
-            //builder.addTextBody("phonenumber", phonenumber, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("addr", addr, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("phone_no", phone_no, ContentType.create("Multipart/related", "UTF-8"));
 
             String postURL = ipConfig + "/app/anJoin";  //스프링 들어갈때 "/app/anJoin" 이 부분 수정해야함!!
             // 전송
