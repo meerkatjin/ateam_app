@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-
-
-    >
+    android:orientation="vertical">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -34,24 +31,42 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
+            <FrameLayout
+                android:id="@+id/main_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <fragment
+                    android:id="@+id/main_fragment_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    class="com.example.ateam_app.MainFragment" />
+
+            </FrameLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
-             //하단 버튼들 시작
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="0dp"
-                 android:layout_weight="1"/>
+                //하단 버튼들 시작
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="horizontal">
 
-                    >
+                    <Button
+                        android:id="@+id/btnMain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="메인" />
+
                     <Button
                         android:id="@+id/btnIrdntList"
                         android:layout_width="match_parent"
@@ -64,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="내부" />
+                        android:text="내부캠" />
 
 
                     <Button
@@ -89,14 +104,14 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <com.google.android.material.navigation.NavigationView
+<!--        <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/main_drawer_menu" />
+            app:menu="@menu/main_drawer_menu" />-->
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
