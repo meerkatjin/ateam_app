@@ -21,6 +21,7 @@ import com.example.ateam_app.ATask.JoinInsert;
 import java.util.concurrent.ExecutionException;
 
 public class JoinActivity extends AppCompatActivity {
+    private static final String TAG = "main:JoinActivity";
 
     String state;
 
@@ -45,6 +46,7 @@ public class JoinActivity extends AppCompatActivity {
         btnJoinConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "btnJoinConfirm: 눌림확인");
                 String email = user_email.getText().toString();
                 String pw = user_pw.getText().toString();
                 String pw_cf = user_pw_cf.getText().toString();
