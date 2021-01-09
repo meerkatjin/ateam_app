@@ -21,10 +21,10 @@
                 android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/manageTipSearch"
                 android:layout_width="329dp"
-                android:layout_height="wrap_content"
 
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
@@ -51,6 +51,7 @@
         android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/manageTipRecycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
