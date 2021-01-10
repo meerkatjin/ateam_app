@@ -21,7 +21,6 @@ import com.example.ateam_app.ATask.JoinInsert;
 import java.util.concurrent.ExecutionException;
 
 public class JoinActivity extends AppCompatActivity {
-    private static final String TAG = "main:JoinActivity";
 
     String state;
 
@@ -46,25 +45,24 @@ public class JoinActivity extends AppCompatActivity {
         btnJoinConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "btnJoinConfirm: 눌림확인");
-                String email = user_email.getText().toString();
-                String pw = user_pw.getText().toString();
-                String pw_cf = user_pw_cf.getText().toString();
-                String name = user_nm.getText().toString();
-                String addr = user_addr.getText().toString();
-                String phone_no = user_phone_no.getText().toString();
+                String email = user_email.getText().toString().trim();
+                String pw = user_pw.getText().toString().trim();
+                String pw_cf = user_pw_cf.getText().toString().trim();
+                String name = user_nm.getText().toString().trim();
+                String addr = user_addr.getText().toString().trim();
+                String phone_no = user_phone_no.getText().toString().trim();
 
-                if(email == null){  //회원가입 정보 입력을 확인함
+                if(email.equals("")){  //회원가입 정보 입력을 확인함
                     joinErrMessage("이메일을 입력하셔야합니다!");
-                }else if(pw == null){
+                }else if(pw.equals("")){
                     joinErrMessage("비밀번호를 입력하셔야합니다!");
-                }else if(pw_cf == null && !pw_cf.equals(pw)){
+                }else if(pw_cf.equals("") || !pw_cf.equals(pw)){
                     joinErrMessage("비밀번호가 일치하지 않습니다!");
-                }else if(name == null){
+                }else if(name.equals("")){
                     joinErrMessage("이름을 입력하셔야합니다!");
-                }else if(addr == null){
+                }else if(addr.equals("")){
                     joinErrMessage("주소를 입력하셔야합니다!");
-                }else if(phone_no == null){
+                }else if(phone_no.equals("")){
                     joinErrMessage("전화번호를 입력하셔야합니다!");
                 }else{  // 모든 조건을 충족하였으니 에러 없음 회원가입 수행
                    joinConfirmMessage(email, pw, name, addr, phone_no);//정말 회원가입 하시겠습니까? 예 누르면 JoinInsert 실행
@@ -95,6 +93,9 @@ public class JoinActivity extends AppCompatActivity {
 
             }
         });//builder.setPositiveButton()
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }//loginErrMessage()
 
     //회원가입 입력이 정상적일때 한번더 가입여부를 물어보고
@@ -139,6 +140,9 @@ public class JoinActivity extends AppCompatActivity {
 
             }
         });//builder.setNegativeButton()
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }
