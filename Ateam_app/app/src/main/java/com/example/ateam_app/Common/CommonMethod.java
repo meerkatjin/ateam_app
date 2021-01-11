@@ -6,7 +6,8 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 public class CommonMethod {
-    public static String  ipConfig = "http://121.179.5.99:8989";
+    //public static String  ipConfig = "http://121.179.5.99:8989";  //선생님 컴퓨터로 보낼때
+    public static String  ipConfig = "http://14.48.141.36:80";  //테스트 할때 자기 ip와 포트로 접근하세요!!
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {
