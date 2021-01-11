@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btnJoin;
+    Button btnLogin, btnJoin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,18 @@ public class LoginActivity extends AppCompatActivity {
 
         checkDangerousPermissions();
 
+        btnLogin = findViewById(R.id.btnLogin);
         btnJoin = findViewById(R.id.btnJoin);
+
+        //로그인 버튼
+        //아무 기능 안들어있는 깡통상태임 메인으로 넘어가게만 설정함
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //회원가입 버튼
         btnJoin.setOnClickListener(new View.OnClickListener() {
