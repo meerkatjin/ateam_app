@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle
+                = new ActionBarDrawerToggle(this, drawer,
+                toolbar, R.string.navi_drawer_open, R.string.navi_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_view);
         irdntListFragment = new IrdntListFragment();
@@ -48,15 +53,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onFragmentChange (int state) {
         if (state == 1) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
         } else if (state == 2) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, irdntListFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, irdntListFragment).commit();
         } else if (state == 3) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, camFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, camFragment).commit();
         } else if (state == 4) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, recipeFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, recipeFragment).commit();
         } else if (state == 5) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, manageTipFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, manageTipFragment).commit();
         }
     }
 
