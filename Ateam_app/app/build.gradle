@@ -46,4 +46,11 @@ dependencies {
     implementation('org.apache.httpcomponents:httpmime:4.3') {
         exclude module: "httpclient"
     }
+
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs
+    }
 }
