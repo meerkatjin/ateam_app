@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CamFragment camFragment;
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
+
+    Button btnManageTip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         camFragment = new CamFragment();
         recipeFragment = new RecipeFragment();
         manageTipFragment = new ManageTipFragment();
+
+        btnManageTip = findViewById(R.id.btnManageTip);
+        btnManageTip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFragmentChange(5);
+            }
+        });
+
     }
 
     public void onFragmentChange (int state) {
