@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onFragmentChange (int state) {
+        //Fragment nowFragment = null;
         if (state == 1) {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
         } else if (state == 2) {

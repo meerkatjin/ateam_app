@@ -4,12 +4,12 @@ public class ManagaeDTO {
     String manage_tip_sub;
     String manage_tip_context;
 
-    int resId;
+    int manage_tip_img;
 
-    public ManagaeDTO(String manage_tip_sub, String manage_tip_context, int resId) {
+    public ManagaeDTO(String manage_tip_sub, String manage_tip_context, int manage_tip_img) {
         this.manage_tip_sub = manage_tip_sub;
         this.manage_tip_context = manage_tip_context;
-        this.resId = resId;
+        this.manage_tip_img = manage_tip_img;
     }
 
     public String getManage_tip_sub() {
@@ -28,11 +28,13 @@ public class ManagaeDTO {
         this.manage_tip_context = manage_tip_context;
     }
 
-    public int getResId() {
-        return resId;
+    public int getManage_tip_img() {
+        return manage_tip_img;
     }
 
-    public void setResId(int resId) {
-        this.resId = resId;
+    public void setManage_tip_img(int manage_tip_img) {
+        this.manage_tip_img = manage_tip_img;
     }
+
+
 }

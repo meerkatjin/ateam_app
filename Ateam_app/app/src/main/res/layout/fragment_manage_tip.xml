@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
+
+
     android:weightSum="10"
-
-
     tools:context=".MangeTipPackage.ManageTipFragment">
 
     //검색창
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,8 +19,8 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <SearchView
                 android:id="@+id/manageTipSearch"
@@ -36,6 +38,7 @@
     </LinearLayout>
 
     //리스트
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

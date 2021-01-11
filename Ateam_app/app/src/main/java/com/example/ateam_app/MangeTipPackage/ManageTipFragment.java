@@ -1,5 +1,6 @@
 package com.example.ateam_app.MangeTipPackage;
 
+import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,7 +24,8 @@ public class ManageTipFragment extends Fragment  {
     private LinearLayoutManager linearLayoutManager;
     ManageTipAddapter adapter;
     ArrayList<ManagaeDTO> dtos;
-
+    ManagaeDTO dto;
+    Point size;
 
 
 

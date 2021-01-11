@@ -1,9 +1,12 @@
 package com.example.ateam_app.MangeTipPackage;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Point;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -15,62 +18,52 @@ import com.example.ateam_app.R;
 
 import java.util.ArrayList;
 
-public class ManageTipAddapter extends RecyclerView.Adapter<ManageTipAddapter.ViewHolder> {
+public class ManageTipAddapter extends BaseAdapter {
 
-    ManageTipInter listener;
-
-    Context context;
+         Context context;
     ArrayList<ManagaeDTO> dtos;
+    Point size;
+    LayoutInflater inflater;
 
-    public ManageTipAddapter(Context context, ArrayList<ManagaeDTO> dtos) {
+    public ManageTipAddapter(Context context, ArrayList<ManagaeDTO> dtos, Point size) {
         this.context = context;
         this.dtos = dtos;
+        this.size = size;
+
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater
-                .from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.fragment_manager_tip_item, parent, false);
+    public ManageTipAddapter(ManagaeDTO dto) {
 
-        return new ViewHolder(itemView, listener);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ManagaeDTO dto = dtos.get(position);
-        holder.setItem(dto);
+    //addDTO
+    public void addDto(ManagaeDTO dto){
+
+        dtos.add(dto);
     }
 
+
     @Override
-    public int getItemCount() {
+    public int getCount() {
+
         return dtos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
-        TextView manage_tip_sub;
-        ImageView manage_tip_img;
-        TextView manage_tip_context;
-        SearchView manageTipSearch;
-
-
-        public ViewHolder(@NonNull View itemView, ManageTipInter listener) {
-            super(itemView);
-
-            manage_tip_sub = itemView.findViewById(R.id.manage_tip_sub);
-            manage_tip_img = itemView.findViewById(R.id.manage_tip_img);
-            manage_tip_context = itemView.findViewById(R.id.manage_tip_context);
-            manageTipSearch = itemView.findViewById(R.id.manageTipSearch);
-
-        }
-
-        public void setItem(ManagaeDTO dto){
-            manage_tip_sub.setText(dto.getManage_tip_sub());
-            manage_tip_context.setText(dto.getManage_tip_context());
-            manage_tip_img.setImageResource(dto.getResId());
-
-        }
+    @Override
+    public Object getItem(int position) {
+        return dtos.get(position);
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return null;
+    }
+
+
 }
