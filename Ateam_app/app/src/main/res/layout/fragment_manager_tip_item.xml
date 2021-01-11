@@ -6,20 +6,15 @@
     android:layout_height="150dp">
 
     <ImageView
-<<<<<<< HEAD
         android:id="@+id/manage_tip_img"
         android:src="@drawable/ic_launcher_foreground"
         android:layout_marginStart="16dp"
         android:layout_centerVertical="true"
-=======
->>>>>>> 09cc8dc26e6f347e280d345ed962beb4cc6501b9
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/manage_tip_context"
