@@ -35,10 +35,16 @@
             </com.google.android.material.appbar.AppBarLayout>
 
             <FrameLayout
-                android:id="@+id/container"
+                android:id="@+id/irdnt_list_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <fragment
+                    android:id="@+id/irdnt_fragment_view"
+                    class="com.example.ateam_app.IrdntListTypeFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </FrameLayout>
 
