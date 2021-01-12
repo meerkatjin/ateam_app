@@ -72,7 +72,7 @@ public class ManageTipFragment extends Fragment  {
             dtos.add(dto);
             dto = new ManagaeDTO("여름", "여름에는 미스터 피자먹으로 가자", R.drawable.ic_launcher_background);
             dtos.add(dto);
-            dto = new ManagaeDTO("가을", "가을에는  맘스터치 햄버거 먹으로 가자", R.drawable.ic_launcher_background);
+            dto = new ManagaeDTO("가을", "가을에는 맘스터치 햄버거 먹으로 가자", R.drawable.ic_launcher_background);
             dtos.add(dto);
             dto = new ManagaeDTO("여름", "겨울에는 집에 있자", R.drawable.ic_launcher_background);
             dtos.add(dto);
