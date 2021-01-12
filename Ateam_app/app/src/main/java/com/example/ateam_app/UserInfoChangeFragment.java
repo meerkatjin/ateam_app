@@ -17,7 +17,7 @@ public class UserInfoChangeFragment extends Fragment {
 
     MainActivity activity;
     EditText user_email, user_pw, user_pw_cf,user_nm, user_addr, user_phone_no;
-    Button btnInfoChange, btnInfoChangeCancel;
+    Button btnInfoChange, btnInfoChangeCancel, btnImgUpload;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class UserInfoChangeFragment extends Fragment {
 
         btnInfoChange = rootView.findViewById(R.id.btnInfoChange);
         btnInfoChangeCancel = rootView.findViewById(R.id.btnInfoChageCancle);
+        btnImgUpload = rootView.findViewById(R.id.btnImgUpload);
 
         //회원정보수정 눌렀을 때
         btnInfoChange.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,14 @@ public class UserInfoChangeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showMessage();
+
+            }
+        });
+
+        //이미지올리기 버튼 눌렀을 때
+        btnImgUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
