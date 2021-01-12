@@ -28,9 +28,8 @@ public class ManageTipFragment extends Fragment  {
     private ManagaeDTO dto;
     private ArrayList<ManagaeDTO> dtos;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private LinearLayoutManager linearLayoutManager;
+
 
 
     public ManageTipFragment() {
@@ -52,7 +51,7 @@ public class ManageTipFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_manage_tip, container, false);
+             ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_manage_tip, container, false);
 
 
 
@@ -67,7 +66,7 @@ public class ManageTipFragment extends Fragment  {
             addapter = new ManageTipAddapter(dtos);
             recyclerView.setAdapter(addapter);
 
-            Button manage_tip_btn = viewGroup.findViewById(R.id.manage_tip_btn);
+
 
             dto = new ManagaeDTO("봄", "봄에는 굽네 치킨먹으로 가자", R.drawable.ic_launcher_background);
             dtos.add(dto);

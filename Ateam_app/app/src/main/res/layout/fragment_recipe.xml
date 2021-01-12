@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:weightSum="10"
 
-    tools:context=".RecipeFragment">
+
+    android:weightSum="10"
+    tools:context=".MangeTipPackage.ManageTipFragment">
 
     //검색창
 
@@ -20,25 +22,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/editTextFoodName"
-                android:layout_width="329dp"
-                android:layout_height="wrap_content"
+            <SearchView
+                android:id="@+id/recipeTipSearch"
+                android:layout_width="318dp"
+                android:layout_height="32dp"
 
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginStart="41dp"
-                android:layout_marginLeft="41dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="41dp"
-                android:layout_marginRight="41dp"
-                android:background="#9B9BA3"
-                android:ems="20"
-                android:inputType="text"
-                android:text="Search" />
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="46dp"
+                android:layout_marginRight="46dp" />
+
         </RelativeLayout>
 
     </LinearLayout>
@@ -49,9 +44,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="20dp"
+        >
+
+
+
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recipeRecycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
