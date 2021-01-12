@@ -8,57 +8,56 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link IrdntListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.material.tabs.TabLayout;
+
 public class IrdntListFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public IrdntListFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment IrdntListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static IrdntListFragment newInstance(String param1, String param2) {
-        IrdntListFragment fragment = new IrdntListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    TabLayout irdnt_sort_tabs;
+    Fragment selectedSortTab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
+
+        //재료 리스트 상단 탭 (종류별, 유통기한별, 이름별)
+        irdnt_sort_tabs = rootView.findViewById(R.id.irdnt_sort_tabs);
+        irdnt_sort_tabs.addTab(irdnt_sort_tabs.newTab().setText("종류별"));
+        irdnt_sort_tabs.addTab(irdnt_sort_tabs.newTab().setText("유통기한별"));
+        irdnt_sort_tabs.addTab(irdnt_sort_tabs.newTab().setText("이름별"));
+
+        IrdntListTypeFragment irdntListTypeFragment = new IrdntListTypeFragment();
+        IrdntListDateFragment irdntListDateFragment = new IrdntListDateFragment();
+        IrdntListNameFragment irdntListNameFragment = new IrdntListNameFragment();
+
+        irdnt_sort_tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                if (position == 0) {
+                    selectedSortTab = irdntListTypeFragment;
+                } else if (position == 1) {
+                    selectedSortTab = irdntListDateFragment;
+                } else if (position == 2) {
+                    selectedSortTab = irdntListNameFragment;
+                }
+
+                getFragmentManager().beginTransaction().replace(R.id.irdnt_list_frame, selectedSortTab).commit();
+            }//onTabSelected()
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }//onTabUnselected()
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }//onTabReselected()
+        });//irdnt_sort_tabs.setOnTabSelectedListener()
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_irdnt_list, container, false);
-    }
-}
+        return rootView;
+    }//onCreateView()
+
+}//class

@@ -1,5 +1,6 @@
 package com.example.ateam_app;
 
+import android.app.PendingIntent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,57 +9,56 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link IrdntListTypeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.material.tabs.TabLayout;
+
 public class IrdntListTypeFragment extends Fragment {
+    TabLayout irdnt_type_tabs;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public IrdntListTypeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment IrdntListTypeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static IrdntListTypeFragment newInstance(String param1, String param2) {
-        IrdntListTypeFragment fragment = new IrdntListTypeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list_type, container, false);
+
+        //재료 리스트 종류별 탭
+        irdnt_type_tabs = rootView.findViewById(R.id.irdnt_type_tabs);
+        irdnt_type_tabs.addTab(irdnt_type_tabs.newTab().setText("고기"));
+        irdnt_type_tabs.addTab(irdnt_type_tabs.newTab().setText("수산물"));
+        irdnt_type_tabs.addTab(irdnt_type_tabs.newTab().setText("채소/과일"));
+        irdnt_type_tabs.addTab(irdnt_type_tabs.newTab().setText("유제품"));
+        irdnt_type_tabs.addTab(irdnt_type_tabs.newTab().setText("양념/기타"));
+
+        irdnt_type_tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                if (position == 0) {
+
+                } else if (position == 1) {
+
+                } else if (position == 2) {
+
+                } else if (position == 3) {
+
+                } else if (position == 4) {
+
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_irdnt_list_type, container, false);
+        return rootView;
     }
 }

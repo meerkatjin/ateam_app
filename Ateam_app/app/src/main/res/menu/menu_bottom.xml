@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/tabMain"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="메인"/>
+
+    <item
+        android:id="@+id/tabIrdntList"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="리스트"/>
+
+    <item
+        android:id="@+id/tabCam"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="내부캠"/>
+
+    <item
+        android:id="@+id/tabRecipe"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="레시피"/>
+
+    <item
+        android:id="@+id/tabManageTip"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="관리팁"/>
+
+</menu>

@@ -46,6 +46,7 @@ dependencies {
     implementation('org.apache.httpcomponents:httpmime:4.3') {
         exclude module: "httpclient"
     }
+<<<<<<< HEAD
     /*리사이클뷰 */
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     // For control over item selection of both touch and mouse driven selection
@@ -54,4 +55,13 @@ dependencies {
     /*카드뷰*/
     implementation "androidx.cardview:cardview:1.0.0"
 
+=======
+
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs
+    }
+>>>>>>> c25fba3436dea9e21e9f20c986b41a240f3e635c
 }

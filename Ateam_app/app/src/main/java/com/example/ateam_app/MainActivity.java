@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
 
-    Button btnManageTip;
+    Button btnMain, btnIrdntList, btnCam, btnRecipe, btnManageTip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recipeFragment = new RecipeFragment();
         manageTipFragment = new ManageTipFragment();
 
+        btnMain = findViewById(R.id.btnMain);
+        btnIrdntList = findViewById(R.id.btnIrdntList);
+        btnCam = findViewById(R.id.btnCam);
+        btnRecipe = findViewById(R.id.btnRecipe);
         btnManageTip = findViewById(R.id.btnManageTip);
+
+        btnMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onFragmentChange(1);
+            }
+        });
+
+        btnIrdntList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFragmentChange(2);
+            }
+        });
+
+        btnCam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFragmentChange(3);
+            }
+        });
+
+        btnRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFragmentChange(4);
+            }
+        });
+
         btnManageTip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,5 +116,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+
+    long backKeyPressedTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        //뒤로 버튼을 한 번 누렀을 때 종료하시겠습니까? 알림
+        //2초 안에 두 번을 눌렀을 때 앱 종료
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로 버튼을 한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
+        } else {
+            ActivityCompat.finishAffinity(this);
+            System.exit(0);
+        }
+
     }
 }

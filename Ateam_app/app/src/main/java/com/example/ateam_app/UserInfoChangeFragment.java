@@ -1,64 +1,89 @@
 package com.example.ateam_app;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserInfoChangeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class UserInfoChangeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public UserInfoChangeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserInfoChangeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserInfoChangeFragment newInstance(String param1, String param2) {
-        UserInfoChangeFragment fragment = new UserInfoChangeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    MainActivity activity;
+    EditText user_email, user_pw, user_pw_cf,user_nm, user_addr, user_phone_no;
+    Button btnInfoChange, btnInfoChangeCancel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        activity = (MainActivity) getActivity();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_info_change, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
+
+        user_email = rootView.findViewById(R.id.user_email);
+        user_pw = rootView.findViewById(R.id.user_pw);
+        user_pw_cf = rootView.findViewById(R.id.user_pw_cf);
+        user_nm = rootView.findViewById(R.id.user_nm);
+        user_addr = rootView.findViewById(R.id.user_addr);
+        user_phone_no = rootView.findViewById(R.id.user_phone_no);
+
+        btnInfoChange = rootView.findViewById(R.id.btnInfoChange);
+        btnInfoChangeCancel = rootView.findViewById(R.id.btnInfoChageCancle);
+
+        //회원정보수정 눌렀을 때
+        btnInfoChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        //회원정보수정 취소 눌렀을 때
+        btnInfoChangeCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMessage();
+
+            }
+        });
+
+        return rootView;
     }
+    //대화상자 팝업
+    private void showMessage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("안내");
+        builder.setMessage("정말 취소하시겠습니까???");
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        //예 버튼
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        //아니오 버튼
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
 }
