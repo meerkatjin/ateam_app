@@ -33,6 +33,18 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="46dp"
                 android:layout_marginRight="46dp" />
+
+            <Button
+                android:id="@+id/manage_tip_btn"
+                android:layout_width="32dp"
+                android:layout_height="26dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="22dp"
+                android:text="추가" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -46,6 +58,9 @@
         android:orientation="horizontal"
         android:padding="20dp"
         >
+
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/manageTipRecycleView"

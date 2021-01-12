@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.ateam_app.MainActivity;
@@ -44,6 +45,7 @@ public class ManageTipFragment extends Fragment  {
 
 
 
+
     }
 
     @Override
@@ -65,17 +67,30 @@ public class ManageTipFragment extends Fragment  {
             addapter = new ManageTipAddapter(dtos);
             recyclerView.setAdapter(addapter);
 
-            ManagaeDTO dto = new ManagaeDTO("봄", "봄에는 벚꽃구경을 가자", R.drawable.ic_launcher_background);
-            dtos.add(dto);
-            dto = new ManagaeDTO("여름", "여름에는 피서지를 가자", R.drawable.ic_launcher_background);
-            dtos.add(dto);
+            Button manage_tip_btn = viewGroup.findViewById(R.id.manage_tip_btn);
 
+            dto = new ManagaeDTO("봄", "봄에는 굽네 치킨먹으로 가자", R.drawable.ic_launcher_background);
+            dtos.add(dto);
+            dto = new ManagaeDTO("여름", "여름에는 미스터 피자먹으로 가자", R.drawable.ic_launcher_background);
+            dtos.add(dto);
+            dto = new ManagaeDTO("가을", "가을에는  맘스터치 햄버거 먹으로 가자", R.drawable.ic_launcher_background);
+            dtos.add(dto);
+            dto = new ManagaeDTO("여름", "겨울에는 집에 있자", R.drawable.ic_launcher_background);
+            dtos.add(dto);
             addapter.notifyDataSetChanged();
+
+
+
+
 
 
         return viewGroup;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
 
+    }
 }
