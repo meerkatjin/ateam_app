@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="30dp">
+
+    <LinearLayout
+        android:id="@+id/recipe_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="167dp"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/img_url"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_launcher" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                //간략 소개
+                <TextView
+                    android:id="@+id/sumry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15sp" />
+
+                //레시피 이름
+                <TextView
+                    android:id="@+id/recipe_nm_ko"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="12sp" />
+
+                //난이도
+                <TextView
+                    android:id="@+id/level_nm"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="12sp" />
+
+          </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

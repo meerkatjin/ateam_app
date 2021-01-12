@@ -38,7 +38,7 @@ public class ManageTipAddapter extends RecyclerView.Adapter<ManageTipAddapter.Cu
     }
 
 
-    //추가 될떄 생명주기
+    //추가 될 때 생명주기
     @Override
     public void onBindViewHolder(@NonNull ManageTipAddapter.CustomViewHolder holder, int position) {
         holder.manage_tip_img.setImageResource(dtos.get(position).getManage_tip_img());
