@@ -75,26 +75,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.tabManageTip:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, manageTipFragment).commit();
                         return true;
-                }
+                }//switch-case
                 return false;
-            }
-        });
+            }//onNavigationItemSelected()
+        });//bottomNavigationView.setOnNavigationItemSelectedListener()
 
-    }
-
-    public void onFragmentChange (int state) {
-        //Fragment nowFragment = null;
-        if (state == 1) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
-        } else if (state == 2) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, irdntListFragment).commit();
-        } else if (state == 3) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, camFragment).commit();
-        } else if (state == 4) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, recipeFragment).commit();
-        } else if (state == 5) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, manageTipFragment).commit();
-        }
     }
 
     @Override
@@ -116,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             ActivityCompat.finishAffinity(this);
             System.exit(0);
-        }
+        }//if
 
-    }
-}
+    }//onBackPressed()
+}//class
