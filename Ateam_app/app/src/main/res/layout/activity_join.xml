@@ -51,7 +51,8 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="40dp"
                     android:layout_weight="1.3"
-                    android:textSize="20dp" />
+                    android:textSize="16dp"
+                    android:inputType="textEmailAddress"/>
 
             </LinearLayout>
 
@@ -79,7 +80,8 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20dp" />
+                    android:textSize="16dp"
+                    android:inputType="textPassword"/>
 
             </LinearLayout>
 
@@ -99,7 +101,7 @@
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="PW_CONFIRM"
-                    android:textSize="20dp" />
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/user_pw_cf"
@@ -107,7 +109,8 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20dp" />
+                    android:textSize="16dp"
+                    android:inputType="textPassword"/>
 
             </LinearLayout>
 
@@ -135,7 +138,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20dp" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
@@ -163,7 +166,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20dp" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
@@ -191,7 +194,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20dp" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
