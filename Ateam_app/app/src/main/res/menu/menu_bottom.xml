@@ -6,30 +6,35 @@
         android:id="@+id/tabMain"
         app:showAsAction="ifRoom"
         android:enabled="true"
+        android:icon="@android:drawable/btn_default"
         android:title="메인"/>
 
     <item
         android:id="@+id/tabIrdntList"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="리스트"/>
+        android:icon="@android:drawable/btn_default"
+        android:title="재료 리스트"/>
 
     <item
         android:id="@+id/tabCam"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="내부캠"/>
+        android:icon="@android:drawable/btn_default"
+        android:title="내부 카메라"/>
 
     <item
         android:id="@+id/tabRecipe"
         app:showAsAction="ifRoom"
         android:enabled="true"
+        android:icon="@android:drawable/btn_default"
         android:title="레시피"/>
 
     <item
         android:id="@+id/tabManageTip"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="관리팁"/>
+        android:icon="@android:drawable/btn_default"
+        android:title="관리 팁"/>
 
 </menu>

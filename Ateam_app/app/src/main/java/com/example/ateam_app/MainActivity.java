@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ateam_app.MangeTipPackage.ManageTipFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
 
-    Button btnMain, btnIrdntList, btnCam, btnRecipe, btnManageTip;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,45 +55,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recipeFragment = new RecipeFragment();
         manageTipFragment = new ManageTipFragment();
 
-        btnMain = findViewById(R.id.btnMain);
-        btnIrdntList = findViewById(R.id.btnIrdntList);
-        btnCam = findViewById(R.id.btnCam);
-        btnRecipe = findViewById(R.id.btnRecipe);
-        btnManageTip = findViewById(R.id.btnManageTip);
-
-        btnMain.setOnClickListener(new View.OnClickListener() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-
-                onFragmentChange(1);
-            }
-        });
-
-        btnIrdntList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFragmentChange(2);
-            }
-        });
-
-        btnCam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFragmentChange(3);
-            }
-        });
-
-        btnRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFragmentChange(4);
-            }
-        });
-
-        btnManageTip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFragmentChange(5);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.tabMain:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
+                        return true;
+                    case R.id.tabIrdntList:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, irdntListFragment).commit();
+                        return true;
+                    case R.id.tabCam:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, camFragment).commit();
+                        return true;
+                    case R.id.tabRecipe:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, recipeFragment).commit();
+                        return true;
+                    case R.id.tabManageTip:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, manageTipFragment).commit();
+                        return true;
+                }
+                return false;
             }
         });
 

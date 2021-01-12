@@ -51,63 +51,17 @@
             </FrameLayout>
 
             <!-- 하단 버튼 -->
-            <LinearLayout
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                android:layout_weight="0.8">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="5">
-
-                    <Button
-                        android:id="@+id/btnMain"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="14sp"
-                        android:text="메인" />
-
-                    <Button
-                        android:id="@+id/btnIrdntList"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="리스트" />
-
-                    <Button
-                        android:id="@+id/btnCam"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="내부캠" />
-
-
-                    <Button
-                        android:id="@+id/btnRecipe"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="레시피" />
-
-
-                    <Button
-                        android:id="@+id/btnManageTip"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="관리팁" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:itemBackground="@color/design_default_color_primary"
+                app:itemIconTint="@drawable/item_color"
+                app:itemTextColor="@drawable/item_color"
+                app:menu="@menu/menu_bottom"/>
 
         </LinearLayout>
 
