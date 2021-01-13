@@ -1,8 +1,8 @@
 package com.example.ateam_app.UserPakage.dto;
 
 public class UserDTO {
-    private String user_id,
-                user_email,
+    private int user_id;
+    private String user_email,
                 user_pw,
                 user_nm,
                 user_addr,
@@ -13,10 +13,9 @@ public class UserDTO {
     public UserDTO(){}
 
     //비밀번호를 제외한 정보를 가져올때
-    public UserDTO(String user_id, String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade) {
+    public UserDTO(int user_id, String user_email, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade) {
         this.user_id = user_id;
         this.user_email = user_email;
-        this.user_pw = user_pw;
         this.user_nm = user_nm;
         this.user_addr = user_addr;
         this.user_pro_img = user_pro_img;
@@ -33,11 +32,11 @@ public class UserDTO {
         this.user_phone_no = user_phone_no;
     }
 
-    public String getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
