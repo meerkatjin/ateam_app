@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.MangeTipPackage.ManagaeDTO;
 import com.example.ateam_app.MangeTipPackage.ManageTipAddapter;
 import com.example.ateam_app.R;
@@ -24,6 +25,12 @@ public class RecipeFragment extends Fragment {
     private ArrayList<RecipeDTO> dtos;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+    private MainActivity activity;
+
+
+    public static RecipeFragment newInstance() {
+        return new RecipeFragment();
+    }
 
 
 
@@ -52,18 +59,26 @@ public class RecipeFragment extends Fragment {
 
         addapter = new RecipeAddapter(dtos);
         recyclerView.setAdapter(addapter);
-
+        activity = (MainActivity) getActivity();
 
         dto = new RecipeDTO("김치찜", "김치찜이 짜다", "어렵다", R.drawable.ic_launcher_background);
         dtos.add(dto);
         addapter.notifyDataSetChanged();
 
+        dto.recipe_item_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //activity.
 
+
+            }
+        });
 
 
 
         return viewGroup;
     }
+
 
 
 }

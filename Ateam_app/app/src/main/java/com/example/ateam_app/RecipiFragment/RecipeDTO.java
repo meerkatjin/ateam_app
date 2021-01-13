@@ -1,10 +1,17 @@
 package com.example.ateam_app.RecipiFragment;
 
+import android.text.Layout;
+import android.widget.LinearLayout;
+
 public class RecipeDTO {
     String recipe_nm_ko;     //레시피 제목
     String sumry;            //간략소개
     String level_nm;         //난이도
     int img_url;             //대표 이미지 주소
+    LinearLayout recipe_item_layout;
+
+
+
 
     public RecipeDTO(String recipe_nm_ko, String sumry, String level_nm, int img_url) {
         this.recipe_nm_ko = recipe_nm_ko;
@@ -44,4 +51,13 @@ public class RecipeDTO {
     public void setImg_url(int img_url) {
         this.img_url = img_url;
     }
+
+    public LinearLayout getRecipe_item_layout() {
+        return recipe_item_layout;
+    }
+
+    public void setRecipe_item_layout(LinearLayout recipe_item_layout) {
+        this.recipe_item_layout = recipe_item_layout;
+    }
+
 }
