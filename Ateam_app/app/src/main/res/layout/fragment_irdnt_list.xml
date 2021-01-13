@@ -28,7 +28,7 @@
                     app:tabTextColor="@color/design_default_color_primary"
                     app:tabSelectedTextColor="#E91E63"
                     android:elevation="1dp"
-                    android:background="#C1C1C1">
+                    android:background="#FFFFFF">
 
                 </com.google.android.material.tabs.TabLayout>
 
