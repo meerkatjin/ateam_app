@@ -30,29 +30,11 @@ public class ManageTipFragment extends Fragment  {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
 
-
-
-    public ManageTipFragment() {
-
-    }
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
              ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_manage_tip, container, false);
-
 
 
             Context context = viewGroup.getContext();
@@ -66,8 +48,6 @@ public class ManageTipFragment extends Fragment  {
             addapter = new ManageTipAddapter(dtos);
             recyclerView.setAdapter(addapter);
 
-
-
             dto = new ManagaeDTO("봄", "봄에는 굽네 치킨먹으로 가자", R.drawable.ic_launcher_background);
             dtos.add(dto);
             dto = new ManagaeDTO("여름", "여름에는 미스터 피자먹으로 가자", R.drawable.ic_launcher_background);
@@ -78,11 +58,6 @@ public class ManageTipFragment extends Fragment  {
             dtos.add(dto);
             addapter.notifyDataSetChanged();
 
-
-
-
-
-
         return viewGroup;
     }
 
@@ -90,6 +65,9 @@ public class ManageTipFragment extends Fragment  {
     public void onStart() {
         super.onStart();
 
+    }
 
+    public static ManageTipFragment newInstance() {
+        return new ManageTipFragment();
     }
 }

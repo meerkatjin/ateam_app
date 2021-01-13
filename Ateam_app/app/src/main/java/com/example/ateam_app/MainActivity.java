@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
 
-
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         manageTipFragment = new ManageTipFragment();
 
         //하단 메뉴 (Bottom Navigation View)
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }//onNavigationItemSelected()
         });//bottomNavigationView.setOnNavigationItemSelectedListener()
 
-    }
+    }//onCreate()
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -125,4 +126,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }//if
 
     }//onBackPressed()
+
+    public void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
+    }
+
 }//class

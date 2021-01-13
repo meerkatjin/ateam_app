@@ -21,9 +21,8 @@
             <!-- 상단 툴바 -->
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:theme="@style/ThemeOverlay.AppCompat"
-                android:layout_weight="0.98">
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
