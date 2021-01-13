@@ -199,8 +199,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginRight="16dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -208,30 +208,54 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:src="@mipmap/ic_launcher_round"/>
+                    android:src="@mipmap/ic_launcher_round" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginLeft="20dp"
-                    android:weightSum="4">
+                    android:orientation="vertical"
+                    android:weightSum="2">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_weight="1">
                     <Button
                         android:id="@+id/btnImgUpload"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="3"
-                        android:text="이미지 올리기"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginTop="10dp"
-                        android:text="프로필 사진으로 사용할 이미지를 올려주세요"/>
+                        android:text="이미지 올리기"
+                        android:layout_marginRight="5dp"/>
+
+                    <Button
+                        android:id="@+id/btnCameraUpload"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:text="사진 찍기" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="등록할 프로필 사진을 올려주세요"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
 
             </LinearLayout>
 
