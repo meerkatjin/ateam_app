@@ -1,4 +1,4 @@
-package com.example.ateam_app;
+package com.example.ateam_app.UserPakage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.ateam_app.MainActivity;
+import com.example.ateam_app.R;
 
 public class LoginActivity extends AppCompatActivity {
 
