@@ -1,14 +1,9 @@
-package com.example.ateam_app.MangeTipPackage;
+package com.example.ateam_app.mange_tip_package;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.graphics.Point;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 

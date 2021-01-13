@@ -1,4 +1,4 @@
-package com.example.ateam_app.UserPakage.dto;
+package com.example.ateam_app.user_pakage.dto;
 
 public class UserDTO {
     private int user_id;

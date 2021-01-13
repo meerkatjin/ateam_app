@@ -1,4 +1,4 @@
-package com.example.ateam_app.Common;
+package com.example.ateam_app.common;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

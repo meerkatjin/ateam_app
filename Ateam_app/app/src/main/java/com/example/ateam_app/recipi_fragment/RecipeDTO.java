@@ -1,6 +1,5 @@
-package com.example.ateam_app.RecipiFragment;
+package com.example.ateam_app.recipi_fragment;
 
-import android.text.Layout;
 import android.widget.LinearLayout;
 
 public class RecipeDTO {

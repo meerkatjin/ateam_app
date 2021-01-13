@@ -1,4 +1,4 @@
-package com.example.ateam_app.UserPakage;
+package com.example.ateam_app.user_pakage;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ateam_app.R;
-import com.example.ateam_app.UserPakage.ATask.JoinInsert;
-import com.example.ateam_app.UserPakage.dto.UserDTO;
+import com.example.ateam_app.user_pakage.atask.JoinInsert;
+import com.example.ateam_app.user_pakage.dto.UserDTO;
 
 import java.util.concurrent.ExecutionException;
 

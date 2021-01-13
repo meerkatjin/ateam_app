@@ -8,7 +8,7 @@
 
 
     android:weightSum="10"
-    tools:context=".MangeTipPackage.ManageTipFragment">
+    tools:context=".mange_tip_package.ManageTipFragment">
 
     //검색창
 

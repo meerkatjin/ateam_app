@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserPakage.LoginActivity"
+    tools:context=".user_pakage.LoginActivity"
     android:weightSum="4"
     android:orientation="vertical">
 

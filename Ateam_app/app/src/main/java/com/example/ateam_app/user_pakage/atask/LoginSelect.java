@@ -1,11 +1,11 @@
-package com.example.ateam_app.UserPakage.ATask;
+package com.example.ateam_app.user_pakage.atask;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 
-import com.example.ateam_app.UserPakage.dto.UserDTO;
+import com.example.ateam_app.user_pakage.dto.UserDTO;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import static com.example.ateam_app.UserPakage.LoginActivity.loginDTO;
-import static com.example.ateam_app.Common.CommonMethod.ipConfig;
+import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
+import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class LoginSelect extends AsyncTask<Void, Void, Void> {
     private String email, pw;

@@ -1,4 +1,4 @@
-package com.example.ateam_app;
+package com.example.ateam_app.user_pakage.fragment;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.ateam_app.MainActivity;
+import com.example.ateam_app.R;
 
 public class UserInfoChangeFragment extends Fragment {
 

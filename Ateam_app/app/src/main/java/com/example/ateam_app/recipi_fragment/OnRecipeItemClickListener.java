@@ -1,4 +1,4 @@
-package com.example.ateam_app.RecipiFragment;
+package com.example.ateam_app.recipi_fragment;
 
 import android.view.View;
 
