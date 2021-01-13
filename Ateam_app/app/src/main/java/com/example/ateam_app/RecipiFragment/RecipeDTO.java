@@ -4,14 +4,21 @@ import android.text.Layout;
 import android.widget.LinearLayout;
 
 public class RecipeDTO {
+
     String recipe_nm_ko;     //레시피 제목
     String sumry;            //간략소개
     String level_nm;         //난이도
     int img_url;             //대표 이미지 주소
     LinearLayout recipe_item_layout;
+    int recipe_id;           //레시피 코드
 
+    public int getRecipe_id() {
+        return recipe_id;
+    }
 
-
+    public void setRecipe_id(int recipe_id) {
+        this.recipe_id = recipe_id;
+    }
 
     public RecipeDTO(String recipe_nm_ko, String sumry, String level_nm, int img_url) {
         this.recipe_nm_ko = recipe_nm_ko;

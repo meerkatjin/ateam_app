@@ -60,7 +60,7 @@ public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHold
         TextView level_nm;         //난이도
         ImageView img_url;             //대표 이미지 주소
         LinearLayout recipe_item_layout;
-
+        TextView recipe_id;              //키값
         public ViewHolder(View itemView, final OnRecipeItemClickListener listener) {
             super(itemView);
             recipe_nm_ko = itemView.findViewById(R.id.recipe_nm_ko);
@@ -68,7 +68,7 @@ public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHold
             level_nm = itemView.findViewById(R.id.level_nm);
             img_url = itemView.findViewById(R.id.img_url);
             recipe_item_layout = itemView.findViewById(R.id.recipe_item_layout);
-
+            recipe_id = itemView.findViewById(R.id.recipe_id);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -84,6 +84,7 @@ public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHold
             sumry.setText(item.getSumry());
             level_nm.setText(item.getLevel_nm());
             img_url.setImageResource(item.getImg_url());
+
         }
     }
 

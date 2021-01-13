@@ -25,12 +25,12 @@ import java.util.ArrayList;
 
 
 public class RecipeFragment extends Fragment {
-    private RecipeAddapter addapter;
-    private RecipeDTO dto;
-    private ArrayList<RecipeDTO> dtos;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private MainActivity activity;
+    RecipeAddapter addapter;
+     RecipeDTO dto;
+     ArrayList<RecipeDTO> dtos;
+     RecyclerView recyclerView;
+     RecyclerView.LayoutManager mLayoutManager;
+
 
 
     public static RecipeFragment newInstance() {
@@ -78,11 +78,14 @@ public class RecipeFragment extends Fragment {
             public void onItemClick(RecipeAddapter.ViewHolder holder, View view, int position) {
                 RecipeDTO item = addapter.getItem(position);
                 Intent intent = new Intent(getContext(), RecipeSubActivity.class);
+                intent.putExtra("img_url", item.getImg_url());
                 startActivity(intent);
 
 
 
             }
+
+
         });
 
 
