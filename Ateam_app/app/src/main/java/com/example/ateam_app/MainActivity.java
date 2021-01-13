@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.tabManageTip:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, manageTipFragment).commit();
                         return true;
+
                 }//switch-case
                 return false;
             }//onNavigationItemSelected()
