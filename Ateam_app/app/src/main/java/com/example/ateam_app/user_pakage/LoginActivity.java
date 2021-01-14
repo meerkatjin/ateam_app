@@ -45,32 +45,34 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(user_email.getText().toString().length() != 0 &&
-                        user_pw.getText().toString().length() !=0){
-                    String email = user_email.getText().toString();
-                    String pw = user_pw.getText().toString();
-                    LoginSelect loginSelect = new LoginSelect(email, pw);
-                    try {
-                        loginSelect.execute().get();
-                    } catch (ExecutionException e) {
-                        e.getMessage();
-                    } catch (InterruptedException e) {
-                        e.getMessage();
-                    }
-                }else{
-                    Toast.makeText(LoginActivity.this, "아이디와 암호를 모두 입력하세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(loginDTO != null){
-                    Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                }else {
-                    Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
-                    user_email.setText(""); user_pw.setText("");
-                    user_email.requestFocus();
-                }
+//                if(user_email.getText().toString().length() != 0 &&
+//                        user_pw.getText().toString().length() !=0){
+//                    String email = user_email.getText().toString();
+//                    String pw = user_pw.getText().toString();
+//                    LoginSelect loginSelect = new LoginSelect(email, pw);
+//                    try {
+//                        loginSelect.execute().get();
+//                    } catch (ExecutionException e) {
+//                        e.getMessage();
+//                    } catch (InterruptedException e) {
+//                        e.getMessage();
+//                    }
+//                }else{
+//                    Toast.makeText(LoginActivity.this, "아이디와 암호를 모두 입력하세요", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if(loginDTO != null){
+//                    Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                    startActivity(intent);
+//                }else {
+//                    Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
+//                    user_email.setText(""); user_pw.setText("");
+//                    user_email.requestFocus();
+//                }
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
