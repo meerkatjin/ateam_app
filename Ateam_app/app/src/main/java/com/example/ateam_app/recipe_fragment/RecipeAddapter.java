@@ -1,4 +1,4 @@
-package com.example.ateam_app.recipi_fragment;
+package com.example.ateam_app.recipe_fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;

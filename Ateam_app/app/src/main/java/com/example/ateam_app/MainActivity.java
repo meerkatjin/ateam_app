@@ -16,10 +16,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.example.ateam_app.mange_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipi_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.JoinActivity;
 import com.example.ateam_app.user_pakage.fragment.UserInfoChangeFragment;
+=======
+import com.example.ateam_app.manage_tip_package.ManageTipFragment;
+import com.example.ateam_app.recipe_fragment.RecipeFragment;
+>>>>>>> d48992633d338607deb969bd7a1f7b4bf1dca06b
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 

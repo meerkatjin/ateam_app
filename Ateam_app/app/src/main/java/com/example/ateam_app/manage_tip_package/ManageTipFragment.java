@@ -1,4 +1,4 @@
-package com.example.ateam_app.mange_tip_package;
+package com.example.ateam_app.manage_tip_package;
 
 import android.content.Context;
 import android.os.Bundle;
