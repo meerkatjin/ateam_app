@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -17,8 +18,12 @@ import android.widget.Toast;
 
 import com.example.ateam_app.mange_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipi_fragment.RecipeFragment;
+import com.example.ateam_app.user_pakage.JoinActivity;
+import com.example.ateam_app.user_pakage.fragment.UserInfoChangeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.nio.file.attribute.UserDefinedFileAttributeView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toolbar, R.string.navi_drawer_open, R.string.navi_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_view);
         irdntListFragment = new IrdntListFragment();
@@ -83,11 +91,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }//onCreate()
 
+    //측면 메뉴(Navigation Drawer) 설정
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        int id = item.getItemId();
+        if (id == R.id.nav_userInfoChange) {
+            Toast.makeText(this, "회원정보 수정", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_logout) {
+            Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_admin) {
+            Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
+    //검색
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_option, menu);
@@ -96,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String text) {
+
+                
                 return false;
             }
 

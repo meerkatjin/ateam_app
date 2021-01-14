@@ -42,7 +42,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        //냉장고 관리 팁 배너는 클릭 이벤트 없습니다. 이것은 테스트용으로 쓴 것
+        //냉장고 관리 팁 배너는 클릭 시 관리 팁 프래그먼트로 이동
         manageTipBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
