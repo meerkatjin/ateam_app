@@ -55,7 +55,12 @@
                     android:layout_marginStart="120dp"
                     android:layout_marginLeft="20dp"
                     android:textSize="12sp" />
-
+                <TextView
+                    android:id="@+id/recipe_id"
+                    android:visibility="gone"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    />//recipe_id 값 넘겨주기 위한 텍스트뷰
           </FrameLayout>
 
     </LinearLayout>

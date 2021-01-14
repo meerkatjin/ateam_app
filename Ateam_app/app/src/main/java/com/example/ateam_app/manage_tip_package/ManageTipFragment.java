@@ -1,7 +1,6 @@
-package com.example.ateam_app.MangeTipPackage;
+package com.example.ateam_app.manage_tip_package;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,11 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
-import com.example.ateam_app.MainActivity;
-import com.example.ateam_app.MainFragment;
 import com.example.ateam_app.R;
 
 import java.util.ArrayList;
@@ -30,29 +25,11 @@ public class ManageTipFragment extends Fragment  {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
 
-
-
-    public ManageTipFragment() {
-
-    }
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
              ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_manage_tip, container, false);
-
 
 
             Context context = viewGroup.getContext();
@@ -66,8 +43,6 @@ public class ManageTipFragment extends Fragment  {
             addapter = new ManageTipAddapter(dtos);
             recyclerView.setAdapter(addapter);
 
-
-
             dto = new ManagaeDTO("봄", "봄에는 굽네 치킨먹으로 가자", R.drawable.ic_launcher_background);
             dtos.add(dto);
             dto = new ManagaeDTO("여름", "여름에는 미스터 피자먹으로 가자", R.drawable.ic_launcher_background);
@@ -78,11 +53,6 @@ public class ManageTipFragment extends Fragment  {
             dtos.add(dto);
             addapter.notifyDataSetChanged();
 
-
-
-
-
-
         return viewGroup;
     }
 
@@ -90,6 +60,9 @@ public class ManageTipFragment extends Fragment  {
     public void onStart() {
         super.onStart();
 
+    }
 
+    public static ManageTipFragment newInstance() {
+        return new ManageTipFragment();
     }
 }

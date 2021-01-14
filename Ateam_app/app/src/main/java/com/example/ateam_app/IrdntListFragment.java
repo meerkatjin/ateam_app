@@ -60,4 +60,8 @@ public class IrdntListFragment extends Fragment {
         return rootView;
     }//onCreateView()
 
+    public static IrdntListFragment newInstance() {
+        return new IrdntListFragment();
+    }
+
 }//class

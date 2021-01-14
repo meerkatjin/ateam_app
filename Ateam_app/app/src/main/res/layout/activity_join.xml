@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JoinActivity">
+    tools:context=".user_pakage.JoinActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="40dp"
                     android:layout_weight="1.3"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -79,7 +79,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -107,7 +107,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -135,7 +135,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -163,7 +163,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -191,7 +191,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -220,7 +220,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_weight="1"
                     android:text="가입취소"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

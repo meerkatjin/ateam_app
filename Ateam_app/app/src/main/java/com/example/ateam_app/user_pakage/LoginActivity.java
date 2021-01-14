@@ -1,4 +1,4 @@
-package com.example.ateam_app;
+package com.example.ateam_app.user_pakage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -10,10 +10,23 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.ateam_app.MainActivity;
+import com.example.ateam_app.R;
+import com.example.ateam_app.user_pakage.atask.LoginSelect;
+import com.example.ateam_app.user_pakage.dto.UserDTO;
+
+import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // 로그인이 성공하면 static 로그인DTO 변수에 담아서
+    // 어느곳에서나 접근할 수 있게 한다
+    public static UserDTO loginDTO = null;
+
+    EditText user_email, user_pw;
     Button btnLogin, btnJoin;
 
     @Override
@@ -23,14 +36,41 @@ public class LoginActivity extends AppCompatActivity {
 
         checkDangerousPermissions();
 
+        user_email = findViewById(R.id.user_email);
+        user_pw = findViewById(R.id.user_pw);
         btnLogin = findViewById(R.id.btnLogin);
         btnJoin = findViewById(R.id.btnJoin);
 
         //로그인 버튼
-        //아무 기능 안들어있는 깡통상태임 메인으로 넘어가게만 설정함
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                if(user_email.getText().toString().length() != 0 &&
+//                        user_pw.getText().toString().length() !=0){
+//                    String email = user_email.getText().toString();
+//                    String pw = user_pw.getText().toString();
+//                    LoginSelect loginSelect = new LoginSelect(email, pw);
+//                    try {
+//                        loginSelect.execute().get();
+//                    } catch (ExecutionException e) {
+//                        e.getMessage();
+//                    } catch (InterruptedException e) {
+//                        e.getMessage();
+//                    }
+//                }else{
+//                    Toast.makeText(LoginActivity.this, "아이디와 암호를 모두 입력하세요", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if(loginDTO != null){
+//                    Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                    startActivity(intent);
+//                }else {
+//                    Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
+//                    user_email.setText(""); user_pw.setText("");
+//                    user_email.requestFocus();
+//                }
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }

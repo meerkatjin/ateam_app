@@ -1,23 +1,17 @@
-package com.example.ateam_app.RecipiFragment;
+package com.example.ateam_app.recipe_fragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.ateam_app.MainActivity;
-import com.example.ateam_app.MangeTipPackage.ManagaeDTO;
-import com.example.ateam_app.MangeTipPackage.ManageTipAddapter;
 import com.example.ateam_app.R;
 import com.example.ateam_app.RecipeSubActivity;
 
@@ -25,12 +19,12 @@ import java.util.ArrayList;
 
 
 public class RecipeFragment extends Fragment {
-    private RecipeAddapter addapter;
-    private RecipeDTO dto;
-    private ArrayList<RecipeDTO> dtos;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private MainActivity activity;
+    RecipeAddapter addapter;
+     RecipeDTO dto;
+     ArrayList<RecipeDTO> dtos;
+     RecyclerView recyclerView;
+     RecyclerView.LayoutManager mLayoutManager;
+
 
 
     public static RecipeFragment newInstance() {
@@ -78,11 +72,14 @@ public class RecipeFragment extends Fragment {
             public void onItemClick(RecipeAddapter.ViewHolder holder, View view, int position) {
                 RecipeDTO item = addapter.getItem(position);
                 Intent intent = new Intent(getContext(), RecipeSubActivity.class);
+                intent.putExtra("img_url", item.getImg_url());
                 startActivity(intent);
 
 
 
             }
+
+
         });
 
 
