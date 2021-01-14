@@ -22,7 +22,7 @@ import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import java.nio.file.attribute.UserDefinedFileAttributeView;
+import irdnt_list_package.IrdntListFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

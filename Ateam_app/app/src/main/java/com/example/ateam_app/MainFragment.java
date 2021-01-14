@@ -1,16 +1,16 @@
 package com.example.ateam_app;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import irdnt_list_package.IrdntListFragment;
 
 public class MainFragment extends Fragment {
     CardView shelfLifeAlertBanner, recipeRecommandBanner, manageTipBanner;
