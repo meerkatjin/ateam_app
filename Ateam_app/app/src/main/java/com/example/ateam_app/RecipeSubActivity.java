@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.ateam_app.recipi_fragment.RecipeDTO;
+import com.example.ateam_app.recipe_fragment.RecipeDTO;
 
 public class RecipeSubActivity extends AppCompatActivity {
     Button btnRecipeSub;

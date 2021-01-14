@@ -15,8 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.ateam_app.mange_tip_package.ManageTipFragment;
-import com.example.ateam_app.recipi_fragment.RecipeFragment;
+import com.example.ateam_app.manage_tip_package.ManageTipFragment;
+import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
