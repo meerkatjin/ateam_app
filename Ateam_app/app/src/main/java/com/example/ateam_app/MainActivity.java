@@ -11,7 +11,12 @@ import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -19,13 +24,15 @@ import android.widget.Toast;
 
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
+import com.example.ateam_app.user_pakage.fragment.UserInfoChangeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.nio.BufferUnderflowException;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    private static final String TAG = "main:MainActivity";
     Toolbar toolbar;
 
     MainFragment mainFragment;
@@ -33,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CamFragment camFragment;
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
+    UserInfoChangeFragment userInfoChangeFragment;
 
     BottomNavigationView bottomNavigationView;
 
@@ -94,12 +102,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        
         if (id == R.id.nav_userInfoChange) {
             Toast.makeText(this, "회원정보 수정", Toast.LENGTH_SHORT).show();
+            onFragmentSelected(0);
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
         } else if (id == R.id.nav_admin) {
             Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
+            onFragmentSelected(2);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -107,6 +119,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
+
+    private void onFragmentSelected(int index) {
+        Fragment curFragment = null;
+        if(index == 0){
+            curFragment = userInfoChangeFragment;
+        }else if(index == 2){
+
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
+    }
+
 
     //검색
     @Override
@@ -151,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }//onBackPressed()
 
     public void replaceFragment(Fragment fragment) {
+
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
     }
 
