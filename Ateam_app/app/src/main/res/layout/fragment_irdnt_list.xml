@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".IrdntListFragment">
+    tools:context="irdnt_list_package.IrdntListFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
 
                 <fragment
                     android:id="@+id/irdnt_fragment_view"
-                    class="com.example.ateam_app.IrdntListTypeFragment"
+                    class="irdnt_list_package.IrdntListTypeFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

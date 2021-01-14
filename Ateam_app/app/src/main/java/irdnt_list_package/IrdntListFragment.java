@@ -1,4 +1,4 @@
-package com.example.ateam_app;
+package irdnt_list_package;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ateam_app.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class IrdntListFragment extends Fragment {
