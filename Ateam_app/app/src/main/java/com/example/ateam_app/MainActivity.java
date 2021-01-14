@@ -28,8 +28,12 @@ import com.example.ateam_app.user_pakage.fragment.UserInfoChangeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+<<<<<<< HEAD
 import java.nio.BufferUnderflowException;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
+=======
+import irdnt_list_package.IrdntListFragment;
+>>>>>>> 4ca55ed645ee221d305a8e420500e97cb387e68c
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "main:MainActivity";
