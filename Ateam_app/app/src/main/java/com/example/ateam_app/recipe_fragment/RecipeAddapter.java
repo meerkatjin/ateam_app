@@ -53,9 +53,9 @@ public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView recipe_nm_ko;     //레시피 제목
-        TextView sumry;            //간략소개
-        TextView level_nm;         //난이도
+        TextView recipe_nm_ko;         //레시피 제목
+        TextView sumry;                //간략소개
+        TextView level_nm;             //난이도
         ImageView img_url;             //대표 이미지 주소
         LinearLayout recipe_item_layout;
         TextView recipe_id;              //키값
