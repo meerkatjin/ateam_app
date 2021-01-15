@@ -15,47 +15,52 @@ import com.example.ateam_app.R;
 import java.util.ArrayList;
 
 public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.ViewHolder> {
-    ArrayList<IrdntListDTO> items;
-    Context context;
+    private ArrayList<IrdntListDTO> items;
 
-
-    public IrdntListAdapter(Context context, ArrayList<IrdntListDTO> items) {
-        this.context = context;
+    public IrdntListAdapter(ArrayList<IrdntListDTO> items) {
         this.items = items;
     }
 
     //화면 연결
     @NonNull
     @Override
-    public IrdntListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.irdntview, viewGroup, false);
+    public IrdntListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.irdntview, viewGroup, false);
+        ViewHolder holder = new ViewHolder(view);
 
-        return new ViewHolder(itemView);
+        return holder;
     }
 
     //데이터 연결
     @Override
     public void onBindViewHolder(@NonNull IrdntListAdapter.ViewHolder holder, int position) {
-        IrdntListDTO dto = items.get(position);
-        holder.setItem(dto);
+        holder.irdnt_nm.setText(items.get(position).getIrdnt_nm());
+        holder.irdnt_ty_code.setText(items.get(position).getIrdnt_ty_code());
+        holder.due_date.setText(items.get(position).getDue_date());
+
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return (null != items ? items.size() : 0);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout irdnt_layout;
-        TextView irdnt_nm, irdnt_ty_code, due_date;
+        protected TextView irdnt_nm, irdnt_ty_code, due_date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            irdnt_layout = itemView.findViewById(R.id.irdnt_layout);
 
-            irdnt_nm = itemView.findViewById(R.id.irdnt_nm);
-            due_date = itemView.findViewById(R.id.due_date);
+            irdnt_nm = (TextView) itemView.findViewById(R.id.irdnt_nm);
+            irdnt_ty_code = (TextView) itemView.findViewById(R.id.irdnt_ty_code);
+            due_date = (TextView) itemView.findViewById(R.id.due_date);
         }
 
         public void setItem(IrdntListDTO dto) {
@@ -63,10 +68,6 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
             irdnt_ty_code.setText(dto.getIrdnt_ty_code());
             due_date.setText(dto.getDue_date());
         }
-    }
-
-    public void addItem(IrdntListDTO dto) {
-        items.add(dto);
     }
 
 }

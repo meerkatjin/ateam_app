@@ -33,15 +33,28 @@ public class IrdntListFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
         Context context = rootView.getContext();
-        irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
+        irdntRecyclerView = (RecyclerView) rootView.findViewById(R.id.irdntRecyclerView);
         layoutManager = new LinearLayoutManager(context);
         irdntRecyclerView.setLayoutManager(layoutManager);
 
         items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items);
+        adapter = new IrdntListAdapter(items);
 
-        adapter.addItem(new IrdntListDTO("양파", "야채", "~ 2021.02.14"));
+        dto = new IrdntListDTO("양파", "야채", "~ 2021.01.28");
+        items.add(dto);
+        dto = new IrdntListDTO("돼지고기", "고기", "~ 2021.01.22");
+        items.add(dto);
+        dto = new IrdntListDTO("우유", "유제품", "~ 2021.01.19");
+        items.add(dto);
+        dto = new IrdntListDTO("청양고추", "야채", "~ 2021.01.27");
+        items.add(dto);
+        dto = new IrdntListDTO("콜라", "음료", "~ 2021.08.02");
+        items.add(dto);
+        dto = new IrdntListDTO("훈제오리", "고기", "~ 2021.04.13");
+        items.add(dto);
         irdntRecyclerView.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
 
         btnIrdntSortType = rootView.findViewById(R.id.btnIrdntSortType);
         btnIrdntSortDate = rootView.findViewById(R.id.btnIrdntSortDate);
