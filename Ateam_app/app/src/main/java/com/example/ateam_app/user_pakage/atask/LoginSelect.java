@@ -43,8 +43,8 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
             // 문자열 및 데이터 추가
-            builder.addTextBody("email", email, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("pw", pw, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_email", email, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_pw", pw, ContentType.create("Multipart/related", "UTF-8"));
 
             String postURL = ipConfig + "/ateamappspring/appLogin";
 
