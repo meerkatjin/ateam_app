@@ -11,44 +11,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/irdnt_sort_tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabMode="fixed"
-                    app:tabGravity="fill"
-                    app:tabTextColor="@color/design_default_color_primary"
-                    app:tabSelectedTextColor="#E91E63"
-                    android:elevation="1dp"
-                    android:background="#FFFFFF">
-
-                </com.google.android.material.tabs.TabLayout>
-
-            </com.google.android.material.appbar.AppBarLayout>
-
             <FrameLayout
                 android:id="@+id/irdnt_list_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                <fragment
-                    android:id="@+id/irdnt_fragment_view"
-                    class="irdnt_list_package.IrdntListTypeFragment"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnIrdntSortType"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="종류별" />
+
+                        <Button
+                            android:id="@+id/btnIrdntSortDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="유통기한별" />
+
+                        <Button
+                            android:id="@+id/btnIrdntSortName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="이름별" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/irdntRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
 
             </FrameLayout>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </RelativeLayout>
 
