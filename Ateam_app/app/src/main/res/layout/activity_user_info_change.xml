@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user_pakage.JoinActivity">
+    tools:context=".UserInfoChangeActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -223,21 +223,21 @@
                         android:orientation="horizontal"
                         android:weightSum="2"
                         android:layout_weight="1">
-                    <Button
-                        android:id="@+id/btnImgUpload"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="이미지 올리기"
-                        android:layout_marginRight="5dp"/>
+                        <Button
+                            android:id="@+id/btnImgUpload"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="이미지 올리기"
+                            android:layout_marginRight="5dp"/>
 
-                    <Button
-                        android:id="@+id/btnCameraUpload"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
-                        android:text="사진 찍기" />
+                        <Button
+                            android:id="@+id/btnCameraUpload"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="5dp"
+                            android:text="사진 찍기" />
 
                     </LinearLayout>
 
@@ -278,7 +278,7 @@
                     android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/btnInfoChageCancle"
+                    android:id="@+id/btnInfoChangeCancel"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="16dp"

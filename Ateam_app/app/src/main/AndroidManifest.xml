@@ -17,13 +17,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ateam_app">
+        <activity android:name=".UserInfoChangeActivity"></activity>
         <!-- https가 아니라 http로 오더라도 그냥 허가하는 부분 -->
         <!-- http 라이브러리 사용 -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".RecipeSubActivity"></activity>
+        <activity android:name=".RecipeSubActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
@@ -38,8 +39,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
+        </activity> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

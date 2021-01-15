@@ -11,6 +11,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
-import com.example.ateam_app.user_pakage.fragment.UserInfoChangeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import irdnt_list_package.IrdntListFragment;
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CamFragment camFragment;
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
-    UserInfoChangeFragment userInfoChangeFragment;
 
     BottomNavigationView bottomNavigationView;
 
@@ -98,12 +97,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         
         if (id == R.id.nav_userInfoChange) {
             Toast.makeText(this, "회원정보 수정", Toast.LENGTH_SHORT).show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, userInfoChangeFragment).commit();
+
+
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
-            finish();
+
         } else if (id == R.id.nav_admin) {
             Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }//onNavigationItemSelected()
+
 
 
     //검색
