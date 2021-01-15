@@ -2,6 +2,7 @@ package com.example.ateam_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
@@ -11,6 +12,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
+import com.example.ateam_app.user_pakage.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import irdnt_list_package.IrdntListFragment;
@@ -94,13 +97,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        
-        if (id == R.id.nav_userInfoChange) {
-            Toast.makeText(this, "회원정보 수정", Toast.LENGTH_SHORT).show();
 
+        //측면메뉴의 회원정보수정 눌렀을때 수정페이지로 이동
+        if (id == R.id.nav_userInfoChange) {
+            Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
+            logoutMessage();
 
         } else if (id == R.id.nav_admin) {
             Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
@@ -113,7 +118,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }//onNavigationItemSelected()
 
+    private void logoutMessage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("안내");
+        builder.setMessage("정말 로그아웃하시겠습니까?");
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
 
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
 
     //검색
     @Override

@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(user_email.getText().toString().length() != 0 &&
+               /* if(user_email.getText().toString().length() != 0 &&
                         user_pw.getText().toString().length() !=0){
                     String email = user_email.getText().toString();
                     String pw = user_pw.getText().toString();
@@ -70,9 +70,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
                     user_email.setText(""); user_pw.setText("");
                     user_email.requestFocus();
-                }
-/*                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);*/
+                }*/
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
