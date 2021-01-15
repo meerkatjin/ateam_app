@@ -23,6 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:paddingLeft="10dp"
+                android:gravity="center"
                 android:textSize="35sp"
                 android:text="Irdnt Name"
                 android:textColor="@android:color/holo_green_light"/>
@@ -31,7 +32,9 @@
                 android:id="@+id/due_date"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_gravity="right"
+                android:gravity="center"
                 android:textSize="25sp"
                 android:text="Due Date"
                 android:textColor="@android:color/holo_blue_bright"/>
