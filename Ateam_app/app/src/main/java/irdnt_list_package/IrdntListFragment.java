@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 public class IrdntListFragment extends Fragment {
 
-    Button btnIrdntSortType, btnIrdntSortDate, btnIrdntSortName;
     IrdntListAdapter adapter;
     IrdntListDTO dto;
     ArrayList<IrdntListDTO> items;
     RecyclerView irdntRecyclerView;
     RecyclerView.LayoutManager layoutManager;
+    TabLayout irdnt_sort_tab, irdnt_sort_type_tab;
 
 
     @Override
@@ -33,6 +33,43 @@ public class IrdntListFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
         Context context = rootView.getContext();
+
+        irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
+        irdnt_sort_type_tab = rootView.findViewById(R.id.irdnt_sort_type_tab);
+        irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("종류별"));
+        irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("유통기한별"));
+        irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("이름별"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("고기"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("수산물"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("채소"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("과일"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("유제품"));
+
+        irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                if (position == 0) {
+                    irdnt_sort_type_tab.setVisibility(View.VISIBLE);
+                } else if (position == 1) {
+                    irdnt_sort_type_tab.setVisibility(View.GONE);
+                } else if (position == 2) {
+                    irdnt_sort_type_tab.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         irdntRecyclerView = (RecyclerView) rootView.findViewById(R.id.irdntRecyclerView);
         layoutManager = new LinearLayoutManager(context);
         irdntRecyclerView.setLayoutManager(layoutManager);
@@ -56,33 +93,7 @@ public class IrdntListFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
 
-        btnIrdntSortType = rootView.findViewById(R.id.btnIrdntSortType);
-        btnIrdntSortDate = rootView.findViewById(R.id.btnIrdntSortDate);
-        btnIrdntSortName = rootView.findViewById(R.id.btnIrdntSortName);
 
-        //종류별 버튼 클릭 시 종류별로 재료 정렬
-        btnIrdntSortType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        //유통기한별 버튼 클릭 시 유통기한 순로 재료 정렬
-        btnIrdntSortDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        //이름별 버튼 클릭시 이름 순으로 재료 정렬(가나다 순)
-        btnIrdntSortName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         return rootView;
     }//onCreateView()

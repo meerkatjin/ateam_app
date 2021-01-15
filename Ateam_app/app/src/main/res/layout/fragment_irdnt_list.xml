@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="irdnt_list_package.IrdntListFragment">
 
-    <RelativeLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <FrameLayout
-                android:id="@+id/irdnt_list_frame"
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/irdnt_sort_tab"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+                android:layout_height="wrap_content"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabTextColor="@color/design_default_color_primary"
+                app:tabSelectedTextColor="#FF6D6D"
+                android:elevation="1dp"
+                android:background="#FFFFFF">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+            </com.google.android.material.tabs.TabLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/irdnt_sort_type_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabTextColor="@color/design_default_color_primary"
+                app:tabSelectedTextColor="#FF6D6D"
+                android:elevation="1dp"
+                android:visibility="visible"
+                android:background="#FFFFFF">
 
-                        <Button
-                            android:id="@+id/btnIrdntSortType"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="종류별" />
+            </com.google.android.material.tabs.TabLayout>
 
-                        <Button
-                            android:id="@+id/btnIrdntSortDate"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="유통기한별" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-                        <Button
-                            android:id="@+id/btnIrdntSortName"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="이름별" />
+        <FrameLayout
+            android:id="@+id/irdnt_list_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/irdntRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/irdntRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
 
-                </LinearLayout>
+        </FrameLayout>
 
-            </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
