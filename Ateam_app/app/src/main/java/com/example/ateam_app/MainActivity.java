@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, userInfoChangeFragment).commit();
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
+            finish();
         } else if (id == R.id.nav_admin) {
             Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
         }
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
-    }
+    }//onNavigationItemSelected()
 
 
     //검색
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         return true;
-    }
+    }//onCreateOptionsMenu()
 
     long backKeyPressedTime = 0;
 
@@ -158,6 +158,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void replaceFragment(Fragment fragment) {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
-    }
+    }//replaceFragment()
 
 }//class
