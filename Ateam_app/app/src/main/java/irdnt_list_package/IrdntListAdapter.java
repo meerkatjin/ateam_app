@@ -69,5 +69,4 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
             due_date.setText(dto.getDue_date());
         }
     }
-
 }
