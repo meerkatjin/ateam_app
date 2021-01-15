@@ -52,6 +52,22 @@ public class IrdntListFragment extends Fragment {
 
                 if (position == 0) {
                     irdnt_sort_type_tab.setVisibility(View.VISIBLE);
+                    irdnt_sort_type_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                        @Override
+                        public void onTabSelected(TabLayout.Tab tab) {
+
+                        }
+
+                        @Override
+                        public void onTabUnselected(TabLayout.Tab tab) {
+
+                        }
+
+                        @Override
+                        public void onTabReselected(TabLayout.Tab tab) {
+
+                        }
+                    });
                 } else if (position == 1) {
                     irdnt_sort_type_tab.setVisibility(View.GONE);
                 } else if (position == 2) {
