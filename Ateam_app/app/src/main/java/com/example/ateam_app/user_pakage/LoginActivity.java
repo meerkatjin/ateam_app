@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     // 로그인이 성공하면 static 로그인DTO 변수에 담아서
     // 어느곳에서나 접근할 수 있게 한다
     public static UserDTO loginDTO = null;
+    static final int MAIN_CODE = 1001;   //메인 엑티비티로 로그인값을 넘기기위한 요청코드
 
     EditText user_email, user_pw;
     Button btnLogin, btnJoin;
@@ -65,14 +67,21 @@ public class LoginActivity extends AppCompatActivity {
                 if(loginDTO != null){
                     Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    intent.putExtra("user_id", loginDTO.getUser_id());
+                    intent.putExtra("user_email", loginDTO.getUser_email());
+                    intent.putExtra("user_nm", loginDTO.getUser_nm());
+                    intent.putExtra("user_addr", loginDTO.getUser_addr());
+                    intent.putExtra("user_pro_img", loginDTO.getUser_pro_img());
+                    intent.putExtra("user_phone_no", loginDTO.getUser_phone_no());
+                    intent.putExtra("user_grade", loginDTO.getUser_grade());
+                    startActivityForResult(intent, MAIN_CODE);
                 }else {
                     Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
                     user_email.setText(""); user_pw.setText("");
                     user_email.requestFocus();
                 }
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);*/
             }
         });
 

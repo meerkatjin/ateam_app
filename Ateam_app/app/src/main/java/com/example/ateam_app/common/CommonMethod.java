@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class CommonMethod {
     //public static String  ipConfig = "http://121.179.5.99:8989";  //선생님 컴퓨터로 보낼때
-    public static String  ipConfig = "http://localhost:80";  //인자 ip 바꾸지마시고 톰켓 포트 80으로 통일해요
+    public static String  ipConfig = "http://192.168.0.10:80";  //자기 ip 사용하기
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {

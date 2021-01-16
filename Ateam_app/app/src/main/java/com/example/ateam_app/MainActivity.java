@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CamFragment camFragment;
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
+    Intent loginIntent; //로그인 엑티비티에서 로그인한 회원의 데이터 받아옴(비밀번호 빼고)
 
     BottomNavigationView bottomNavigationView;
 
@@ -63,6 +65,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         camFragment = new CamFragment();
         recipeFragment = new RecipeFragment();
         manageTipFragment = new ManageTipFragment();
+
+        //로그인 데이터 받는곳
+        loginIntent = getIntent();
+        int user_id = loginIntent.getIntExtra("user_id", 0);
+        String user_email = loginIntent.getStringExtra("user_email");
+        String user_nm = loginIntent.getStringExtra("user_nm");
+        String user_addr = loginIntent.getStringExtra("user_addr");
+        String user_pro_img = loginIntent.getStringExtra("user_pro_img");
+        String user_phone_no = loginIntent.getStringExtra("user_phone_no");
+        String user_grade = loginIntent.getStringExtra("user_grade");
+        Log.d(TAG, "getLogin: userid : " + user_id
+                + ", user_email : " + user_email
+                + ", user_nm : " + user_nm
+                + ", user_addr : " + user_addr
+                + ", user_pro_img : " + user_pro_img
+                + ", user_phone_no : " + user_phone_no
+                + ", user_grade : " + user_grade);
 
         //하단 메뉴 (Bottom Navigation View)
         bottomNavigationView = findViewById(R.id.bottom_navigation);
