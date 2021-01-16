@@ -67,13 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(loginDTO != null){
                     Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("user_id", loginDTO.getUser_id());
-                    intent.putExtra("user_email", loginDTO.getUser_email());
-                    intent.putExtra("user_nm", loginDTO.getUser_nm());
-                    intent.putExtra("user_addr", loginDTO.getUser_addr());
-                    intent.putExtra("user_pro_img", loginDTO.getUser_pro_img());
-                    intent.putExtra("user_phone_no", loginDTO.getUser_phone_no());
-                    intent.putExtra("user_grade", loginDTO.getUser_grade());
+                    intent.putExtra("loginDTO", loginDTO);
                     startActivityForResult(intent, MAIN_CODE);
                 }else {
                     Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();

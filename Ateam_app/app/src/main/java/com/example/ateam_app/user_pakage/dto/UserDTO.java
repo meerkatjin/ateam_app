@@ -1,6 +1,8 @@
 package com.example.ateam_app.user_pakage.dto;
 
-public class UserDTO {
+import java.io.Serializable;
+
+public class UserDTO implements Serializable {
     private int user_id;
     private String user_email,
                 user_pw,

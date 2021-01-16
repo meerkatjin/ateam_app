@@ -24,9 +24,12 @@ import android.widget.Toast;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
+import com.example.ateam_app.user_pakage.dto.UserDTO;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import irdnt_list_package.IrdntListFragment;
+
+import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "main:MainActivity";
@@ -68,20 +71,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //로그인 데이터 받는곳
         loginIntent = getIntent();
-        int user_id = loginIntent.getIntExtra("user_id", 0);
-        String user_email = loginIntent.getStringExtra("user_email");
-        String user_nm = loginIntent.getStringExtra("user_nm");
-        String user_addr = loginIntent.getStringExtra("user_addr");
-        String user_pro_img = loginIntent.getStringExtra("user_pro_img");
-        String user_phone_no = loginIntent.getStringExtra("user_phone_no");
-        String user_grade = loginIntent.getStringExtra("user_grade");
-        Log.d(TAG, "getLogin: userid : " + user_id
-                + ", user_email : " + user_email
-                + ", user_nm : " + user_nm
-                + ", user_addr : " + user_addr
-                + ", user_pro_img : " + user_pro_img
-                + ", user_phone_no : " + user_phone_no
-                + ", user_grade : " + user_grade);
+        loginDTO = (UserDTO) loginIntent.getSerializableExtra("loginDTO");
+        Log.d(TAG, "getLogin: userid : " + loginDTO.getUser_id()
+                + ", user_email : " + loginDTO.getUser_email()
+                + ", user_nm : " + loginDTO.getUser_nm()
+                + ", user_addr : " + loginDTO.getUser_addr()
+                + ", user_pro_img : " + loginDTO.getUser_pro_img()
+                + ", user_phone_no : " + loginDTO.getUser_phone_no()
+                + ", user_grade : " + loginDTO.getUser_grade());
 
         //하단 메뉴 (Bottom Navigation View)
         bottomNavigationView = findViewById(R.id.bottom_navigation);
