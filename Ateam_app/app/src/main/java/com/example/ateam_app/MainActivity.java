@@ -143,9 +143,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //로그아웃시 가져온 회원 데이터를 null로 초기화하여 로그아웃
+                Intent logout = new Intent();
+                loginDTO = null;
+                logout.putExtra("logout", loginDTO);
+                setResult(RESULT_OK, logout);
                 finish();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+                //메인엑티비티만 닫아도 로그인 엑티비티로 넘어가기때문에 주석처리함
+                //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                //startActivity(intent);
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.ateam_app.user_pakage;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -69,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("loginDTO", loginDTO);
                     startActivityForResult(intent, MAIN_CODE);
+                    user_email.setText(""); user_pw.setText("");
                 }else {
                     Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
                     user_email.setText(""); user_pw.setText("");
@@ -87,6 +89,15 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    //로그아웃되면 메인엑티비티에서 회원정보를 null로 초기화해서 로그인 엑티비티로 돌아온다.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == MAIN_CODE){
+            loginDTO = (UserDTO) data.getSerializableExtra("logout");
+        }
     }
 
     private void checkDangerousPermissions() {
