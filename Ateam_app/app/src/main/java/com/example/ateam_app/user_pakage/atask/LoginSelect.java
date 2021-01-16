@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
-import static com.example.ateam_app.Common.CommonMethod.ipConfig;
+import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class LoginSelect extends AsyncTask<Void, Void, Void> {
     private String email, pw;

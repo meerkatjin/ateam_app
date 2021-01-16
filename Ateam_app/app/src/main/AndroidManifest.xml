@@ -45,13 +45,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-<<<<<<< HEAD
-        android:theme="@style/Theme.Ateam_app">
-        <activity android:name=".UserInfoChangeActivity"></activity>
-=======
         android:theme="@style/Theme.Ateam_app"
-        android:usesCleartextTraffic="true"><!-- 애 빠져서 로그인 안되던거 -->
->>>>>>> b5ff606a12885877dd559945593aeef783d7c839
+        android:usesCleartextTraffic="true">
+        <activity android:name=".UserInfoChangeActivity"></activity>
+
+        <!-- 애 빠져서 로그인 안되던거 -->
         <!-- https가 아니라 http로 오더라도 그냥 허가하는 부분 -->
         <!-- http 라이브러리 사용 -->
         <uses-library
