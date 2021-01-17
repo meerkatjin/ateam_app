@@ -21,6 +21,8 @@ import java.util.ArrayList;
 public class RecipeFragment extends Fragment {
     RecipeAddapter addapter;
      RecipeDTO dto;
+     RecipeDAO dao;
+     ArrayList<RecipeDAO> recipeDaos;
      ArrayList<RecipeDTO> dtos;
      RecyclerView recyclerView;
      RecyclerView.LayoutManager mLayoutManager;
@@ -63,7 +65,7 @@ public class RecipeFragment extends Fragment {
 
         //dto = new RecipeDTO("김치찜", "김치찜이 짜다", "어렵다", R.drawable.ic_launcher_background);
         //dtos.add(dto);
-        addapter.addItem(new RecipeDTO("오", "어렵다", "힘들다", R.drawable.ic_launcher_foreground));
+
         recyclerView.setAdapter(addapter);
         //addapter.notifyDataSetChanged();
 
