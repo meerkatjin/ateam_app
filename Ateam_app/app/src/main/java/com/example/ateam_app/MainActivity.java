@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
 
         } else if (id == R.id.nav_logout) {
-            Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
             logoutMessage();
 
         } else if (id == R.id.nav_admin) {

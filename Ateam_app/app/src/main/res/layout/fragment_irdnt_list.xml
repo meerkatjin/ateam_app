@@ -35,7 +35,7 @@
                 android:id="@+id/irdnt_sort_type_tab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="fixed"
+                app:tabMode="scrollable"
                 app:tabGravity="fill"
                 app:tabTextColor="@color/design_default_color_primary"
                 app:tabSelectedTextColor="#FF6D6D"

@@ -34,9 +34,9 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     //데이터 연결
     @Override
     public void onBindViewHolder(@NonNull IrdntListAdapter.ViewHolder holder, int position) {
-        holder.irdnt_nm.setText(items.get(position).getIrdnt_nm());
-        holder.irdnt_ty_code.setText(items.get(position).getIrdnt_ty_code());
-        holder.due_date.setText(items.get(position).getDue_date());
+        holder.content_nm.setText(items.get(position).getContent_nm());
+        holder.content_ty.setText(items.get(position).getContent_ty());
+        holder.shelf_life_end.setText(items.get(position).getShelf_life_end());
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -53,20 +53,20 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        protected TextView irdnt_nm, irdnt_ty_code, due_date;
+        protected TextView content_nm, content_ty, shelf_life_end;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            irdnt_nm = (TextView) itemView.findViewById(R.id.irdnt_nm);
-            irdnt_ty_code = (TextView) itemView.findViewById(R.id.irdnt_ty_code);
-            due_date = (TextView) itemView.findViewById(R.id.due_date);
+            content_nm = (TextView) itemView.findViewById(R.id.content_nm);
+            content_ty = (TextView) itemView.findViewById(R.id.content_ty);
+            shelf_life_end = (TextView) itemView.findViewById(R.id.shelf_life_end);
         }
 
         public void setItem(IrdntListDTO dto) {
-            irdnt_nm.setText(dto.getIrdnt_nm());
-            irdnt_ty_code.setText(dto.getIrdnt_ty_code());
-            due_date.setText(dto.getDue_date());
+            content_nm.setText(dto.getContent_nm());
+            content_ty.setText(dto.getContent_ty());
+            shelf_life_end.setText(dto.getShelf_life_end());
         }
     }
 }

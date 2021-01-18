@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.ateam_app.R;
 import com.google.android.material.tabs.TabLayout;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class IrdntListFragment extends Fragment {
@@ -44,6 +46,9 @@ public class IrdntListFragment extends Fragment {
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("채소"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("과일"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("유제품"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타"));
 
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -93,17 +98,17 @@ public class IrdntListFragment extends Fragment {
         items = new ArrayList<>();
         adapter = new IrdntListAdapter(items);
 
-        dto = new IrdntListDTO("양파", "야채", "~ 2021.01.28");
+        dto = new IrdntListDTO("양파", "채소", "2021-02-07");
         items.add(dto);
-        dto = new IrdntListDTO("돼지고기", "고기", "~ 2021.01.22");
+        dto = new IrdntListDTO("돼지고기", "고기", "2021-01-19");
         items.add(dto);
-        dto = new IrdntListDTO("우유", "유제품", "~ 2021.01.19");
+        dto = new IrdntListDTO("우유", "유제품", "2021-01-20");
         items.add(dto);
-        dto = new IrdntListDTO("청양고추", "야채", "~ 2021.01.27");
+        dto = new IrdntListDTO("청양고추", "채소", "2021-01-27");
         items.add(dto);
-        dto = new IrdntListDTO("콜라", "음료", "~ 2021.08.02");
+        dto = new IrdntListDTO("콜라", "음료/기타", "2021-08-03");
         items.add(dto);
-        dto = new IrdntListDTO("훈제오리", "고기", "~ 2021.04.13");
+        dto = new IrdntListDTO("훈제오리", "고기", "2021-04-13");
         items.add(dto);
         irdntRecyclerView.setAdapter(adapter);
 

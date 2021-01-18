@@ -16,17 +16,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/irdnt_nm"
+                android:id="@+id/content_nm"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:paddingLeft="10dp"
                 android:gravity="center"
                 android:textSize="35sp"
-                android:text="Irdnt Name"
+                android:text="Content Name"
                 android:textColor="@android:color/holo_green_light"/>
 
             <TextView
-                android:id="@+id/irdnt_ty_code"
+                android:id="@+id/content_ty"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:paddingRight="10dp"
@@ -38,7 +38,7 @@
                 android:textColor="@android:color/holo_blue_bright"/>
 
             <TextView
-                android:id="@+id/due_date"
+                android:id="@+id/shelf_life_end"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:paddingRight="10dp"
