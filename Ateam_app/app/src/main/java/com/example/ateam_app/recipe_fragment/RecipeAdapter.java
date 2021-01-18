@@ -14,8 +14,9 @@ import com.example.ateam_app.R;
 
 import java.util.ArrayList;
 
-public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHolder> implements OnRecipeItemClickListener{
-    private ArrayList<RecipeDTO> items = new ArrayList<RecipeDTO>();
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> implements OnRecipeItemClickListener{
+    ArrayList<RecipeItem> items;
+
     static OnRecipeItemClickListener listener;
 
     @NonNull
@@ -28,8 +29,8 @@ public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeAddapter.ViewHolder viewHolder, int position) {
-        RecipeDTO item = items.get(position);
+    public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
+        RecipeItem item = items.get(position);
         viewHolder.setItem(item);
     }
 
@@ -37,6 +38,7 @@ public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHold
     public int getItemCount() {
         return items.size();
     }
+
     public void setOnItemClicklistener(OnRecipeItemClickListener listener) {
         this.listener = listener; }
 
@@ -46,27 +48,38 @@ public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHold
 
 
     @Override
-    public void onItemClick(RecipeAddapter.ViewHolder holder, View view, int position) {
+    public void onItemClick(RecipeAdapter.ViewHolder holder, View view, int position) {
         if (listener != null){
             listener.onItemClick(holder,view,position);
         }
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView recipe_nm_ko;         //레시피 제목
-        TextView sumry;                //간략소개
-        TextView level_nm;             //난이도
-        ImageView img_url;             //대표 이미지 주소
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView recipe_id;
+        TextView recipe_nm_ko;
+        TextView sumry;
+        TextView nation_nm;
+        TextView ty_nm;
+        TextView cooking_time;
+        TextView calorie;
+        TextView qnt;
+        TextView level_nm;
+        TextView irdnt_code;
+        ImageView img_url;
+
+
+
         LinearLayout recipe_item_layout;
-        TextView recipe_id;              //키값
+
         public ViewHolder(View itemView, final OnRecipeItemClickListener listener) {
             super(itemView);
+            recipe_id = itemView.findViewById(R.id.recipe_id);
             recipe_nm_ko = itemView.findViewById(R.id.recipe_nm_ko);
             sumry = itemView.findViewById(R.id.sumry);
             level_nm = itemView.findViewById(R.id.level_nm);
             img_url = itemView.findViewById(R.id.img_url);
             recipe_item_layout = itemView.findViewById(R.id.recipe_item_layout);
-            recipe_id = itemView.findViewById(R.id.recipe_id);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -77,28 +90,28 @@ public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHold
                 }
             });
         }
-        public void setItem(RecipeDTO item){
+        public void setItem(RecipeItem item){
             recipe_nm_ko.setText(item.getRecipe_nm_ko());
             sumry.setText(item.getSumry());
             level_nm.setText(item.getLevel_nm());
-            img_url.setImageResource(item.getImg_url());
+            img_url.setImageResource(Integer.parseInt(item.getImg_url()));
 
         }
     }
 
-    public void addItem(RecipeDTO item){
+    public void addItem(RecipeItem item){
         items.add(item);
     }
 
-    public void setItems(ArrayList<RecipeDTO> items){
+    public void setItems(ArrayList<RecipeItem> items){
         this.items = items;
     }
 
-    public RecipeDTO getItem(int position){
+    public RecipeItem getItem(int position){
         return items.get(position);
     }
 
-    public void setItem(int position, RecipeDTO item){
+    public void setItem(int position, RecipeItem item){
         items.set(position, item);
     }
 
