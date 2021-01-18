@@ -14,7 +14,7 @@ import com.example.ateam_app.R;
 
 import java.util.ArrayList;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> implements OnRecipeItemClickListener{
+public class RecipeAddapter extends RecyclerView.Adapter<RecipeAddapter.ViewHolder> implements OnRecipeItemClickListener{
     private ArrayList<RecipeDTO> items = new ArrayList<RecipeDTO>();
     static OnRecipeItemClickListener listener;
 
@@ -28,7 +28,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull RecipeAddapter.ViewHolder viewHolder, int position) {
         RecipeDTO item = items.get(position);
         viewHolder.setItem(item);
     }
@@ -46,7 +46,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
 
     @Override
-    public void onItemClick(RecipeAdapter.ViewHolder holder, View view, int position) {
+    public void onItemClick(RecipeAddapter.ViewHolder holder, View view, int position) {
         if (listener != null){
             listener.onItemClick(holder,view,position);
         }
@@ -81,7 +81,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             recipe_nm_ko.setText(item.getRecipe_nm_ko());
             sumry.setText(item.getSumry());
             level_nm.setText(item.getLevel_nm());
-            img_url.setImageResource(Integer.parseInt(item.getImg_url()));
+            img_url.setImageResource(item.getImg_url());
 
         }
     }

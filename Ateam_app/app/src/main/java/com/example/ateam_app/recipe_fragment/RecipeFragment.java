@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 
 public class RecipeFragment extends Fragment {
-        RecipeAdapter adapter;
+    RecipeAddapter addapter;
      RecipeDTO dto;
-
-
+     RecipeDAO dao;
+     ArrayList<RecipeDAO> recipeDaos;
      ArrayList<RecipeDTO> dtos;
      RecyclerView recyclerView;
      RecyclerView.LayoutManager mLayoutManager;
@@ -59,21 +59,20 @@ public class RecipeFragment extends Fragment {
 
         dtos = new ArrayList<>();
 
-        adapter = new RecipeAdapter();
+        addapter = new RecipeAddapter();
 
         //activity = (MainActivity) getActivity();
 
-        dto = new RecipeDTO(1, "ㅋ", "ㅋ", "ㅋ", "ㅋ",
-                "ㅋ", "ㅋ", "ㅋ", "ㅋ", "ㅋ", "ㅋ");
-        dtos.add(dto);
+        //dto = new RecipeDTO("김치찜", "김치찜이 짜다", "어렵다", R.drawable.ic_launcher_background);
+        //dtos.add(dto);
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(addapter);
         //addapter.notifyDataSetChanged();
 
-        adapter.setOnItemClicklistener(new OnRecipeItemClickListener() {
+        addapter.setOnItemClicklistener(new OnRecipeItemClickListener() {
             @Override
-            public void onItemClick(RecipeAdapter.ViewHolder holder, View view, int position) {
-                RecipeDTO item = adapter.getItem(position);
+            public void onItemClick(RecipeAddapter.ViewHolder holder, View view, int position) {
+                RecipeDTO item = addapter.getItem(position);
                 Intent intent = new Intent(getContext(), RecipeSubActivity.class);
                 intent.putExtra("img_url", item.getImg_url());
                 startActivity(intent);
