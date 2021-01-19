@@ -35,7 +35,7 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull IrdntListAdapter.ViewHolder holder, int position) {
         holder.irdnt_nm.setText(items.get(position).getIrdnt_nm());
-        holder.irdnt_ty_code.setText(items.get(position).getIrdnt_ty_code());
+        holder.content_ty.setText(items.get(position).getContent_ty());
         holder.due_date.setText(items.get(position).getDue_date());
 
         holder.itemView.setTag(position);
@@ -53,19 +53,19 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        protected TextView irdnt_nm, irdnt_ty_code, due_date;
+        protected TextView irdnt_nm, content_ty, due_date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             irdnt_nm = (TextView) itemView.findViewById(R.id.irdnt_nm);
-            irdnt_ty_code = (TextView) itemView.findViewById(R.id.irdnt_ty_code);
+            content_ty = (TextView) itemView.findViewById(R.id.content_ty);
             due_date = (TextView) itemView.findViewById(R.id.due_date);
         }
 
         public void setItem(IrdntListDTO dto) {
             irdnt_nm.setText(dto.getIrdnt_nm());
-            irdnt_ty_code.setText(dto.getIrdnt_ty_code());
+            content_ty.setText(dto.getContent_ty());
             due_date.setText(dto.getDue_date());
         }
     }

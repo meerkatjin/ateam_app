@@ -1,11 +1,11 @@
 package irdnt_list_package;
 
 public class IrdntListDTO {
-    String irdnt_nm, irdnt_ty_code, due_date;
+    String irdnt_nm, content_ty, due_date;
 
-    public IrdntListDTO(String irdnt_nm, String irdnt_ty_code, String due_date) {
+    public IrdntListDTO(String irdnt_nm, String content_ty, String due_date) {
         this.irdnt_nm = irdnt_nm;
-        this.irdnt_ty_code = irdnt_ty_code;
+        this.content_ty = content_ty;
         this.due_date = due_date;
     }
 
@@ -17,12 +17,12 @@ public class IrdntListDTO {
         this.irdnt_nm = irdnt_nm;
     }
 
-    public String getIrdnt_ty_code() {
-        return irdnt_ty_code;
+    public String getContent_ty() {
+        return content_ty;
     }
 
-    public void setIrdnt_ty_code(String irdnt_ty_code) {
-        this.irdnt_ty_code = irdnt_ty_code;
+    public void setContent_ty(String content_ty) {
+        this.content_ty = content_ty;
     }
 
     public String getDue_date() {
