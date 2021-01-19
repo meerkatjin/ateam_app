@@ -69,16 +69,6 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
 
             readJsonStream(inputStream);
 
-            /*BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null){
-                stringBuilder.append(line + "\n");
-            }
-            String jsonStr = stringBuilder.toString();
-
-            inputStream.close();*/
-
         } catch (Exception e) {
             Log.d("Sub1", e.getMessage());
             e.printStackTrace();
