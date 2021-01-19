@@ -1,5 +1,6 @@
 package com.example.ateam_app.recipe_fragment;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,17 @@ import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> implements OnRecipeItemClickListener{
     ArrayList<RecipeItem> items;
-
+    Context context;
     static OnRecipeItemClickListener listener;
+
+    public RecipeAdapter(ArrayList<RecipeItem> items, Context context) {
+        this.items = items;
+        this.context = context;
+    }
+
+    public RecipeAdapter(Context context, ArrayList<RecipeItem> items) {
+
+    }
 
     @NonNull
     @Override
@@ -34,11 +44,30 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         viewHolder.setItem(item);
     }
 
+    public void addItem(RecipeItem item){
+        items.add(item);
+    }
+
+    public void setItems(ArrayList<RecipeItem> items){
+        this.items = items;
+    }
+
+    public RecipeItem getItem(int position){
+        return items.get(position);
+    }
+
+    public void setItem(int position, RecipeItem item){
+        items.set(position, item);
+    }
+
     @Override
     public int getItemCount() {
         return items.size();
     }
+    public void removeAllItem(){
 
+        items.clear();
+    }
     public void setOnItemClicklistener(OnRecipeItemClickListener listener) {
         this.listener = listener; }
 
@@ -66,9 +95,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         TextView level_nm;
         TextView irdnt_code;
         ImageView img_url;
-
-
-
         LinearLayout recipe_item_layout;
 
         public ViewHolder(View itemView, final OnRecipeItemClickListener listener) {
@@ -80,39 +106,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             img_url = itemView.findViewById(R.id.img_url);
             recipe_item_layout = itemView.findViewById(R.id.recipe_item_layout);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null){
-                        listener.onItemClick(ViewHolder.this, v, position);//
-                    }
-                }
-            });
+
         }
         public void setItem(RecipeItem item){
             recipe_nm_ko.setText(item.getRecipe_nm_ko());
             sumry.setText(item.getSumry());
             level_nm.setText(item.getLevel_nm());
-            img_url.setImageResource(Integer.parseInt(item.getImg_url()));
+
 
         }
-    }
-
-    public void addItem(RecipeItem item){
-        items.add(item);
-    }
-
-    public void setItems(ArrayList<RecipeItem> items){
-        this.items = items;
-    }
-
-    public RecipeItem getItem(int position){
-        return items.get(position);
-    }
-
-    public void setItem(int position, RecipeItem item){
-        items.set(position, item);
     }
 
 

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 public class RecipeSubActivity extends AppCompatActivity {
     Button btnRecipeSub;
-    RecipeDTO dto;
+   // RecipeDTO dto;
     ImageView img_url;
     Intent intent;
     @Override

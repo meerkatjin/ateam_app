@@ -52,7 +52,7 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
         myRecipeArrayList.clear();
         String result = "";
-        String postURL = ipConfig + "/app/recipeInfo";
+        String postURL = ipConfig + "/ateamappspring/recipeInfo";
         try {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -100,9 +100,16 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     public void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
         try {
+
+
             reader.beginArray();
             while (reader.hasNext()) {
-                myRecipeArrayList.add(readMessage(reader));
+                String readStr = reader.nextName();
+                int recipe_id = 0;
+                if (readStr.equals("recipe_id")) {
+                    recipe_id = Integer.parseInt(reader.nextString());
+                }
+              //  myRecipeArrayList.add(readMessage(reader));
             }
             reader.endArray();
         } finally {
