@@ -15,8 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.ateam_app.MainActivity;
+import com.example.ateam_app.MainFragment;
 import com.example.ateam_app.R;
 import com.example.ateam_app.RecipeSubActivity;
+import com.example.ateam_app.manage_tip_package.ManageTipFragment;
+
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 
@@ -24,7 +27,6 @@ import java.util.ArrayList;
 
 
 public class RecipeFragment extends Fragment {
-    public static RecipeItem selItem = null;
     RecipeAtask recipeAtask;
     RecipeAdapter adapter;
     ArrayList<RecipeItem> items;
@@ -34,97 +36,46 @@ public class RecipeFragment extends Fragment {
     ProgressDialog progressDialog;
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_recipe, container, false);
+        Context context = viewGroup.getContext();
+        items = new ArrayList<>();
+        adapter = new RecipeAdapter(context,items);
+        recyclerView = (RecyclerView) viewGroup.findViewById(R.id.recipeRecycleView);
+        mLayoutManager = new LinearLayoutManager(context,
+                RecyclerView.VERTICAL, false);
+
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        recyclerView.setAdapter(adapter);
+
+        if(isNetworkConnected(context) == true) {
+            recipeAtask = new RecipeAtask(items, adapter, progressDialog);
+            recipeAtask.execute();
+        }else{
+            //인터넷 아노디는
+        }
+
+        adapter.setOnItemClicklistener(new OnRecipeItemClickListener() {
+            @Override
+            public void onItemClick(RecipeAdapter.ViewHolder holder, View view, int position) {
+               /* RecipeItem item = adapter.getItem(position);
+               Intent intent = new Intent(getContext(), RecipeSubActivity.class);
+                intent.putExtra("img_url", item.getImg_url());
+                startActivity(intent);*/
+            }
+        });
+        return viewGroup;
+    }
 
     public static RecipeFragment newInstance() {
         return new RecipeFragment();
     }
 
 
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_recipe, container, false);
-
-        items = new ArrayList<>();
-
-        recyclerView.setLayoutManager(mLayoutManager);
-        //recyclerView.setAdapter(adapter);
-
-        if (viewGroup instanceof RecyclerView) {
-            Context context = viewGroup.getContext();
-            RecyclerView mRecyclerView = (RecyclerView) viewGroup;
-            mRecyclerView.setHasFixedSize(true);
-
-
-            // use a linear layout manager
-
-            mLayoutManager = new LinearLayoutManager(context);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-
-
-            // specify an adapter (see also next example)
-
-            adapter = new RecipeAdapter(context,items);
-
-            mRecyclerView.setAdapter(adapter);
-
-        }
-
-
-    /*    if(isNetworkConnected(context) == true){
-            recipeAtask = new RecipeAtask(items, adapter, progressDialog);
-            recipeAtask.execute();
-        }*/
-
-
-
-        //activity = (MainActivity) getActivity();
-
-        //dto = new RecipeDTO("김치찜", "김치찜이 짜다", "어렵다", R.drawable.ic_launcher_background);
-        //dtos.add(dto);
-
-        //o
-        //addapter.notifyDataSetChanged();
-        /*if(isNetworkConnected(context) == true){
-            recipeAtask = new RecipeAtask(recipeItemArrayList, adapter, progressDialog);
-            recipeAtask.execute();
-        }else {
-            Toast.makeText(context, "인터넷이 연결되어 있지 않습니다.",
-                    Toast.LENGTH_SHORT).show();
-        }*/
-//x
-       /* adapter.setOnItemClicklistener(new OnRecipeItemClickListener() {
-            @Override
-            public void onItemClick(RecipeAdapter.ViewHolder holder, View view, int position) {
-                RecipeItem item = adapter.getItem(position);
-                Intent intent = new Intent(getContext(), RecipeSubActivity.class);
-                intent.putExtra("img_url", item.getImg_url());
-                startActivity(intent);
-
-
-
-            }
-
-
-        });*/
-
-
-
-
-        return viewGroup;
-    }
 
 
 
