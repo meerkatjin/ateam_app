@@ -1,10 +1,9 @@
 package irdnt_list_package;
 
-import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,9 +33,9 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     //데이터 연결
     @Override
     public void onBindViewHolder(@NonNull IrdntListAdapter.ViewHolder holder, int position) {
-        holder.irdnt_nm.setText(items.get(position).getIrdnt_nm());
+        holder.content_nm.setText(items.get(position).getContent_nm());
         holder.content_ty.setText(items.get(position).getContent_ty());
-        holder.due_date.setText(items.get(position).getDue_date());
+        holder.shelf_life_end.setText(items.get(position).getShelf_life_end());
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -53,20 +52,20 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        protected TextView irdnt_nm, content_ty, due_date;
+        protected TextView content_nm, content_ty, shelf_life_end;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            irdnt_nm = (TextView) itemView.findViewById(R.id.irdnt_nm);
+            content_nm = (TextView) itemView.findViewById(R.id.content_nm);
             content_ty = (TextView) itemView.findViewById(R.id.content_ty);
-            due_date = (TextView) itemView.findViewById(R.id.due_date);
+            shelf_life_end = (TextView) itemView.findViewById(R.id.shelf_life_end);
         }
 
         public void setItem(IrdntListDTO dto) {
-            irdnt_nm.setText(dto.getIrdnt_nm());
+            content_nm.setText(dto.getContent_nm());
             content_ty.setText(dto.getContent_ty());
-            due_date.setText(dto.getDue_date());
+            shelf_life_end.setText(dto.getShelf_life_end());
         }
     }
 }
