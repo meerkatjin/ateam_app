@@ -12,7 +12,7 @@ public class UserDTO implements Serializable {
                 user_phone_no,
                 user_grade;
 
-    public UserDTO(){}
+    public UserDTO() { }
 
     //비밀번호를 제외한 정보를 가져올때
     public UserDTO(int user_id, String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade) {
