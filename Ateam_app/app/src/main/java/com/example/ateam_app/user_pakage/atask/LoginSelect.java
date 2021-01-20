@@ -86,7 +86,7 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
 
         int user_id = 0;
-        String  user_email = "", user_nm = "", user_addr = "", user_pro_img = "",
+        String  user_email = "", user_nm = "", user_pw = "",user_addr = "", user_pro_img = "",
                 user_phone_no = "", user_grade = "";
 
         reader.beginObject();
@@ -96,6 +96,8 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
                 user_id = Integer.parseInt(reader.nextString());
             }else if(readStr.equals("user_email")){
                 user_email = reader.nextString();
+            }else if(readStr.equals("user_pw")) {
+                user_pw = reader.nextString();
             }else if(readStr.equals("user_nm")){
                 user_nm = reader.nextString();
             }else if(readStr.equals("user_addr")){
@@ -112,6 +114,6 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
         }
         reader.endObject();
         Log.d("main:loginselect : ", user_email + ", " + user_nm + ", " + user_addr + ", " + user_phone_no);
-        return new UserDTO(user_id, user_email, user_nm, user_addr, user_pro_img, user_phone_no, user_grade);
+        return new UserDTO(user_id, user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no, user_grade);
     }//readMessage()
 }
