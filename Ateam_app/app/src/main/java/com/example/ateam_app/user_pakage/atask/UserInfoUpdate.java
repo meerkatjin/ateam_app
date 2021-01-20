@@ -14,19 +14,21 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.charset.Charset;
+import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
 
-    String email, pw, name, addr, img, phone;
+    String user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no;
 
-    public UserInfoUpdate(String email, String pw, String name, String addr, String img, String phone) {
-        this.email = email;
-        this.pw = pw;
-        this.name = name;
-        this.addr = addr;
-        this.img = img;
-        this.phone = phone;
+    public UserInfoUpdate(String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no) {
+        this.user_email = user_email;
+        this.user_pw = user_pw;
+        this.user_nm = user_nm;
+        this.user_addr = user_addr;
+        this.user_pro_img = user_pro_img;
+        this.user_phone_no = user_phone_no;
     }
 
     @Override
@@ -39,18 +41,20 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
             builder.setCharset(Charset.forName("UTF-8"));
 
             // 문자열 및 데이터 추가
-            builder.addTextBody("email", email, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("pw", pw, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("name", name, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("addr", addr, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("img", img, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("phone", phone, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_email", user_email, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_pw", user_pw, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_nm", user_nm, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_addr", user_addr, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_pro_img", user_pro_img, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_phone_no", user_phone_no, ContentType.create("Multipart/related", "UTF-8"));
 
-            Log.d("UpdateEmail", email);
-            Log.d("UpdatePW", pw);
-            Log.d("UpdateName", name);
-            Log.d("UpdateAddr", addr);
-            Log.d("UpdatePhone", phone);
+            Log.d("UpdateEmail", user_email);
+            Log.d("UpdatePW", user_pw);
+            Log.d("UpdateName", user_nm);
+            Log.d("UpdateAddr", user_addr);
+            Log.d("UpdatePhone", user_pro_img);
+
+            postURL = ipConfig + "/ateamappspring/userInfoChange";
 
             // 전송
             //InputStream inputStream = null;

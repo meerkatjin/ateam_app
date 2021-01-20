@@ -247,7 +247,8 @@
                     android:layout_marginRight="16dp"
                     android:layout_weight="1"
                     android:text="수정"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:onClick="btnUpdateClicked"/>
 
                 <Button
                     android:id="@+id/btnInfoChangeCancel"
@@ -256,7 +257,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_weight="1"
                     android:text="취소"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:onClick="btnCancelClicked"/>
 
             </LinearLayout>
 

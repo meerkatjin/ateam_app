@@ -16,14 +16,17 @@ import android.widget.Toast;
 import com.example.ateam_app.user_pakage.atask.UserInfoUpdate;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
 
+import java.io.File;
+
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 public class UserInfoChangeActivity extends AppCompatActivity {
+    public static UserDTO loginDTO = null;
 
     EditText user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no;
     Button btnInfoChange, btnInfoChangeCancel;
 
-    String email, pw, name, addr, img, phone;
+    String email, pw, name, addr, img="default.jpg", phone;
     Intent mainIntent;
 
     @Override
@@ -60,25 +63,15 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_addr.setText(addr);
         user_phone_no.setText(phone);
 
-        //수정버튼 누름
-        btnInfoChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userInfoChangeDialog();
-            }
-        });
-
-        //수정취소버튼 누름
-        btnInfoChangeCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userInfoChangeCancelDialog();
-            }
-        });
     }
 
-    //수정버튼 눌렀을떄 정말 수정할것인지 대화상자팝업
-    private void userInfoChangeDialog() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    public void btnUpdateClicked(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("안내");
         builder.setMessage("정말 수정하시겠습니까?");
@@ -97,7 +90,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                 userInfoUpdate.execute();
 
                 Toast.makeText(UserInfoChangeActivity.this, "수정되었습니다!", Toast.LENGTH_SHORT).show();
-
+                Log.d("main:UserInfoChange : ", user_email + ", " + user_pw + "," + user_nm + ", " + user_addr + ", " + user_phone_no);
                 Intent showIntent = new Intent(getApplicationContext(), MainActivity.class);
                 showIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |   // 이 엑티비티 플래그를 사용하여 엑티비티를 호출하게 되면 새로운 태스크를 생성하여 그 태스크안에 엑티비티를 추가하게 됩니다. 단, 기존에 존재하는 태스크들중에 생성하려는 엑티비티와 동일한 affinity(관계, 유사)를 가지고 있는 태스크가 있다면 그곳으로 새 엑티비티가 들어가게됩니다.
                         Intent.FLAG_ACTIVITY_SINGLE_TOP | // 엑티비티를 호출할 경우 호출된 엑티비티가 현재 태스크의 최상단에 존재하고 있었다면 새로운 인스턴스를 생성하지 않습니다. 예를 들어 ABC가 엑티비티 스택에 존재하는 상태에서 C를 호출하였다면 여전히 ABC가 존재하게 됩니다.
@@ -107,7 +100,6 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -119,8 +111,8 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         dialog.show();
 
     }
-    //수정취소  버튼 눌렀을때 정말로 취소할것인지 대화상자 팝업
-    private void userInfoChangeCancelDialog() {
+
+    public void btnCancelClicked(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("안내");
         builder.setMessage("정말 취소하시겠습니까?");
@@ -137,20 +129,12 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+                finish();
             }
         });
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
 
 }
