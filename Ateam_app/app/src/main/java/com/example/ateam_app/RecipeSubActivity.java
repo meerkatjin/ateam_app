@@ -8,11 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.ateam_app.recipe_fragment.RecipeDTO;
-
 public class RecipeSubActivity extends AppCompatActivity {
     Button btnRecipeSub;
-    RecipeDTO dto;
+   // RecipeDTO dto;
     ImageView img_url;
     Intent intent;
     @Override
