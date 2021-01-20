@@ -53,11 +53,18 @@
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+            <Button
+                android:id="@+id/btnInputTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                android:text="테스트" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/irdntRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-
 
         </FrameLayout>
 
