@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.ateam_app.R;
 
 import java.util.ArrayList;
@@ -20,14 +21,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     Context context;
     static OnRecipeItemClickListener listener;
 
+    public RecipeAdapter(Context context, ArrayList<RecipeItem> items) {
+        this.items = items;
+        this.context = context;
+    }
     public RecipeAdapter(ArrayList<RecipeItem> items, Context context) {
         this.items = items;
         this.context = context;
     }
 
-    public RecipeAdapter(Context context, ArrayList<RecipeItem> items) {
 
-    }
 
     @NonNull
     @Override
@@ -35,7 +38,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.fragment_recipe_item, viewGroup, false);
 
-        return new ViewHolder(itemView, listener);
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -62,12 +65,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return  items.size()  ;
     }
-    public void removeAllItem(){
 
+    public void removeAllItem(){
         items.clear();
     }
+
     public void setOnItemClicklistener(OnRecipeItemClickListener listener) {
         this.listener = listener; }
 
@@ -94,27 +98,43 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         TextView qnt;
         TextView level_nm;
         TextView irdnt_code;
-        ImageView img_url;
+        ImageView img_url_im;
+
         LinearLayout recipe_item_layout;
 
-        public ViewHolder(View itemView, final OnRecipeItemClickListener listener) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            recipe_id = itemView.findViewById(R.id.recipe_id);
+            //recipe_id = itemView.findViewById(R.id.recipe_id);
             recipe_nm_ko = itemView.findViewById(R.id.recipe_nm_ko);
             sumry = itemView.findViewById(R.id.sumry);
+            //nation_nm = itemView.findViewById(R.id.nation_nm);
+            //ty_nm = itemView.findViewById(R.id.ty_nm);
+            //cooking_time = itemView.findViewById(R.id.cooking_time);
+            //calorie = itemView.findViewById(R.id.calorie);
+            //qnt = itemView.findViewById(R.id.calorie);
             level_nm = itemView.findViewById(R.id.level_nm);
-            img_url = itemView.findViewById(R.id.img_url);
-            recipe_item_layout = itemView.findViewById(R.id.recipe_item_layout);
+            //irdnt_code = itemView.findViewById(R.id.irdnt_code);
+            img_url_im = itemView.findViewById(R.id.img_url_im);
+
 
 
         }
-        public void setItem(RecipeItem item){
+        public void setItem(RecipeItem item) {
+            //recipe_id.setText(item.getRecipe_id());
             recipe_nm_ko.setText(item.getRecipe_nm_ko());
             sumry.setText(item.getSumry());
+            //nation_nm.setText(item.getNation_nm());
+            //ty_nm.setText(item.getTy_nm());
+            //cooking_time.setText(item.getCooking_time());
+            //calorie.setText(item.getCalorie());
+            //qnt.setText(item.getQnt());
             level_nm.setText(item.getLevel_nm());
-
+            //irdnt_code.setText(item.getIrdnt_code());
+            Glide.with(itemView).load(item.getImg_url()).into(img_url_im);
 
         }
+
+
     }
 
 
