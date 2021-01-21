@@ -12,21 +12,15 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
-<<<<<<< HEAD
 import java.io.File;
 import java.io.InputStream;
-=======
->>>>>>> d9327c3ac4ccfa54464ab93983305797561f76e3
+
 import java.nio.charset.Charset;
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
 
-<<<<<<< HEAD
-    String user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no;
-=======
     private String user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no;
->>>>>>> d9327c3ac4ccfa54464ab93983305797561f76e3
 
     public UserInfoUpdate(String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no) {
         this.user_email = user_email;
@@ -35,8 +29,6 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
         this.user_addr = user_addr;
         this.user_pro_img = user_pro_img;
         this.user_phone_no = user_phone_no;
-<<<<<<< HEAD
-=======
     }
 
     @Override
@@ -47,7 +39,7 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
->>>>>>> d9327c3ac4ccfa54464ab93983305797561f76e3
+
     }
 
     @Override
@@ -68,21 +60,21 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
             builder.addTextBody("user_phone_no", user_phone_no, ContentType.create("Multipart/related", "UTF-8"));
 
             Log.d("UpdateEmail", user_email);
-<<<<<<< HEAD
+
             Log.d("UpdatePW", user_pw);
             Log.d("UpdateName", user_nm);
             Log.d("UpdateAddr", user_addr);
             Log.d("UpdatePhone", user_pro_img);
 
             postURL = ipConfig + "/ateamappspring/userInfoChange";
-=======
+
             Log.d("UpdatePw", user_pw);
             Log.d("UpdateName", user_nm);
             Log.d("UpdateAddr", user_addr);
             Log.d("UpdateImg", user_pro_img);
             Log.d("UpdatePhone", user_phone_no);
             Log.d("Sub1Update:postURL", postURL);
->>>>>>> d9327c3ac4ccfa54464ab93983305797561f76e3
+
 
             // 전송
             //InputStream inputStream = null;
