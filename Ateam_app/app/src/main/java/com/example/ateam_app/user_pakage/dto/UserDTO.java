@@ -13,7 +13,7 @@ public class UserDTO implements Serializable {
                 user_grade,
                 user_type;
 
-    public UserDTO(){}
+    public UserDTO() { }
 
     //카카오 로그인정보 가져올때
     public UserDTO(long user_id, String user_email, String user_nm, String user_pro_img, String user_grade, String user_type){
@@ -26,9 +26,10 @@ public class UserDTO implements Serializable {
     }
 
     //로그인 후 모든 정보를 가져올때
-    public UserDTO(long user_id, String user_email, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade, String user_type) {
+    public UserDTO(long user_id, String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade, String user_type) {
         this.user_id = user_id;
         this.user_email = user_email;
+        this.user_pw = user_pw;
         this.user_nm = user_nm;
         this.user_addr = user_addr;
         this.user_pro_img = user_pro_img;

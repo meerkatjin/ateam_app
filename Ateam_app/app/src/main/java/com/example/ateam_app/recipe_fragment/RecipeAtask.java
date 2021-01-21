@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     ArrayList<RecipeItem> myRecipeArrayList;
+    RecipeItem dto ;
     RecipeAdapter adapter;
     ProgressDialog progressDialog;
 
@@ -39,13 +40,6 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if(progressDialog != null){
-            progressDialog.dismiss();
-        }
-
-        Log.d("RecipeFragment", "List Select Complete!!!");
-
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -94,30 +88,34 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
 
+        Log.d("RecipeFragment", "List Select Complete!!!");
+
+        adapter.notifyDataSetChanged();
     }
 
     public void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
         try {
-
-
             reader.beginArray();
             while (reader.hasNext()) {
-                String readStr = reader.nextName();
-                int recipe_id = 0;
-                if (readStr.equals("recipe_id")) {
-                    recipe_id = Integer.parseInt(reader.nextString());
-                }
-              //  myRecipeArrayList.add(readMessage(reader));
+                myRecipeArrayList.add(readMessage(reader));
             }
             reader.endArray();
-        } finally {
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getMessage();
+            Log.d("222", e.getMessage());
+        }finally {
             reader.close();
         }
     }
 
     public RecipeItem readMessage(JsonReader reader) throws IOException {
+
         int recipe_id = 0;
         String recipe_nm_ko = "";
         String sumry = "";
@@ -160,8 +158,8 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
             }
         }
         reader.endObject();
-        Log.d("listselect:myitem", recipe_id + "," + irdnt_code);
         return new RecipeItem(recipe_id, recipe_nm_ko, sumry, nation_nm, ty_nm, cooking_time, calorie, qnt, level_nm, irdnt_code, img_url);
+
 
     }
 

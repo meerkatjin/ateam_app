@@ -12,7 +12,11 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
+import java.io.File;
+import java.io.InputStream;
+
 import java.nio.charset.Charset;
+import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
 
@@ -35,6 +39,7 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+
     }
 
     @Override
@@ -55,12 +60,21 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
             builder.addTextBody("user_phone_no", user_phone_no, ContentType.create("Multipart/related", "UTF-8"));
 
             Log.d("UpdateEmail", user_email);
+
+            Log.d("UpdatePW", user_pw);
+            Log.d("UpdateName", user_nm);
+            Log.d("UpdateAddr", user_addr);
+            Log.d("UpdatePhone", user_pro_img);
+
+            postURL = ipConfig + "/ateamappspring/userInfoChange";
+
             Log.d("UpdatePw", user_pw);
             Log.d("UpdateName", user_nm);
             Log.d("UpdateAddr", user_addr);
             Log.d("UpdateImg", user_pro_img);
             Log.d("UpdatePhone", user_phone_no);
             Log.d("Sub1Update:postURL", postURL);
+
 
             // 전송
             //InputStream inputStream = null;

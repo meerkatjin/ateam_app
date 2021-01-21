@@ -27,6 +27,10 @@ public class RecipeItem {
         this.img_url = img_url;
     }
 
+    public RecipeItem() {
+
+    }
+
     public int getRecipe_id() {
         return recipe_id;
     }

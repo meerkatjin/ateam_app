@@ -41,12 +41,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String TAG = "main:MainActivity";
     Toolbar toolbar;
 
+    static final int USERINFO_CODE = 1004;
+
     MainFragment mainFragment;
     IrdntListFragment irdntListFragment;
     CamFragment camFragment;
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
     Intent loginIntent; //로그인 엑티비티에서 로그인한 회원의 데이터 받아옴(비밀번호 빼고)
+
 
     BottomNavigationView bottomNavigationView;
 
@@ -124,7 +127,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //측면메뉴의 회원정보수정 눌렀을때 수정페이지로 이동
         if (id == R.id.nav_userInfoChange) {
             Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
-            startActivity(intent);
+            intent.putExtra("loginDTO", loginDTO);
+            startActivityForResult(intent, USERINFO_CODE);
 
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
