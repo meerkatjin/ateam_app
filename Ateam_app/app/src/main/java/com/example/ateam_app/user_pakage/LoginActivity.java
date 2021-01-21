@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         Session.getCurrentSession().addCallback(sessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
 
+        getHashKey();
         checkDangerousPermissions();
 
         user_email = findViewById(R.id.user_email);
