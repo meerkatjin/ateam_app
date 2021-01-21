@@ -42,6 +42,7 @@ public class IrdntListInsert extends AsyncTask<Void, Void, String> {
             builder.setCharset(Charset.forName("UTF-8"));
 
             builder.addTextBody("content_nm", content_nm, ContentType.create("Multipart/related", "UTF-8"));
+            Log.d(TAG, "main:IrdntListInsert : " + content_nm);
 
             String postURL = ipConfig + "/ateamappspring/insert";
 

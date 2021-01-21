@@ -174,13 +174,13 @@ public class IrdntListFragment extends Fragment {
                 IrdntListInsert insert = new IrdntListInsert(name);
                 try {
                     state = insert.execute().get().trim();
-                    Log.d("main:irdntFragment : ", state);
+                    Log.d("main:state : ", state);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                if (state.equals("1")) {
+                if (state.equals(name)) {
                     Toast.makeText(getActivity().getApplicationContext(), "추가되었습니다!", Toast.LENGTH_SHORT).show();
                     irdnt_input_frame.setVisibility(View.GONE);
                     btnInputTest.setVisibility(View.VISIBLE);
