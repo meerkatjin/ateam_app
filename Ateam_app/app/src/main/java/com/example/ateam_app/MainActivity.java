@@ -27,6 +27,12 @@ import com.example.ateam_app.user_pakage.LoginActivity;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.ApiErrorCode;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.kakao.usermgmt.callback.UnLinkResponseCallback;
+
 import irdnt_list_package.IrdntListFragment;
 
 import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
@@ -81,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 + ", user_addr : " + loginDTO.getUser_addr()
                 + ", user_pro_img : " + loginDTO.getUser_pro_img()
                 + ", user_phone_no : " + loginDTO.getUser_phone_no()
-                + ", user_grade : " + loginDTO.getUser_grade());
+                + ", user_grade : " + loginDTO.getUser_grade()
+                + ", user_type : " + loginDTO.getUser_type());
 
         //하단 메뉴 (Bottom Navigation View)
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -127,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
             logoutMessage();
 
+        } else if (id == R.id.nav_withdrawal){
+            Toast.makeText(this, "회원탈퇴", Toast.LENGTH_SHORT).show();
+            withdrawalMessage();
         } else if (id == R.id.nav_admin) {
             Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
 
@@ -138,6 +148,69 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }//onNavigationItemSelected()
 
+    //회원탈퇴
+    private void withdrawalMessage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("안내");
+        builder.setMessage("정말 탈퇴하시겠습니까?");
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //로그아웃시 가져온 회원 데이터를 null로 초기화하여 로그아웃
+                UserManagement.getInstance().requestUnlink(new UnLinkResponseCallback() {
+                    @Override
+                    public void onFailure(ErrorResult errorResult) {
+                        int result = errorResult.getErrorCode();
+
+                        if(result == ApiErrorCode.CLIENT_ERROR_CODE) {
+                            Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "회원탈퇴에 실패했습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onSessionClosed(ErrorResult errorResult) {
+                        Toast.makeText(getApplicationContext(), "로그인 세션이 닫혔습니다. 다시 로그인해 주세요.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onNotSignedUp() {
+                        Toast.makeText(getApplicationContext(), "가입되지 않은 계정입니다. 다시 로그인해 주세요.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onSuccess(Long result) {
+                        Toast.makeText(getApplicationContext(), "회원탈퇴에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }//withdrawalMessage()
+
     private void logoutMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("안내");
@@ -148,14 +221,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //로그아웃시 가져온 회원 데이터를 null로 초기화하여 로그아웃
-                Intent logout = new Intent();
-                loginDTO = null;
-                logout.putExtra("logout", loginDTO);
-                setResult(RESULT_OK, logout);
-                finish();
-                //메인엑티비티만 닫아도 로그인 엑티비티로 넘어가기때문에 주석처리함
-                //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                //startActivity(intent);
+                UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+                    @Override
+                    public void onCompleteLogout() {
+                        Intent logout = new Intent();
+                        loginDTO = null;
+                        logout.putExtra("logout", loginDTO);
+                        setResult(RESULT_OK, logout);
+                        finish();
+                    }
+                });
             }
         });
 

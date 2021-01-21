@@ -15,20 +15,23 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
+import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
-public class LoginSelect extends AsyncTask<Void, Void, Void> {
-    private String email, pw;
+public class KakaoLoginSelect extends AsyncTask<Void, Void, Void> {
+    private UserDTO dto;
 
-    public LoginSelect(String email, String pw){
-        this.email = email;
-        this.pw = pw;
+    public KakaoLoginSelect(UserDTO dto){
+        this.dto = dto;
     }
+
+    // 데이터베이스에 삽입결과 0보다크면 삽입성공, 같거나 작으면 실패
+    String state = "";
 
     HttpClient httpClient;
     HttpPost httpPost;
@@ -43,10 +46,15 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
             // 문자열 및 데이터 추가
-            builder.addTextBody("user_email", email, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("user_pw", pw, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_id", String.valueOf(dto.getUser_id()), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_email", dto.getUser_email(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_nm", dto.getUser_nm(), ContentType.create("Multipart/related", "UTF-8"));
+            if(dto.getUser_pro_img() != null) {
+                builder.addTextBody("user_pro_img", dto.getUser_pro_img(), ContentType.create("Multipart/related", "UTF-8"));
+            }
+            builder.addTextBody("user_type", dto.getUser_type(), ContentType.create("Multipart/related", "UTF-8"));
 
-            String postURL = ipConfig + "/ateamappspring/appLogin";
+            String postURL = ipConfig + "/ateamappspring/appKakaoLogin";
 
             //전송
             InputStream inputStream = null;
@@ -57,13 +65,11 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-            // 하나의 오브젝트 가져올때
             loginDTO = readMessage(inputStream);
 
             inputStream.close();
-            
         }catch (Exception e){
-            Log.d("main:loginselect", e.getMessage());
+            Log.d("main:kakaologinselect", e.getMessage());
             e.printStackTrace();
         }finally {
             if(httpEntity != null){
@@ -86,27 +92,20 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
 
         long user_id = 0;
-        String  user_email = "", user_nm = "", user_pw = "",user_addr = "", user_pro_img = "",
-                user_phone_no = "", user_grade = "", user_type = "";
-
+        String  user_email = "", user_nm = "", user_pro_img = "",
+                user_grade = "", user_type = "";
 
         reader.beginObject();
         while (reader.hasNext()){
             String readStr = reader.nextName();
             if(readStr.equals("user_id")){
-                user_id = reader.nextLong();
+                user_id = reader.nextInt();
             }else if(readStr.equals("user_email")){
                 user_email = reader.nextString();
-            }else if(readStr.equals("user_pw")) {
-                user_pw = reader.nextString();
             }else if(readStr.equals("user_nm")){
                 user_nm = reader.nextString();
-            }else if(readStr.equals("user_addr")){
-                user_addr = reader.nextString();
             }else if(readStr.equals("user_pro_img")){
                 user_pro_img = reader.nextString();
-            }else if(readStr.equals("user_phone_no")){
-                user_phone_no = reader.nextString();
             }else if(readStr.equals("user_grade")){
                 user_grade = reader.nextString();
             }else if(readStr.equals("user_type")){
@@ -116,7 +115,7 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
             }
         }
         reader.endObject();
-        Log.d("main:loginselect : ", user_email + ", " + user_nm + ", " + user_addr + ", " + user_phone_no);
-        return new UserDTO(user_id, user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no, user_grade, user_type);
+        Log.d("main:loginselect : ", user_email + ", " + user_nm);
+        return new UserDTO(user_id, user_email, user_nm, user_pro_img, user_grade, user_type);
     }//readMessage()
 }

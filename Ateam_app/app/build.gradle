@@ -54,6 +54,11 @@ dependencies {
     /*카드뷰*/
     implementation "androidx.cardview:cardview:1.0.0"
 
+
+    /*카카오 로그인*/
+    implementation 'com.kakao.sdk:usermgmt:1.16.0'
+
+    /*글라이드 이미지올리기*/
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 }
