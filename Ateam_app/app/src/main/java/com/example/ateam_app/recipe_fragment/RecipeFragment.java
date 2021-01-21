@@ -55,17 +55,26 @@ public class RecipeFragment extends Fragment {
         if(isNetworkConnected(context) == true) {
             recipeAtask = new RecipeAtask(items, adapter, progressDialog);
             recipeAtask.execute();
-        }else{
-            //인터넷 아노디는
         }
 
-        adapter.setOnItemClicklistener(new OnRecipeItemClickListener() {
+      adapter.setOnItemClicklistener(new OnRecipeItemClickListener() {
             @Override
             public void onItemClick(RecipeAdapter.ViewHolder holder, View view, int position) {
-               /* RecipeItem item = adapter.getItem(position);
+               RecipeItem item = adapter.getItem(position);
                Intent intent = new Intent(getContext(), RecipeSubActivity.class);
-                intent.putExtra("img_url", item.getImg_url());
-                startActivity(intent);*/
+               intent.putExtra("recipe_id", item.getRecipe_id());
+               intent.putExtra("recipe_nm_ko", item.getRecipe_nm_ko());
+               intent.putExtra("sumry", item.getSumry());
+               intent.putExtra("nation_nm", item.getNation_nm());
+               intent.putExtra("ty_nm", item.getTy_nm());
+               intent.putExtra("cooking_time", item.getCooking_time());
+               intent.putExtra("calorie", item.getCalorie());
+               intent.putExtra("qnt", item.getQnt());
+               intent.putExtra("level_nm", item.getLevel_nm());
+               intent.putExtra("irdnt_code", item.getIrdnt_code());
+               //intent.putExtra("img_url", item.getRecipe_id());
+
+               startActivity(intent);
             }
         });
         return viewGroup;
