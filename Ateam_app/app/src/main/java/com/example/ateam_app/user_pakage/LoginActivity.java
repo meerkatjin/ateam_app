@@ -17,8 +17,17 @@ import android.widget.Toast;
 
 import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
+import com.example.ateam_app.user_pakage.atask.KakaoLoginSelect;
 import com.example.ateam_app.user_pakage.atask.LoginSelect;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
+import com.kakao.auth.ISessionCallback;
+import com.kakao.auth.Session;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.ApiErrorCode;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.response.MeV2Response;
+import com.kakao.util.exception.KakaoException;
 
 import java.util.concurrent.ExecutionException;
 
@@ -32,10 +41,16 @@ public class LoginActivity extends AppCompatActivity {
     EditText user_email, user_pw;
     Button btnLogin, btnJoin;
 
+    private SessionCallback sessionCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sessionCallback = new SessionCallback();
+        Session.getCurrentSession().addCallback(sessionCallback);
+        Session.getCurrentSession().checkAndImplicitOpen();
 
         checkDangerousPermissions();
 
@@ -94,12 +109,81 @@ public class LoginActivity extends AppCompatActivity {
     //로그아웃되면 메인엑티비티에서 회원정보를 null로 초기화해서 로그인 엑티비티로 돌아온다.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == MAIN_CODE){
-            loginDTO = (UserDTO) data.getSerializableExtra("logout");
+        if(Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data)){
+            super.onActivityResult(requestCode, resultCode, data);
+            if(requestCode == MAIN_CODE){
+                loginDTO = (UserDTO) data.getSerializableExtra("logout");
+            }
+            return;
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Session.getCurrentSession().removeCallback(sessionCallback);
+    }
+
+    private class SessionCallback implements ISessionCallback {
+        @Override
+        public void onSessionOpened() {
+            UserManagement.getInstance().me(new MeV2ResponseCallback() {
+                @Override
+                public void onFailure(ErrorResult errorResult) {
+                    int result = errorResult.getErrorCode();
+
+                    if(result == ApiErrorCode.CLIENT_ERROR_CODE) {
+                        Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(),"로그인 도중 오류가 발생했습니다: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onSessionClosed(ErrorResult errorResult) {
+                    Toast.makeText(getApplicationContext(),"세션이 닫혔습니다. 다시 시도해 주세요: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                }
+
+                //카카오 로그인성공시
+                @Override
+                public void onSuccess(MeV2Response result) {
+                    Log.d("kakaoTest:", "email: " + result.getKakaoAccount().getEmail() + ", name: " + result.getNickname() + ", id: " + result.getId() + ", image : " + result.getProfileImagePath());
+                    UserDTO KakaoLoginDTO = new UserDTO();
+                    KakaoLoginDTO.setUser_id(result.getId());
+                    KakaoLoginDTO.setUser_email(result.getKakaoAccount().getEmail());
+                    KakaoLoginDTO.setUser_nm(result.getNickname());
+                    if(result.getProfileImagePath() != null){
+                        KakaoLoginDTO.setUser_pro_img(result.getProfileImagePath());
+                    }
+                    KakaoLoginDTO.setUser_type("kakao");
+                    KakaoLoginSelect kakaoLoginSelect = new KakaoLoginSelect(KakaoLoginDTO);
+                    try {
+                        kakaoLoginSelect.execute().get();
+                    } catch (ExecutionException e) {
+                        e.getMessage();
+                    } catch (InterruptedException e) {
+                        e.getMessage();
+                    }
+                    if(loginDTO != null){
+                        Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("loginDTO", loginDTO);
+                        startActivityForResult(intent, MAIN_CODE);
+                    }else{
+                        Toast.makeText(LoginActivity.this, "로그인 실패 !!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException e) {
+            Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //위험권한
     private void checkDangerousPermissions() {
         String[] permissions = {
                 Manifest.permission.INTERNET,

@@ -3,19 +3,30 @@ package com.example.ateam_app.user_pakage.dto;
 import java.io.Serializable;
 
 public class UserDTO implements Serializable {
-    private int user_id;
+    private long user_id;
     private String user_email,
                 user_pw,
                 user_nm,
                 user_addr,
                 user_pro_img,
                 user_phone_no,
-                user_grade;
+                user_grade,
+                user_type;
 
     public UserDTO(){}
 
-    //비밀번호를 제외한 정보를 가져올때
-    public UserDTO(int user_id, String user_email, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade) {
+    //카카오 로그인정보 가져올때
+    public UserDTO(long user_id, String user_email, String user_nm, String user_pro_img, String user_grade, String user_type){
+        this.user_id = user_id;
+        this.user_email = user_email;
+        this.user_nm = user_nm;
+        this.user_pro_img = user_pro_img;
+        this.user_grade = user_grade;
+        this.user_type = user_type;
+    }
+
+    //로그인 후 모든 정보를 가져올때
+    public UserDTO(long user_id, String user_email, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade, String user_type) {
         this.user_id = user_id;
         this.user_email = user_email;
         this.user_nm = user_nm;
@@ -23,6 +34,7 @@ public class UserDTO implements Serializable {
         this.user_pro_img = user_pro_img;
         this.user_phone_no = user_phone_no;
         this.user_grade = user_grade;
+        this.user_type = user_type;
     }
 
     //데이터베이스에 회원가입 정보를 저장할때
@@ -34,11 +46,19 @@ public class UserDTO implements Serializable {
         this.user_phone_no = user_phone_no;
     }
 
-    public int getUser_id() {
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
+    }
+
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 

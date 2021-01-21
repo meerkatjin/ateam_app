@@ -173,7 +173,7 @@ public class JoinActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
             }
         });//builder.setPositiveButton()
 
@@ -204,11 +204,11 @@ public class JoinActivity extends AppCompatActivity {
                 }
 
                 if(state.equals("1")){
-                    Toast.makeText(JoinActivity.this, "삽입성공 !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JoinActivity.this, "회원가입을 환영합니다 !!!", Toast.LENGTH_SHORT).show();
                     Log.d("main:joinact", "삽입성공 !!!");
                     finish();
                 }else{
-                    Toast.makeText(JoinActivity.this, "삽입실패 !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JoinActivity.this, "화원가입 실패하였습니다 !!!", Toast.LENGTH_SHORT).show();
                     Log.d("main:joinact", "삽입실패 !!!");
                     finish();
                 }
@@ -218,7 +218,7 @@ public class JoinActivity extends AppCompatActivity {
         builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
             }
         });//builder.setNegativeButton()
 

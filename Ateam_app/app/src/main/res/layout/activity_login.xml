@@ -70,14 +70,12 @@
             android:layout_marginLeft="8dp"/>
     </LinearLayout>
 
-    <Button
+    <com.kakao.usermgmt.LoginButton
         android:layout_marginTop="20dp"
         android:id="@+id/btnKakaoLogin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="30dp"
-        android:text="카카오 계정으로 로그인"
-        android:textSize="20dp"
         android:layout_weight="0.5"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"/>
