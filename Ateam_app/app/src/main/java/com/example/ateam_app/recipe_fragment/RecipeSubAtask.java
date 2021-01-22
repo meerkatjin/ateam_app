@@ -1,5 +1,6 @@
 package com.example.ateam_app.recipe_fragment;
 
+import android.app.ProgressDialog;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
@@ -23,10 +24,19 @@ import static com.example.ateam_app.common.CommonMethod.ipConfig;
 public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
     ArrayList<RecipeSubItem> myRecipeSubItems;
     int recipe_id;
+    RecipeSubAdapter adapter;
+    ProgressDialog progressDialog;
     RecipeSubItem recipeSubItem;
     public RecipeSubAtask(ArrayList<RecipeSubItem> myRecipeSubItems, int recipe_id) {
         this.myRecipeSubItems = myRecipeSubItems;
         this.recipe_id = recipe_id;
+    }
+
+    public RecipeSubAtask(ArrayList<RecipeSubItem> myRecipeSubItems, int recipe_id, RecipeSubAdapter adapter) {
+        this.myRecipeSubItems = myRecipeSubItems;
+        this.recipe_id = recipe_id;
+        this.adapter = adapter;
+
     }
 
     HttpClient httpClient;
@@ -34,8 +44,11 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
     HttpResponse httpResponse;
     HttpEntity httpEntity;
 
+
+
     @Override
     protected Void doInBackground(Void... voids) {
+        myRecipeSubItems.clear();
 
         try {
             // MultipartEntityBuild 생성
@@ -45,8 +58,8 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
             // 문자열 및 데이터 추가
             builder.addTextBody("recipe_id", String.valueOf(recipe_id), ContentType.create("Multipart/related", "UTF-8"));
             //builder.addTextBody("passwd", passwd, ContentType.create("Multipart/related", "UTF-8"));
-
             String postURL = ipConfig + "/ateamappspring/recipeIng";
+
             // 전송
             InputStream inputStream = null;
             httpClient = AndroidHttpClient.newInstance("Android");
@@ -56,11 +69,11 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-            // 하나의 오브젝트 가져올때
-            //readJsonStream(inputStream);
+
+            readJsonStream(inputStream);
 
         } catch (Exception e) {
-            Log.d("main:loginselect", e.getMessage());
+            Log.d("RecipeSub:RecipeSub", e.getMessage());
             e.printStackTrace();
         }finally {
             if(httpEntity != null){
@@ -88,9 +101,9 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
 
         Log.d("RecipeFragment", "List Select Complete!!!");
 
-        //adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
-  /*  public void readJsonStream(InputStream inputStream) throws IOException {
+   public void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
         try {
             reader.beginArray();
@@ -106,52 +119,35 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
             reader.close();
         }
     }
-    public void readMessage(JsonReader reader) throws IOException {
+    public RecipeSubItem readMessage(JsonReader reader) throws IOException {
 
         int recipe_id = 0;
-        String recipe_nm_ko = "";
-        String sumry = "";
-        String nation_nm = "";
-        String ty_nm = "";
-        String cooking_time = "";
-        String calorie = "";
-        String qnt = "";
-        String level_nm = "";
-        String irdnt_code = "";
-        String img_url = "";
+        String cooking_no = "";
+        String cooking_dc = "";
+        String stre_step_image_url = "";
+        String step_tip = "";
 
         reader.beginObject();
         while (reader.hasNext()) {
             String readStr = reader.nextName();
             if (readStr.equals("recipe_id")) {
                 recipe_id = Integer.parseInt(reader.nextString());
-            } else if (readStr.equals("recipe_nm_ko")) {
-                recipe_nm_ko = reader.nextString();
-            } else if (readStr.equals("sumry")) {
-                sumry = reader.nextString();
-            } else if (readStr.equals("nation_nm")) {
-                nation_nm  = reader.nextString();
-            } else if (readStr.equals("ty_nm")) {
-                ty_nm  = reader.nextString();
-            } else if (readStr.equals("cooking_time")) {
-                cooking_time  = reader.nextString();
-            } else if (readStr.equals("calorie")) {
-                calorie  = reader.nextString();
-            } else if (readStr.equals("qnt")) {
-                qnt  = reader.nextString();
-            } else if (readStr.equals("level_nm")) {
-                level_nm  = reader.nextString();
-            } else if (readStr.equals("irdnt_code")) {
-                irdnt_code  = reader.nextString();
-            } else if (readStr.equals("img_url")) {
-                img_url  = reader.nextString();
+            } else if (readStr.equals("cooking_no")) {
+                cooking_no = reader.nextString();
+            } else if (readStr.equals("cooking_dc")) {
+                cooking_dc = reader.nextString();
+            } else if (readStr.equals("stre_step_image_url")) {
+                stre_step_image_url  = reader.nextString();
+            } else if (readStr.equals("step_tip")) {
+                step_tip  = reader.nextString();
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
-        //return new RecipeSubItem(recipe_id, recipe_nm_ko, sumry, nation_nm, ty_nm, cooking_time, calorie, qnt, level_nm, irdnt_code, img_url);
+        Log.d("RecipeSub : ", recipe_id + ", " + cooking_no);
+        return new RecipeSubItem(recipe_id, cooking_no, cooking_dc, stre_step_image_url, step_tip);
 
 
-    }*/
+    }
 }

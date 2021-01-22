@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="167dp"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:padding="20dp"
+
+        >
 
         <ImageView
             android:id="@+id/img_url_im"
@@ -23,7 +25,14 @@
             android:src="@mipmap/ic_launcher"
 
             />
-
+        <ImageView
+            android:id="@+id/img_sub_url_im"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone"
+            />
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

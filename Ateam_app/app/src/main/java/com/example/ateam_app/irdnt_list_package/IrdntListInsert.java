@@ -1,4 +1,4 @@
-package irdnt_list_package;
+package com.example.ateam_app.irdnt_list_package;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
