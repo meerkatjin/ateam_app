@@ -55,6 +55,7 @@ public class RecipeFragment extends Fragment {
         if(isNetworkConnected(context) == true) {
             recipeAtask = new RecipeAtask(items, adapter, progressDialog);
             recipeAtask.execute();
+
         }
 
       adapter.setOnItemClicklistener(new OnRecipeItemClickListener() {

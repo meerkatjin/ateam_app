@@ -29,10 +29,14 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
         this.recipe_id = recipe_id;
     }
 
+
+
     HttpClient httpClient;
     HttpPost httpPost;
     HttpResponse httpResponse;
     HttpEntity httpEntity;
+
+
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -57,10 +61,10 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
             inputStream = httpEntity.getContent();
 
             // 하나의 오브젝트 가져올때
-            //readJsonStream(inputStream);
+            readJsonStream(inputStream);
 
         } catch (Exception e) {
-            Log.d("main:loginselect", e.getMessage());
+            Log.d("RecipeSub:RecipeSub", e.getMessage());
             e.printStackTrace();
         }finally {
             if(httpEntity != null){
@@ -90,7 +94,7 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
 
         //adapter.notifyDataSetChanged();
     }
-  /*  public void readJsonStream(InputStream inputStream) throws IOException {
+   public void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
         try {
             reader.beginArray();
@@ -106,52 +110,35 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
             reader.close();
         }
     }
-    public void readMessage(JsonReader reader) throws IOException {
+    public RecipeSubItem readMessage(JsonReader reader) throws IOException {
 
         int recipe_id = 0;
-        String recipe_nm_ko = "";
-        String sumry = "";
-        String nation_nm = "";
-        String ty_nm = "";
-        String cooking_time = "";
-        String calorie = "";
-        String qnt = "";
-        String level_nm = "";
-        String irdnt_code = "";
-        String img_url = "";
+        String cooking_no = "";
+        String cooking_dc = "";
+        String stre_step_image_url = "";
+        String step_tip = "";
 
         reader.beginObject();
         while (reader.hasNext()) {
             String readStr = reader.nextName();
             if (readStr.equals("recipe_id")) {
                 recipe_id = Integer.parseInt(reader.nextString());
-            } else if (readStr.equals("recipe_nm_ko")) {
-                recipe_nm_ko = reader.nextString();
-            } else if (readStr.equals("sumry")) {
-                sumry = reader.nextString();
-            } else if (readStr.equals("nation_nm")) {
-                nation_nm  = reader.nextString();
-            } else if (readStr.equals("ty_nm")) {
-                ty_nm  = reader.nextString();
-            } else if (readStr.equals("cooking_time")) {
-                cooking_time  = reader.nextString();
-            } else if (readStr.equals("calorie")) {
-                calorie  = reader.nextString();
-            } else if (readStr.equals("qnt")) {
-                qnt  = reader.nextString();
-            } else if (readStr.equals("level_nm")) {
-                level_nm  = reader.nextString();
-            } else if (readStr.equals("irdnt_code")) {
-                irdnt_code  = reader.nextString();
-            } else if (readStr.equals("img_url")) {
-                img_url  = reader.nextString();
+            } else if (readStr.equals("cooking_no")) {
+                cooking_no = reader.nextString();
+            } else if (readStr.equals("cooking_dc")) {
+                cooking_dc = reader.nextString();
+            } else if (readStr.equals("stre_step_image_url")) {
+                stre_step_image_url  = reader.nextString();
+            } else if (readStr.equals("step_tip")) {
+                step_tip  = reader.nextString();
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
-        //return new RecipeSubItem(recipe_id, recipe_nm_ko, sumry, nation_nm, ty_nm, cooking_time, calorie, qnt, level_nm, irdnt_code, img_url);
+        Log.d("RecipeSub : ", recipe_id + ", " + cooking_no);
+        return new RecipeSubItem(recipe_id, cooking_no, cooking_dc, stre_step_image_url, step_tip);
 
 
-    }*/
+    }
 }

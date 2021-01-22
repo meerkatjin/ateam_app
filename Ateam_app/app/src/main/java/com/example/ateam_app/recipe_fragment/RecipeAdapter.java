@@ -22,6 +22,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     Context context;
     static OnRecipeItemClickListener listener;
 
+
+
     public RecipeAdapter(Context context, ArrayList<RecipeItem> items) {
         this.items = items;
         this.context = context;
@@ -45,6 +47,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
         RecipeItem item = items.get(position);
+
         viewHolder.setItem(item);
 
 
@@ -105,6 +108,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         TextView irdnt_code;
         ImageView img_url_im;
 
+
         LinearLayout recipe_item_layout;
 
         public ViewHolder(@NonNull View itemView, OnRecipeItemClickListener listener) {
@@ -145,6 +149,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             qnt.setText(item.getQnt());
             level_nm.setText(item.getLevel_nm());
             irdnt_code.setText(item.getIrdnt_code());
+
             Glide.with(itemView).load(item.getImg_url()).into(img_url_im);
 
         }
