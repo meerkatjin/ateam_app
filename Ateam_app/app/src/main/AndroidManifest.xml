@@ -11,15 +11,20 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <queries>
+
         <!-- WebView -->
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.BROWSABLE" />
+
             <data android:scheme="http" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.BROWSABLE" />
+
             <data android:scheme="https" />
         </intent>
 
@@ -48,16 +53,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ateam_app"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserInfoChangeActivity"></activity>
-
-        <!-- 애 빠져서 로그인 안되던거 -->
+        <activity android:name=".UserInfoChangeActivity" /> <!-- 애 빠져서 로그인 안되던거 -->
         <!-- https가 아니라 http로 오더라도 그냥 허가하는 부분 -->
         <!-- http 라이브러리 사용 -->
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <!-- 카카오 메타데이타 -->
+            android:required="false" /> <!-- 카카오 메타데이타 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
@@ -78,7 +79,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

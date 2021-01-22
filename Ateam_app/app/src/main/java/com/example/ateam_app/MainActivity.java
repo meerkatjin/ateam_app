@@ -107,6 +107,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().findItem(R.id.nav_userInfoChange).setVisible(false);
         }
 
+        //관리자 버튼 활성화
+        if(loginDTO.getUser_grade().equals("2")){
+            navigationView.getMenu().findItem(R.id.nav_admin).setVisible(true);
+        }
+
+        Log.d(TAG, "grade : " + loginDTO.getUser_grade());
+
+        if(loginDTO.getUser_grade().equals("2")){
+            Log.d(TAG, "grade : TRUE");
+        }
+
+
         mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_view);
         irdntListFragment = new IrdntListFragment();
         camFragment = new CamFragment();
@@ -159,15 +171,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivityForResult(intent, USERINFO_CODE);
 
         } else if (id == R.id.nav_logout) {
-            Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
             logoutMessage();
-
         } else if (id == R.id.nav_withdrawal){
-            Toast.makeText(this, "회원탈퇴", Toast.LENGTH_SHORT).show();
             withdrawalMessage();
         } else if (id == R.id.nav_admin) {
             Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
