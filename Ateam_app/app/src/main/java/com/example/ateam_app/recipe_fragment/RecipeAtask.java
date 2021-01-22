@@ -45,7 +45,7 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         myRecipeArrayList.clear();
-        String result = "";
+
         String postURL = ipConfig + "/ateamappspring/recipeInfo";
         try {
             // MultipartEntityBuild 생성
