@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ManageTipFragment manageTipFragment;
     Intent loginIntent; //로그인 엑티비티에서 로그인한 회원의 데이터 받아옴(비밀번호 빼고)
 
-
     BottomNavigationView bottomNavigationView;
+    int bottomNavi = 1; //하단 네비게이션 바 선택점 저장
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,18 +103,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 switch (item.getItemId()) {
                     case R.id.tabMain:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
+                        bottomNavi = 1;
                         return true;
                     case R.id.tabIrdntList:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, irdntListFragment).commit();
+                        bottomNavi = 2;
                         return true;
                     case R.id.tabCam:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, camFragment).commit();
+                        bottomNavi = 3;
                         return true;
                     case R.id.tabRecipe:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, recipeFragment).commit();
+                        bottomNavi = 4;
                         return true;
                     case R.id.tabManageTip:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, manageTipFragment).commit();
+                        bottomNavi = 5;
                         return true;
 
                 }//switch-case
@@ -311,11 +316,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.menu_search);
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
+            }
+        });
+
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String text) {
+                if (bottomNavi == 1) {
+                    //Toast.makeText(MainActivity.this, "통합 검색 : " + searchText, Toast.LENGTH_SHORT).show();
 
+
+                } else if (bottomNavi == 2) {
+                    //Toast.makeText(MainActivity.this, "재료 검색 : " + searchText, Toast.LENGTH_SHORT).show();
+
+                } else if (bottomNavi == 3) {
+                    Toast.makeText(MainActivity.this, "여기서는 검색을 지원하지 않습니다.", Toast.LENGTH_SHORT).show();
+
+                } else if (bottomNavi == 4) {
+                    //Toast.makeText(MainActivity.this, "레시피 검색 : " + searchText, Toast.LENGTH_SHORT).show();
+
+                } else if (bottomNavi == 5) {
+                    //Toast.makeText(MainActivity.this, "팁 검색 : " + searchText, Toast.LENGTH_SHORT).show();
+
+                }
 
                 return false;
             }
