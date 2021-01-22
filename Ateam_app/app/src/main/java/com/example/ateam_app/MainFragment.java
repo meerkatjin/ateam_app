@@ -28,7 +28,7 @@ public class MainFragment extends Fragment {
         shelfLifeAlertBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(rootView.getContext(), "유통기한 알림배너", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(rootView.getContext(), "유통기한 알림배너", Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).replaceFragment(IrdntListFragment.newInstance());
             }
         });
