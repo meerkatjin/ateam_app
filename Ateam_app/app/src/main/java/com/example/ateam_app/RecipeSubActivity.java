@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,22 +30,21 @@ public class RecipeSubActivity extends AppCompatActivity {
     RecipeSubAtask recipeSubAtask;
     RecipeSubAdapter adapter;
     ArrayList<RecipeSubItem> items;
-    RecipeSubItem item;
-   // RecipeDTO dto;
     RecyclerView recyclerView;
     Intent intent;
     RecyclerView.LayoutManager mLayoutManager;
-    ProgressDialog progressDialog;
-    public static RecipeSubItem recipeSubItem = null;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_sub);
         items = new ArrayList<>();
         adapter = new RecipeSubAdapter(this, items);
-        intent = getIntent();
+        intent = this.getIntent();
         recyclerView = findViewById(R.id.recipe_item_recyclerview);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
