@@ -1,4 +1,4 @@
-package com.example.ateam_app;
+package com.example.ateam_app.common;
 
 import android.app.Application;
 import android.content.Context;
