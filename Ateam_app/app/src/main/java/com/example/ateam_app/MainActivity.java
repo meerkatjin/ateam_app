@@ -24,7 +24,6 @@ import android.widget.Toast;
 
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
-import com.example.ateam_app.user_pakage.JoinActivity;
 import com.example.ateam_app.user_pakage.LoginActivity;
 import com.example.ateam_app.user_pakage.atask.UserDelete;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
@@ -38,7 +37,7 @@ import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 
 import java.util.concurrent.ExecutionException;
 
-import irdnt_list_package.IrdntListFragment;
+import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
 
 import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
