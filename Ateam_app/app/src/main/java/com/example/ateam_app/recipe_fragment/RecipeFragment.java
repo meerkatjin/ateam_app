@@ -40,6 +40,7 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_recipe, container, false);
         Context context = viewGroup.getContext();
         items = new ArrayList<>();
@@ -81,9 +82,9 @@ public class RecipeFragment extends Fragment {
         return viewGroup;
     }
 
-    public static RecipeFragment newInstance() {
+   /* public static RecipeFragment newInstance() {
         return new RecipeFragment();
-    }
+    }*/
 
 
 

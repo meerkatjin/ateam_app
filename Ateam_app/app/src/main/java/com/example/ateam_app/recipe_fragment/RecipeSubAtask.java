@@ -1,5 +1,6 @@
 package com.example.ateam_app.recipe_fragment;
 
+import android.app.ProgressDialog;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
@@ -23,13 +24,20 @@ import static com.example.ateam_app.common.CommonMethod.ipConfig;
 public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
     ArrayList<RecipeSubItem> myRecipeSubItems;
     int recipe_id;
+    RecipeSubAdapter adapter;
+    ProgressDialog progressDialog;
     RecipeSubItem recipeSubItem;
     public RecipeSubAtask(ArrayList<RecipeSubItem> myRecipeSubItems, int recipe_id) {
         this.myRecipeSubItems = myRecipeSubItems;
         this.recipe_id = recipe_id;
     }
 
+    public RecipeSubAtask(ArrayList<RecipeSubItem> myRecipeSubItems, int recipe_id, RecipeSubAdapter adapter) {
+        this.myRecipeSubItems = myRecipeSubItems;
+        this.recipe_id = recipe_id;
+        this.adapter = adapter;
 
+    }
 
     HttpClient httpClient;
     HttpPost httpPost;
@@ -40,6 +48,7 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+        myRecipeSubItems.clear();
 
         try {
             // MultipartEntityBuild 생성
@@ -49,8 +58,8 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
             // 문자열 및 데이터 추가
             builder.addTextBody("recipe_id", String.valueOf(recipe_id), ContentType.create("Multipart/related", "UTF-8"));
             //builder.addTextBody("passwd", passwd, ContentType.create("Multipart/related", "UTF-8"));
-
             String postURL = ipConfig + "/ateamappspring/recipeIng";
+
             // 전송
             InputStream inputStream = null;
             httpClient = AndroidHttpClient.newInstance("Android");
@@ -60,7 +69,7 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-            // 하나의 오브젝트 가져올때
+
             readJsonStream(inputStream);
 
         } catch (Exception e) {
@@ -92,7 +101,7 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
 
         Log.d("RecipeFragment", "List Select Complete!!!");
 
-        //adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
    public void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
