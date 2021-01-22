@@ -18,13 +18,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
-import com.example.ateam_app.user_pakage.JoinActivity;
 import com.example.ateam_app.user_pakage.LoginActivity;
 import com.example.ateam_app.user_pakage.atask.UserDelete;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
@@ -38,7 +41,7 @@ import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 
 import java.util.concurrent.ExecutionException;
 
-import irdnt_list_package.IrdntListFragment;
+import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
 
 import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
@@ -66,23 +69,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //측면 메뉴 호출 (Navigation Drawer)
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle
-                = new ActionBarDrawerToggle(this, drawer,
-                toolbar, R.string.navi_drawer_open, R.string.navi_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_view);
-        irdntListFragment = new IrdntListFragment();
-        camFragment = new CamFragment();
-        recipeFragment = new RecipeFragment();
-        manageTipFragment = new ManageTipFragment();
-
         //로그인 데이터 받는곳
         loginIntent = getIntent();
         loginDTO = (UserDTO) loginIntent.getSerializableExtra("loginDTO");
@@ -94,6 +80,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 + ", user_phone_no : " + loginDTO.getUser_phone_no()
                 + ", user_grade : " + loginDTO.getUser_grade()
                 + ", user_type : " + loginDTO.getUser_type());
+
+        //측면 메뉴 호출 (Navigation Drawer)
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle
+                = new ActionBarDrawerToggle(this, drawer,
+                toolbar, R.string.navi_drawer_open, R.string.navi_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        ImageView header_user_pro_img = headerView.findViewById(R.id.user_pro_img);
+        TextView header_user_nm = headerView.findViewById(R.id.user_nm);
+        TextView header_user_email = headerView.findViewById(R.id.user_email);
+
+        //프로필 이미지 띄우기
+        Glide.with(this).load(loginDTO.getUser_pro_img()).into(header_user_pro_img);
+        header_user_nm.setText(loginDTO.getUser_nm() + " 님 반갑습니다!");
+        header_user_email.setText(loginDTO.getUser_email());
+
+        //소셜 로그인 유저는 회원정보 수정 불가하게 막음
+        if(!loginDTO.getUser_type().equals("nomal")){
+            navigationView.getMenu().findItem(R.id.nav_userInfoChange).setVisible(false);
+        }
+
+        //관리자 버튼 활성화
+        if(loginDTO.getUser_grade().equals("2")){
+            navigationView.getMenu().findItem(R.id.nav_admin).setVisible(true);
+        }
+
+        Log.d(TAG, "grade : " + loginDTO.getUser_grade());
+
+        if(loginDTO.getUser_grade().equals("2")){
+            Log.d(TAG, "grade : TRUE");
+        }
+
+
+        mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_view);
+        irdntListFragment = new IrdntListFragment();
+        camFragment = new CamFragment();
+        recipeFragment = new RecipeFragment();
+        manageTipFragment = new ManageTipFragment();
 
         //하단 메뉴 (Bottom Navigation View)
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -141,15 +171,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivityForResult(intent, USERINFO_CODE);
 
         } else if (id == R.id.nav_logout) {
-            Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show();
             logoutMessage();
-
         } else if (id == R.id.nav_withdrawal){
-            Toast.makeText(this, "회원탈퇴", Toast.LENGTH_SHORT).show();
             withdrawalMessage();
         } else if (id == R.id.nav_admin) {
             Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -157,7 +183,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }//onNavigationItemSelected()
-
+    
+/****************************************탈퇴, 로그아웃 블록 시작**************************************************/
     //회원탈퇴
     private void withdrawalMessage() {
         EditText withdrawalText = new EditText(this);
@@ -308,9 +335,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
-
+/****************************************탈퇴, 로그아웃 블록 끝******************************************/
+    
     //검색
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -24,7 +24,7 @@
 
     <item
         android:id="@+id/admin_item"
-        android:title="Admin"
+        android:title="관리페이지"
         android:visible="false">
 
         <menu>

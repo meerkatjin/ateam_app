@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import irdnt_list_package.IrdntListFragment;
+import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
 
 public class MainFragment extends Fragment {
     CardView shelfLifeAlertBanner, recipeRecommandBanner, manageTipBanner;

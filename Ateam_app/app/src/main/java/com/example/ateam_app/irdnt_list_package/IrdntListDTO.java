@@ -1,4 +1,4 @@
-package irdnt_list_package;
+package com.example.ateam_app.irdnt_list_package;
 
 public class IrdntListDTO {
     String content_nm, content_ty, shelf_life_end;

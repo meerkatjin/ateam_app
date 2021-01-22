@@ -1,4 +1,4 @@
-package irdnt_list_package;
+package com.example.ateam_app.irdnt_list_package;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,9 +18,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
-import com.example.ateam_app.user_pakage.LoginActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
