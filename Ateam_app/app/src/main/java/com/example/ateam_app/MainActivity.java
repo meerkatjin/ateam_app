@@ -358,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String text) {
+            public boolean onQueryTextSubmit(String searchText) {
                 if (bottomNavi == 1) {
                     //Toast.makeText(MainActivity.this, "통합 검색 : " + searchText, Toast.LENGTH_SHORT).show();
 
