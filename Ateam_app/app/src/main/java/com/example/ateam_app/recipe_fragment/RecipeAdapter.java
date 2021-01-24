@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,11 +76,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void setOnItemClicklistener(OnRecipeItemClickListener listener) {
         this.listener = listener; }
 
-
-
-
-
-
     @Override
     public void onItemClick(RecipeAdapter.ViewHolder holder, View view, int position) {
         if (listener != null){
@@ -119,7 +113,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             qnt = itemView.findViewById(R.id.calorie);
             level_nm = itemView.findViewById(R.id.level_nm);
             irdnt_code = itemView.findViewById(R.id.irdnt_code);
-            img_url_im = itemView.findViewById(R.id.img_url_im);
+            img_url_im = itemView.findViewById(R.id.user_pro_img);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

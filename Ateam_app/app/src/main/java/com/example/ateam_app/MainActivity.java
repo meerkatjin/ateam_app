@@ -31,6 +31,7 @@ import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
 import com.example.ateam_app.user_pakage.atask.UserDelete;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
+import com.example.ateam_app.user_pakage.fragment.UserMnageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.kakao.network.ErrorResult;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CamFragment camFragment;
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
+    UserMnageFragment userMnageFragment;    //관리자 프레그먼트
     Intent loginIntent; //로그인 엑티비티에서 로그인한 회원의 데이터 받아옴(비밀번호 빼고)
 
     BottomNavigationView bottomNavigationView;
@@ -109,21 +111,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //관리자 버튼 활성화
         if(loginDTO.getUser_grade().equals("2")){
-            navigationView.getMenu().findItem(R.id.nav_admin).setVisible(true);
+            navigationView.getMenu().findItem(R.id.admin_item).setVisible(true);
         }
-
-        Log.d(TAG, "grade : " + loginDTO.getUser_grade());
-
-        if(loginDTO.getUser_grade().equals("2")){
-            Log.d(TAG, "grade : TRUE");
-        }
-
 
         mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_view);
         irdntListFragment = new IrdntListFragment();
         camFragment = new CamFragment();
         recipeFragment = new RecipeFragment();
         manageTipFragment = new ManageTipFragment();
+        userMnageFragment = new UserMnageFragment();
 
         //하단 메뉴 (Bottom Navigation View)
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -175,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_withdrawal){
             withdrawalMessage();
         } else if (id == R.id.nav_admin) {
-            Toast.makeText(this, "관리자 메뉴", Toast.LENGTH_SHORT).show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, userMnageFragment).commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -297,12 +293,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     dialog.dismiss();
                 }
             });
-        }
+        }//if
 
         AlertDialog dialog = builder.create();
         dialog.show();
     }//withdrawalMessage()
 
+    //회원 로그아웃
     private void logoutMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("안내");
@@ -335,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
+    }//logoutMessage()
 /****************************************탈퇴, 로그아웃 블록 끝******************************************/
     
     //검색
