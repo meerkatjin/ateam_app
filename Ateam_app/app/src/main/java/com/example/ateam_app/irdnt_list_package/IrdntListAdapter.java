@@ -1,6 +1,7 @@
 package com.example.ateam_app.irdnt_list_package;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,10 @@ import java.util.ArrayList;
 
 public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.ViewHolder> {
     private ArrayList<IrdntListDTO> items;
+    private Context context;
 
-    public IrdntListAdapter(ArrayList<IrdntListDTO> items) {
+    public IrdntListAdapter(Context context, ArrayList<IrdntListDTO> items) {
+        this.context = context;
         this.items = items;
     }
 

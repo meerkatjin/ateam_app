@@ -42,6 +42,8 @@ public class IrdntListFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
         Context context = rootView.getContext();
+        items = new ArrayList<>();
+        adapter = new IrdntListAdapter(context, items);
 
         //재료 탭
         irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
@@ -106,15 +108,8 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
-        irdntRecyclerView = (RecyclerView) rootView.findViewById(R.id.irdntRecyclerView);
-        layoutManager = new LinearLayoutManager(context);
-        irdntRecyclerView.setLayoutManager(layoutManager);
-
-        items = new ArrayList<>();
-        adapter = new IrdntListAdapter(items);
-
         //Sample Data
-        dto = new IrdntListDTO("양파", "채소", "2021-01-28");
+        /*dto = new IrdntListDTO("양파", "채소", "2021-01-28");
         items.add(dto);
         dto = new IrdntListDTO("돼지고기", "고기", "2021-01-22");
         items.add(dto);
@@ -125,7 +120,14 @@ public class IrdntListFragment extends Fragment {
         dto = new IrdntListDTO("콜라", "음료/기타", "2021-08-02");
         items.add(dto);
         dto = new IrdntListDTO("훈제오리", "고기", "2021-04-13");
-        items.add(dto);
+        items.add(dto);*/
+
+        irdntRecyclerView = (RecyclerView) rootView.findViewById(R.id.irdntRecyclerView);
+        layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        irdntRecyclerView.setLayoutManager(layoutManager);
+
+        items = new ArrayList<>();
+        adapter = new IrdntListAdapter(context, items);
         irdntRecyclerView.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
