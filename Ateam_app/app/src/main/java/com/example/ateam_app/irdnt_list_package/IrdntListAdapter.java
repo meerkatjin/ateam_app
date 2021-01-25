@@ -60,9 +60,9 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            content_nm = (TextView) itemView.findViewById(R.id.content_nm);
-            content_ty = (TextView) itemView.findViewById(R.id.content_ty);
-            shelf_life_end = (TextView) itemView.findViewById(R.id.shelf_life_end);
+            content_nm = itemView.findViewById(R.id.content_nm);
+            content_ty = itemView.findViewById(R.id.content_ty);
+            shelf_life_end = itemView.findViewById(R.id.shelf_life_end);
         }
 
         public void setItem(IrdntListDTO dto) {

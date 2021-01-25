@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
+import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 
 public class MainFragment extends Fragment {
     CardView shelfLifeAlertBanner, recipeRecommandBanner, manageTipBanner;
@@ -47,6 +48,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(rootView.getContext(), "냉장고 관리 팁 배너", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).replaceFragment(ManageTipFragment.newInstance());
             }
         });
 

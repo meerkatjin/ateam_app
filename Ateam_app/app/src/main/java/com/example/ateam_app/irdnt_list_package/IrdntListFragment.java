@@ -109,20 +109,20 @@ public class IrdntListFragment extends Fragment {
         });
 
         //Sample Data
-        /*dto = new IrdntListDTO("양파", "채소", "2021-01-28");
-        items.add(dto);
-        dto = new IrdntListDTO("돼지고기", "고기", "2021-01-22");
-        items.add(dto);
-        dto = new IrdntListDTO("우유", "유제품", "2021-01-19");
-        items.add(dto);
-        dto = new IrdntListDTO("청양고추", "채소", "2021-01-27");
-        items.add(dto);
-        dto = new IrdntListDTO("콜라", "음료/기타", "2021-08-02");
-        items.add(dto);
+        //dto = new IrdntListDTO("양파", "채소", "2021-01-28");
+        //items.add(dto);
+        //dto = new IrdntListDTO("돼지고기", "고기", "2021-01-22");
+        //items.add(dto);
+        //dto = new IrdntListDTO("우유", "유제품", "2021-01-19");
+        //items.add(dto);
+        //dto = new IrdntListDTO("청양고추", "채소", "2021-01-27");
+        //items.add(dto);
+        //dto = new IrdntListDTO("콜라", "음료/기타", "2021-08-02");
+        //items.add(dto);
         dto = new IrdntListDTO("훈제오리", "고기", "2021-04-13");
-        items.add(dto);*/
+        items.add(dto);
 
-        irdntRecyclerView = (RecyclerView) rootView.findViewById(R.id.irdntRecyclerView);
+        irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
         layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         irdntRecyclerView.setLayoutManager(layoutManager);
 
@@ -176,6 +176,7 @@ public class IrdntListFragment extends Fragment {
         return rootView;
     }//onCreateView()
 
+    //재료 추가 메소드 -> IrdntListInsert로 이동
     private void irdntInsertConfirm(String name) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 

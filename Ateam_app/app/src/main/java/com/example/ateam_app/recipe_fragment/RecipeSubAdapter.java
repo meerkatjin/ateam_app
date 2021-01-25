@@ -33,7 +33,7 @@ public class RecipeSubAdapter extends RecyclerView.Adapter<RecipeSubAdapter.View
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.activity_recipe_sub_item, viewGroup, false);
 
-        return new ViewHolder(itemView, listener);
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -42,10 +42,6 @@ public class RecipeSubAdapter extends RecyclerView.Adapter<RecipeSubAdapter.View
 
         viewHolder.setItem(item);
     }
-
-
-
-
 
     public void addItem(RecipeSubItem item){
         items.add(item);
@@ -76,11 +72,6 @@ public class RecipeSubAdapter extends RecyclerView.Adapter<RecipeSubAdapter.View
         this.listener = listener;
     }
 
-
-
-
-
-
     @Override
     public void onItemClick(RecipeSubAdapter.ViewHolder holder, View view, int position) {
         if (listener != null){
@@ -93,44 +84,45 @@ public class RecipeSubAdapter extends RecyclerView.Adapter<RecipeSubAdapter.View
         TextView recipe_id;
         TextView cooking_no;
         TextView cooking_dc;
-        ImageView img_url_im;
+        ImageView stre_step_image_url_im;
         TextView step_tip;
         LinearLayout recipe_item_layout;
 
-        public ViewHolder(@NonNull View itemView, OnRecipeSubItemClickListener listener) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             recipe_id = itemView.findViewById(R.id.recipe_id);
             cooking_no = itemView.findViewById(R.id.cooking_no);
             cooking_dc = itemView.findViewById(R.id.cooking_dc);
-            img_url_im = itemView.findViewById(R.id.img_url_im);
+            stre_step_image_url_im = itemView.findViewById(R.id.stre_step_image_url_im);
             step_tip = itemView.findViewById(R.id.step_tip);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if(listener != null){
-                        listener.onItemClick(ViewHolder.this,
-                                itemView, position);
-                    }
-                }
-            });
-
 
         }
         public void setItem(RecipeSubItem item) {
-            recipe_id.setText(String.valueOf(item.getRecipe_id()));
-            cooking_no.setText(item.getCooking_no());
-            cooking_dc.setText(item.getCooking_dc());
-            //img_url_im.setText(item.getNation_nm());
-            step_tip.setText(item.getStep_tip());
+            //recipe_id.setText(String.valueOf(item.getRecipe_id()));
+
+                cooking_no.setText(item.getCooking_no());
+
+                //cooking_no.setText("");
+
+                cooking_dc.setText(item.getCooking_dc());
 
 
-            //Glide.with(itemView).load(item.getStre_step_image_url()).into(img_url_im);
+
+                //cooking_dc.setText("");
+
+
+
+                step_tip.setText(item.getStep_tip());
+
+                //step_tip.setText("");
+
+
+
+            Glide.with(itemView).load(item.getStre_step_image_url()).into(stre_step_image_url_im);
+
 
         }
 
-
     }
-
 
 }

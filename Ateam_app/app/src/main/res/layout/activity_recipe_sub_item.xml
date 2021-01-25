@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="30dp"
+    >
+
     <LinearLayout
+        android:id="@+id/recipe_sub_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="4"
+        android:padding="10dp"
+        android:background="@drawable/edge"
         >
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="173dp"
             android:shadowColor="#000000"
-            android:text="내용" />
+            android:text="내용"
+
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -37,7 +48,9 @@
             <ImageView
                 android:id="@+id/stre_step_image_url_im"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp"
+
+                />
 
             <TextView
                 android:id="@+id/step_tip"
