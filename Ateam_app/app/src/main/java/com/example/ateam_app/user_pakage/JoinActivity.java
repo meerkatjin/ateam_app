@@ -17,6 +17,8 @@ import com.example.ateam_app.user_pakage.dto.UserDTO;
 
 import java.util.concurrent.ExecutionException;
 
+import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
+
 public class JoinActivity extends AppCompatActivity {
 
     String state;
@@ -193,24 +195,26 @@ public class JoinActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                JoinInsert joinInsert = new JoinInsert(dto);
-                try {
-                    state = joinInsert.execute().get().trim();
-                    Log.d("main:joinact0 : ", state);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                if(isNetworkConnected(JoinActivity.this)) {
+                    JoinInsert joinInsert = new JoinInsert(dto);
+                    try {
+                        state = joinInsert.execute().get().trim();
+                        Log.d("main:joinact0 : ", state);
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-                if(state.equals("1")){
-                    Toast.makeText(JoinActivity.this, "회원가입을 환영합니다 !!!", Toast.LENGTH_SHORT).show();
-                    Log.d("main:joinact", "삽입성공 !!!");
-                    finish();
-                }else{
-                    Toast.makeText(JoinActivity.this, "화원가입 실패하였습니다 !!!", Toast.LENGTH_SHORT).show();
-                    Log.d("main:joinact", "삽입실패 !!!");
-                    finish();
+                    if (state.equals("1")) {
+                        Toast.makeText(JoinActivity.this, "회원가입을 환영합니다 !!!", Toast.LENGTH_SHORT).show();
+                        Log.d("main:joinact", "삽입성공 !!!");
+                        finish();
+                    } else {
+                        Toast.makeText(JoinActivity.this, "화원가입 실패하였습니다 !!!", Toast.LENGTH_SHORT).show();
+                        Log.d("main:joinact", "삽입실패 !!!");
+                        finish();
+                    }
                 }
             }
         });//builder.setPositiveButton()

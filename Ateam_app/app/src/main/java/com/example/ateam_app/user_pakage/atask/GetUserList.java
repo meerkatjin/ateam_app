@@ -5,13 +5,13 @@ import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 
+import com.example.ateam_app.user_pakage.adapter.UserAdapter;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
@@ -20,16 +20,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class LoginSelect extends AsyncTask<Void, Void, Void> {
+public class GetUserList extends AsyncTask<Void, Void, Void> {
+    ArrayList<UserDTO> dtos;
+    UserAdapter adapter;
 
-    private String email, pw;
-
-    public LoginSelect(String email, String pw){
-        this.email = email;
-        this.pw = pw;
+    public GetUserList(ArrayList<UserDTO> dtos, UserAdapter adapter){
+        this.dtos = dtos;
+        this.adapter = adapter;
     }
 
     HttpClient httpClient;
@@ -44,10 +43,7 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-
-            builder.addTextBody("user_email", email, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("user_pw", pw, ContentType.create("Multipart/related", "UTF-8"));
-            String postURL = ipConfig + "/ateamappspring/appLogin";
+            String postURL = ipConfig + "/ateamappspring/getUserList";
 
             //전송
             InputStream inputStream = null;
@@ -58,13 +54,8 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-           //유저 로그인 데이터 가져갈때
-            loginDTO = readMessage(inputStream);
-            inputStream.close();
-
-            
+            readJsonStream(inputStream);
         }catch (Exception e){
-            Log.d("main:loginselect", e.getMessage());
             e.printStackTrace();
         }finally {
             if(httpEntity != null){
@@ -83,14 +74,27 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    //로그인시 개인 데이터 가져올때
-    private UserDTO readMessage(InputStream inputStream) throws IOException {
+    private void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
+        try {
+            reader.beginArray();
+            while (reader.hasNext()) {
+                dtos.add(readMessage(reader));
+            }
+            reader.endArray();
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getMessage();
+        }finally {
+            reader.close();
+        }
+    }
 
+    //리스트 가져올때
+    private UserDTO readMessage(JsonReader reader) throws IOException {
         long user_id = 0;
         String  user_email = "", user_nm = "", user_pw = "",user_addr = "", user_pro_img = "",
                 user_phone_no = "", user_grade = "", user_type = "";
-
 
         reader.beginObject();
         while (reader.hasNext()){
@@ -118,7 +122,8 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
             }
         }
         reader.endObject();
-        Log.d("main:loginselect : ", user_email + ", " + user_nm + ", " + user_addr + ", " + user_phone_no);
+        Log.d("main:getUser : ", user_email + ", " + user_nm + ", " + user_addr + ", " + user_phone_no);
         return new UserDTO(user_id, user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no, user_grade, user_type);
-    }//readMessage()
+    }
+
 }

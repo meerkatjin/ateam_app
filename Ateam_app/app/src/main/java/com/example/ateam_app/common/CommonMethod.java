@@ -4,10 +4,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 public class CommonMethod {
     //public static String  ipConfig = "http://121.179.5.99:8989";  //선생님 컴퓨터로 보낼때
-    public static String  ipConfig = "http://192.168.0.10:80";  //자기 ip 사용하기
+    public static String  ipConfig = "http://192.168.0.64:80";  //자기 ip 사용하기
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {
@@ -23,6 +24,7 @@ public class CommonMethod {
             Log.d("isconnected : ", "OK => " + info.isConnected());
             return true;
         }else {
+            Toast.makeText(context, "네트워크 연결이 원활하지 않습니다.", Toast.LENGTH_SHORT).show();
             Log.d("isconnected : ", "False => 데이터 통신 불가!!!" );
             return false;
         }
