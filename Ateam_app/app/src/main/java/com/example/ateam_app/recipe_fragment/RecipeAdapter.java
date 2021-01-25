@@ -110,10 +110,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             ty_nm = itemView.findViewById(R.id.ty_nm);
             cooking_time = itemView.findViewById(R.id.cooking_time);
             calorie = itemView.findViewById(R.id.calorie);
-            qnt = itemView.findViewById(R.id.calorie);
+            qnt = itemView.findViewById(R.id.qnt);
             level_nm = itemView.findViewById(R.id.level_nm);
             irdnt_code = itemView.findViewById(R.id.irdnt_code);
-            img_url_im = itemView.findViewById(R.id.user_pro_img);
+            img_url_im = itemView.findViewById(R.id.img_view);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -132,15 +132,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             recipe_id.setText(String.valueOf(item.getRecipe_id()));
             recipe_nm_ko.setText(item.getRecipe_nm_ko());
             sumry.setText(item.getSumry());
-            nation_nm.setText(item.getNation_nm());
-            ty_nm.setText(item.getTy_nm());
-            cooking_time.setText(item.getCooking_time());
-            calorie.setText(item.getCalorie());
+            //nation_nm.setText(item.getNation_nm());
+            //ty_nm.setText(item.getTy_nm());
+            //cooking_time.setText(item.getCooking_time());
+            //calorie.setText(item.getCalorie());
             qnt.setText(item.getQnt());
             level_nm.setText(item.getLevel_nm());
-            irdnt_code.setText(item.getIrdnt_code());
+            //irdnt_code.setText(item.getIrdnt_code());
 
-            Glide.with(itemView).load(item.getImg_url()).into(img_url_im);
+            Glide.with(itemView).load(item.getImg_url()).override(120,126).into(img_url_im);
 
         }
 

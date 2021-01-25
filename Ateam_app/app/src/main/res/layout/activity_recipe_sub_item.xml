@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="@drawable/edge"
+        android:padding="20dp"
+        android:background="#000000"
         >
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,13 +23,20 @@
         android:orientation="vertical"
         android:layout_weight="2"
 
+
         >
         <TextView
             android:id="@+id/cooking_dc"
             android:layout_width="match_parent"
             android:layout_height="173dp"
-            android:shadowColor="#000000"
+
             android:text="내용"
+            android:padding="10dp"
+            android:background="#000000"
+            android:layout_marginRight="3dp"
+            android:fontFamily="@font/gamjaflower_regular"
+            android:textSize="16sp"
+            android:textColor="@color/white"
 
             />
     </LinearLayout>
@@ -44,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="#000000"
             >
             <ImageView
                 android:id="@+id/stre_step_image_url_im"
@@ -56,7 +64,9 @@
                 android:id="@+id/step_tip"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-
+                android:fontFamily="@font/gamjaflower_regular"
+                android:textSize="16sp"
+                android:textColor="@color/white"
                 />
             <TextView
                 android:id="@+id/cooking_no"

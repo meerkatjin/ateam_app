@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -89,6 +91,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 = new ActionBarDrawerToggle(this, drawer,
                 toolbar, R.string.navi_drawer_open, R.string.navi_drawer_close);
         drawer.addDrawerListener(toggle);
+        //햄버거 버튼 색상변경
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+            toggle.getDrawerArrowDrawable().setColor(getColor(R.color.white));
+        }else {
+            toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
+        }
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -98,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView header_user_pro_img = headerView.findViewById(R.id.user_pro_img);
         TextView header_user_nm = headerView.findViewById(R.id.user_nm);
         TextView header_user_email = headerView.findViewById(R.id.user_email);
-
+        //좌측 메뉴 배경색 변경
+        headerView.setBackgroundColor(Color.BLACK);
         //프로필 이미지 띄우기
         Glide.with(this).load(loginDTO.getUser_pro_img()).into(header_user_pro_img);
         header_user_nm.setText(loginDTO.getUser_nm() + " 님 반갑습니다!");

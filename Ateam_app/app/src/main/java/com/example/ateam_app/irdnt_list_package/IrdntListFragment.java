@@ -3,6 +3,7 @@ package com.example.ateam_app.irdnt_list_package;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -48,6 +49,8 @@ public class IrdntListFragment extends Fragment {
         irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("종류별"));
         irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("유통기한별"));
         irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("이름별"));
+
+
         //재료 탭(종류 세부)
         irdnt_sort_type_tab = rootView.findViewById(R.id.irdnt_sort_type_tab);
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("고기"));
