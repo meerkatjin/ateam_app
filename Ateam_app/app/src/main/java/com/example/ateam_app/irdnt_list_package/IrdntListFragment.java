@@ -48,7 +48,7 @@ public class IrdntListFragment extends Fragment {
     int tabSelected = 11;
     String content_ty;
 
-    Bundle bundle = getArguments();
+    Bundle extra;
     Long user_id;
 
     @Override
@@ -58,10 +58,12 @@ public class IrdntListFragment extends Fragment {
         Context context = rootView.getContext();
         items = new ArrayList<>();
         adapter = new IrdntListAdapter(context, items);
-        if (bundle != null) {
-            user_id = bundle.getLong("user_id");
+
+        extra = this.getArguments();
+        if (extra != null) {
+            extra = getArguments();
+            user_id = extra.getLong("user_id");
         }
-        Log.d(TAG, "main:user_id : " + user_id);
 
         //재료 탭
         irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
@@ -89,7 +91,7 @@ public class IrdntListFragment extends Fragment {
         irdntRecyclerView.setAdapter(adapter);
 
         if(isNetworkConnected(context) == true) {
-            irdntListView = new IrdntListView(items, adapter, progressDialog);
+            irdntListView = new IrdntListView(items, adapter, progressDialog, user_id);
             irdntListView.execute();
         }
 
@@ -171,20 +173,6 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
-        //Sample Data
-        //dto = new IrdntListDTO("양파", "채소", "2021-01-28");
-        //items.add(dto);
-        //dto = new IrdntListDTO("돼지고기", "고기", "2021-01-22");
-        //items.add(dto);
-        //dto = new IrdntListDTO("우유", "유제품", "2021-01-19");
-        //items.add(dto);
-        //dto = new IrdntListDTO("청양고추", "채소", "2021-01-27");
-        //items.add(dto);
-        //dto = new IrdntListDTO("콜라", "음료/기타", "2021-08-02");
-        //items.add(dto);
-        //dto = new IrdntListDTO("훈제오리", "고기", "2021-04-13");
-        //items.add(dto);
-
         //재료 추가 버튼 (임시, 실제는 IoT로 구현)
         btnInputTest = rootView.findViewById(R.id.btnInputTest);
         irdnt_input_frame = rootView.findViewById(R.id.irdnt_input_frame);
@@ -212,8 +200,7 @@ public class IrdntListFragment extends Fragment {
                 }  else {
                     String name = content_nm.getText().toString().trim();
 
-
-                    irdntInsertConfirm(name);
+                    irdntInsertConfirm(name, user_id);
                 }
             }
         });
@@ -231,7 +218,7 @@ public class IrdntListFragment extends Fragment {
     }//onCreateView()
 
     //재료 추가 메소드 -> IrdntListInsert로 이동
-    private void irdntInsertConfirm(String name) {
+    private void irdntInsertConfirm(String name, Long user_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("재료 추가");
@@ -241,7 +228,7 @@ public class IrdntListFragment extends Fragment {
         builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                IrdntListInsert insert = new IrdntListInsert(name);
+                IrdntListInsert insert = new IrdntListInsert(name, user_id);
                 try {
                     state = insert.execute().get().trim();
                     Log.d("main:state : ", state);

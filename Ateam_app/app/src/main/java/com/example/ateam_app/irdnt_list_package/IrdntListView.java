@@ -12,12 +12,14 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
@@ -27,11 +29,13 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
     ArrayList<IrdntListDTO> items;
     IrdntListAdapter adapter;
     ProgressDialog progressDialog;
+    Long user_id;
 
-    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog) {
+    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id) {
         this.items = items;
         this.adapter = adapter;
         this.progressDialog = progressDialog;
+        this.user_id = user_id;
     }
 
     HttpClient httpClient;
@@ -47,14 +51,15 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         items.clear();
-        Log.d(TAG, "IrdntListView : " + items);
-
-        String postURL = ipConfig + "/ateamappspring/irdntList";
 
         try {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.setCharset(Charset.forName("UTF-8"));
+            builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
+
+            String postURL = ipConfig + "/ateamappspring/irdntList";
 
             // 전송
             InputStream inputStream = null;
