@@ -1,8 +1,10 @@
 package com.example.ateam_app.irdnt_list_package;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,17 +20,22 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
+import com.example.ateam_app.recipe_fragment.RecipeAtask;
+import com.example.ateam_app.user_pakage.dto.UserDTO;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+
+import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
+import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
 public class IrdntListFragment extends Fragment {
     private static final String TAG = "IrdntListFragment";
 
     String state;
     IrdntListAdapter adapter;
-    IrdntListDTO dto;
     ArrayList<IrdntListDTO> items;
     RecyclerView irdntRecyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -36,6 +43,13 @@ public class IrdntListFragment extends Fragment {
     Button btnInputTest, btnIrdntInsert, btnIrdntCancel;
     FrameLayout irdnt_input_frame;
     EditText content_nm;
+    IrdntListView irdntListView;
+    ProgressDialog progressDialog;
+    int tabSelected = 11;
+    String content_ty;
+
+    Bundle bundle = getArguments();
+    Long user_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +58,10 @@ public class IrdntListFragment extends Fragment {
         Context context = rootView.getContext();
         items = new ArrayList<>();
         adapter = new IrdntListAdapter(context, items);
+        if (bundle != null) {
+            user_id = bundle.getLong("user_id");
+        }
+        Log.d(TAG, "main:user_id : " + user_id);
 
         //재료 탭
         irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
@@ -61,6 +79,20 @@ public class IrdntListFragment extends Fragment {
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타"));
 
+        //DB에 있는 재료 리스트 가져오기
+        irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
+        layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        irdntRecyclerView.setLayoutManager(layoutManager);
+
+        items = new ArrayList<>();
+        adapter = new IrdntListAdapter(context, items);
+        irdntRecyclerView.setAdapter(adapter);
+
+        if(isNetworkConnected(context) == true) {
+            irdntListView = new IrdntListView(items, adapter, progressDialog);
+            irdntListView.execute();
+        }
+
         //재료 탭 선택 리스너
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -69,11 +101,40 @@ public class IrdntListFragment extends Fragment {
 
                 //종류별 탭 선택 시 세부 탭 보여주기
                 if (position == 0) {
+                    if (tabSelected != 11) {
+
+                    }
                     irdnt_sort_type_tab.setVisibility(View.VISIBLE);
                     irdnt_sort_type_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                         @Override
                         public void onTabSelected(TabLayout.Tab tab) {
+                            int position2 = tab.getPosition();
 
+                            if (position2 == 0) {   //고기
+                                tabSelected = 11;
+                                content_ty = "고기";
+                            } else if (position2 == 1) {    //수산물
+                                tabSelected = 12;
+                                content_ty = "수산물";
+                            } else if (position2 == 2) {    //채소
+                                tabSelected = 13;
+                                content_ty = "채소";
+                            } else if (position2 == 3) {    //과일
+                                tabSelected = 14;
+                                content_ty = "과일";
+                            } else if (position2 == 4) {    //유제품
+                                tabSelected = 15;
+                                content_ty = "유제품";
+                            } else if (position2 == 5) {    //곡류
+                                tabSelected = 16;
+                                content_ty = "곡류";
+                            } else if (position2 == 6) {    //조미료
+                                tabSelected = 17;
+                                content_ty = "조미료";
+                            } else if (position2 == 7) {    //음료/기타
+                                tabSelected = 18;
+                                content_ty = "음료/기타";
+                            }
                         }
 
                         @Override
@@ -90,12 +151,14 @@ public class IrdntListFragment extends Fragment {
                 //유통기한별 탭
                 } else if (position == 1) {
                     irdnt_sort_type_tab.setVisibility(View.GONE);
-
+                    tabSelected = 2;
                 //이름별 탭
                 } else if (position == 2) {
                     irdnt_sort_type_tab.setVisibility(View.GONE);
+                    tabSelected = 3;
                 }
             }
+
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -119,18 +182,8 @@ public class IrdntListFragment extends Fragment {
         //items.add(dto);
         //dto = new IrdntListDTO("콜라", "음료/기타", "2021-08-02");
         //items.add(dto);
-        dto = new IrdntListDTO("훈제오리", "고기", "2021-04-13");
-        items.add(dto);
-
-        irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
-        layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-        irdntRecyclerView.setLayoutManager(layoutManager);
-
-        items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items);
-        irdntRecyclerView.setAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
+        //dto = new IrdntListDTO("훈제오리", "고기", "2021-04-13");
+        //items.add(dto);
 
         //재료 추가 버튼 (임시, 실제는 IoT로 구현)
         btnInputTest = rootView.findViewById(R.id.btnInputTest);
@@ -158,6 +211,7 @@ public class IrdntListFragment extends Fragment {
                 //값을 입력했을 때 추가 메소드 실행
                 }  else {
                     String name = content_nm.getText().toString().trim();
+
 
                     irdntInsertConfirm(name);
                 }
