@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 
 import java.io.File;
 import java.io.InputStream;
@@ -60,22 +61,28 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
             builder.addTextBody("user_phone_no", user_phone_no, ContentType.create("Multipart/related", "UTF-8"));
 
             Log.d("UpdateEmail", user_email);
-
             Log.d("UpdatePW", user_pw);
             Log.d("UpdateName", user_nm);
             Log.d("UpdateAddr", user_addr);
-            Log.d("UpdatePhone", user_pro_img);
-
-            postURL = ipConfig + "/ateamappspring/userInfoChange";
-
-            Log.d("UpdatePw", user_pw);
-            Log.d("UpdateName", user_nm);
-            Log.d("UpdateAddr", user_addr);
             Log.d("UpdateImg", user_pro_img);
-            Log.d("UpdatePhone", user_phone_no);
+
+            // 이미지를 새로 선택했으면 선택한 이미지와 기존에 이미지 경로를 같이 보낸다
+            if(!user_pro_img.equals("")){
+                Log.d("Sub1Update:postURL", "1");
+                // DB에 저장할 경로
+                builder.addTextBody("user_pro_img", user_pro_img, ContentType.create("Multipart/related", "UTF-8"));
+                // 실제 이미지 파일
+                builder.addPart("image", new FileBody(new File(user_pro_img)));
+
+                postURL = ipConfig + "/ateamappspring/userInfoChange";
+
+            }else if(user_pro_img.equals("")){  // 이미지를 바꾸지 않았다면
+                Log.d("Sub1Update:postURL", "3");
+                postURL = ipConfig + "/ateamappspring/userInfoChangeNo";
+            }else{
+                Log.d("Sub1Update:postURL", "5 : error");
+            }
             Log.d("Sub1Update:postURL", postURL);
-
-
             // 전송
             //InputStream inputStream = null;
             HttpClient httpClient = AndroidHttpClient.newInstance("Android");
