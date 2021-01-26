@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class CommonMethod {
     //public static String  ipConfig = "http://121.179.5.99:8989";  //선생님 컴퓨터로 보낼때
-
+    public static String  ipConfig = "http://192.168.0.24:80";
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {
