@@ -67,7 +67,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
     View adminView;
     TextView adminTitle;
     LinearLayout adminLayout1, adminLayout2, adminLayout3;
-    long gradeCheck = 0;
+    int gradeCheck = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         //보내온 값 파싱
         mainIntent = getIntent();
         UserDTO loginDTO = (UserDTO) mainIntent.getSerializableExtra("loginDTO");
-        gradeCheck = mainIntent.getLongExtra("gradeCheck", 1); //등급 확인
+        gradeCheck = mainIntent.getIntExtra("gradeCheck", 1); //등급 확인
         //Log.d("세라수정", "onCreate: email" + loginDTO.getUser_email());
 
         email = loginDTO.getUser_email();
@@ -181,7 +181,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
             type = loginDTO.getUser_type();
 
             user_id.setText(String.valueOf(id));
-            user_type.setText(grade);
+            user_type.setText(type);
             if(grade.equals("1")){
                 user_grade_user.setChecked(true);
             }else{
@@ -216,7 +216,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                             }else{
                                 grade = "2";
                             }
-                            userInfoUpdate = new UserInfoUpdate(email, pw, name, addr, img, phone);
+                            userInfoUpdate = new UserInfoUpdate(id, email, pw, name, addr, img, phone, grade, type, gradeCheck);
                         }else{  //일반 유저가 접근할때
                             userInfoUpdate = new UserInfoUpdate(email, pw, name, addr, img, phone);
                         }
