@@ -10,27 +10,23 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-
-import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class RecipeAtask extends AsyncTask<Void, Void, Void> {
-    ArrayList<RecipeItem> myRecipeArrayList;
-    RecipeItem dto ;
-    RecipeAdapter adapter;
-    ProgressDialog progressDialog;
+import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-    public RecipeAtask(ArrayList<RecipeItem> myRecipeArrayList, RecipeAdapter adapter, ProgressDialog progressDialog) {
-        this.myRecipeArrayList = myRecipeArrayList;
-        this.adapter = adapter;
-        this.progressDialog = progressDialog;
-    }
+public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
+    ArrayList<RecipeItem> myRecipeArrayList;
+
+    int recipe_id;
+    RecipeItem recipeItem;
+
 
 
     HttpClient httpClient;
@@ -38,11 +34,13 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     HttpResponse httpResponse;
     HttpEntity httpEntity;
 
-    public RecipeAtask(ArrayList<RecipeItem> recipeItems) {
+
+    public Mainfragment_Recipe_Atask() {
 
     }
 
-
+    public Mainfragment_Recipe_Atask(RecipeItem recipeItem, int recipe_id) {
+    }
 
     @Override
     protected void onPreExecute() {
@@ -51,13 +49,17 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+
+
         myRecipeArrayList.clear();
 
-        String postURL = ipConfig + "/ateamappspring/recipeInfo";
+
         try {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.addTextBody("recipe_id", String.valueOf(recipe_id), ContentType.create("Multipart/related", "UTF-8"));
+            String postURL = ipConfig + "/ateamappspring/recipeInfoMf";
 
             // 전송
             InputStream inputStream = null;
@@ -95,13 +97,9 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        if(progressDialog != null){
-            progressDialog.dismiss();
-        }
 
-        Log.d("RecipeFragment", "List Select Complete!!!");
 
-        adapter.notifyDataSetChanged();
+
     }
 
     public void readJsonStream(InputStream inputStream) throws IOException {
@@ -170,4 +168,7 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
 
     }
 
-}//class
+
+
+
+}
