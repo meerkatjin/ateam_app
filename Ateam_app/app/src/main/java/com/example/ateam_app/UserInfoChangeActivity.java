@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +41,9 @@ public class UserInfoChangeActivity extends AppCompatActivity {
     public static UserDTO loginDTO = null;
 
     EditText user_email, user_pw, user_nm, user_addr, user_phone_no;
+    EditText user_id, user_type;    //관리자 모드에서 가져올것
+    RadioGroup user_grade;
+    RadioButton user_grade_user, user_grade_admin;
 
     Button btnInfoChange, btnInfoChangeCancel, btnImgUpload, btnCameraUpload;
     ImageView user_pro_img;
@@ -71,10 +76,14 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_addr = findViewById(R.id.user_addr);
         user_pro_img = findViewById(R.id.user_pro_img);
         user_phone_no = findViewById(R.id.user_phone_no);
-
         user_pro_img = findViewById(R.id.user_pro_img);
+        user_id = findViewById(R.id.user_id);
+        user_grade = findViewById(R.id.user_grade);
+        user_grade_user = findViewById(R.id.user_grade_user);
+        user_grade_admin = findViewById(R.id.user_grade_admin);
+        user_type = findViewById(R.id.user_type);
 
-        //이메일 수정못하게
+       //이메일 수정못하게
         user_email.setEnabled(false);
 
         //보내온 값 파싱

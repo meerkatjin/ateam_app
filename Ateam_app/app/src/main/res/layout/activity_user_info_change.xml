@@ -232,6 +232,131 @@
 
             </LinearLayout>
 
+            <!-- 관리자 전용 아이디, 등급(체크박스로), 타입 -->
+            <View
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#000000"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="관리자 전용"
+                android:textSize="20sp"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/idText"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:text="아이디"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/user_id"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1.3"
+                    android:textSize="16sp"
+                    android:enabled="false"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/gradeText"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:text="등급"
+                    android:textSize="20sp" />
+
+                <RadioGroup
+                    android:id="@+id/user_grade"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1.3"
+                    android:textSize="16sp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    
+                    <RadioButton
+                        android:id="@+id/user_grade_user"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="유저" />
+
+                    <RadioButton
+                        android:id="@+id/user_grade_admin"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="관리자"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/typeText"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:text="타입"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/user_type"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1.3"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <!-- 관리자 전용 -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
