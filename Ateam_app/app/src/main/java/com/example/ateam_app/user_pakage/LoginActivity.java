@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
+import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.user_pakage.atask.KakaoLoginSelect;
 import com.example.ateam_app.user_pakage.atask.LoginSelect;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
@@ -95,29 +96,32 @@ public class LoginActivity extends AppCompatActivity {
                         user_pw.getText().toString().length() !=0){
                     String email = user_email.getText().toString();
                     String pw = user_pw.getText().toString();
-                    LoginSelect loginSelect = new LoginSelect(email, pw);
-                    try {
-                        loginSelect.execute().get();
-                    } catch (ExecutionException e) {
-                        e.getMessage();
-                    } catch (InterruptedException e) {
-                        e.getMessage();
-                    }
+
+                   if(CommonMethod.isNetworkConnected(LoginActivity.this)){
+                       LoginSelect loginSelect = new LoginSelect(email, pw);
+                       try {
+                           loginSelect.execute().get();
+                       } catch (ExecutionException e) {
+                           e.getMessage();
+                       } catch (InterruptedException e) {
+                           e.getMessage();
+                       }
+
+                       if(loginDTO != null){
+                           Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
+                           Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                           intent.putExtra("loginDTO", loginDTO);
+                           startActivityForResult(intent, MAIN_CODE);
+                           user_email.setText(""); user_pw.setText("");
+                       }else {
+                           Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
+                           user_email.setText(""); user_pw.setText("");
+                           user_email.requestFocus();
+                       }
+                   }
                 }else{
                     Toast.makeText(LoginActivity.this, "아이디와 암호를 모두 입력하세요", Toast.LENGTH_SHORT).show();
                     return;
-                }
-
-                if(loginDTO != null){
-                    Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("loginDTO", loginDTO);
-                    startActivityForResult(intent, MAIN_CODE);
-                    user_email.setText(""); user_pw.setText("");
-                }else {
-                    Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
-                    user_email.setText(""); user_pw.setText("");
-                    user_email.requestFocus();
                 }
                 /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);*/
@@ -185,21 +189,24 @@ public class LoginActivity extends AppCompatActivity {
                         KakaoLoginDTO.setUser_pro_img(result.getProfileImagePath());
                     }
                     KakaoLoginDTO.setUser_type("kakao");
-                    KakaoLoginSelect kakaoLoginSelect = new KakaoLoginSelect(KakaoLoginDTO);
-                    try {
-                        kakaoLoginSelect.execute().get();
-                    } catch (ExecutionException e) {
-                        e.getMessage();
-                    } catch (InterruptedException e) {
-                        e.getMessage();
-                    }
-                    if(loginDTO != null){
-                        Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("loginDTO", loginDTO);
-                        startActivityForResult(intent, MAIN_CODE);
-                    }else{
-                        Toast.makeText(LoginActivity.this, "로그인 실패 !!!", Toast.LENGTH_SHORT).show();
+                    if(CommonMethod.isNetworkConnected(getApplicationContext())) {
+                        KakaoLoginSelect kakaoLoginSelect = new KakaoLoginSelect(KakaoLoginDTO);
+                        try {
+                            kakaoLoginSelect.execute().get();
+                        } catch (ExecutionException e) {
+                            e.getMessage();
+                        } catch (InterruptedException e) {
+                            e.getMessage();
+                        }
+
+                        if (loginDTO != null) {
+                            Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("loginDTO", loginDTO);
+                            startActivityForResult(intent, MAIN_CODE);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "로그인 실패 !!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

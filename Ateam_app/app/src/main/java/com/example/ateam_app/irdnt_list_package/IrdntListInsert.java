@@ -26,7 +26,14 @@ public class IrdntListInsert extends AsyncTask<Void, Void, String> {
     private static final String TAG = "IrdntListInsert";
     private String content_nm;
 
+<<<<<<< HEAD
     public IrdntListInsert(String name) { content_nm = name; }
+=======
+    public IrdntListInsert(String name, Long user_id) {
+        content_nm = name;
+        this.user_id = user_id;
+    }
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
 
     String state = "";
 
@@ -45,7 +52,7 @@ public class IrdntListInsert extends AsyncTask<Void, Void, String> {
             //상품 이름(ex. 양파, 감자, 당근 등)을 넘기면 자동으로 테이블에 정보 추가
             //회원 아이디 정보 넘겨야함
             builder.addTextBody("content_nm", content_nm, ContentType.create("Multipart/related", "UTF-8"));
-            Log.d(TAG, "main:IrdntListInsert : " + content_nm);
+            builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
 
             String postURL = ipConfig + "/ateamappspring/insert";
 

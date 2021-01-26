@@ -37,12 +37,33 @@ public class IrdntListFragment extends Fragment {
     Button btnInputTest, btnIrdntInsert, btnIrdntCancel;
     FrameLayout irdnt_input_frame;
     EditText content_nm;
+<<<<<<< HEAD
+=======
+    IrdntListView irdntListView;
+    ProgressDialog progressDialog;
+    int tabSelected = 11;
+    String content_ty;
+
+    Bundle extra;
+    Long user_id;
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
         Context context = rootView.getContext();
+<<<<<<< HEAD
+=======
+        items = new ArrayList<>();
+        adapter = new IrdntListAdapter(context, items);
+
+        extra = this.getArguments();
+        if (extra != null) {
+            extra = getArguments();
+            user_id = extra.getLong("user_id");
+        }
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
 
         //재료 탭
         irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
@@ -62,6 +83,23 @@ public class IrdntListFragment extends Fragment {
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타"));
 
+<<<<<<< HEAD
+=======
+        //DB에 있는 재료 리스트 가져오기
+        irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
+        layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        irdntRecyclerView.setLayoutManager(layoutManager);
+
+        items = new ArrayList<>();
+        adapter = new IrdntListAdapter(context, items);
+        irdntRecyclerView.setAdapter(adapter);
+
+        if(isNetworkConnected(context) == true) {
+            irdntListView = new IrdntListView(items, adapter, progressDialog, user_id);
+            irdntListView.execute();
+        }
+
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
         //재료 탭 선택 리스너
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -109,6 +147,7 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
+<<<<<<< HEAD
         irdntRecyclerView = (RecyclerView) rootView.findViewById(R.id.irdntRecyclerView);
         layoutManager = new LinearLayoutManager(context);
         irdntRecyclerView.setLayoutManager(layoutManager);
@@ -133,6 +172,8 @@ public class IrdntListFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
 
+=======
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
         //재료 추가 버튼 (임시, 실제는 IoT로 구현)
         btnInputTest = rootView.findViewById(R.id.btnInputTest);
         irdnt_input_frame = rootView.findViewById(R.id.irdnt_input_frame);
@@ -160,7 +201,11 @@ public class IrdntListFragment extends Fragment {
                 }  else {
                     String name = content_nm.getText().toString().trim();
 
+<<<<<<< HEAD
                     irdntInsertConfirm(name);
+=======
+                    irdntInsertConfirm(name, user_id);
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
                 }
             }
         });
@@ -178,7 +223,7 @@ public class IrdntListFragment extends Fragment {
     }//onCreateView()
 
     //재료 추가 메소드 -> IrdntListInsert로 이동
-    private void irdntInsertConfirm(String name) {
+    private void irdntInsertConfirm(String name, Long user_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("재료 추가");
@@ -188,7 +233,7 @@ public class IrdntListFragment extends Fragment {
         builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                IrdntListInsert insert = new IrdntListInsert(name);
+                IrdntListInsert insert = new IrdntListInsert(name, user_id);
                 try {
                     state = insert.execute().get().trim();
                     Log.d("main:state : ", state);

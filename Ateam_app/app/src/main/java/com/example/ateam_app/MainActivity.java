@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     UserMnageFragment userMnageFragment;    //관리자 프레그먼트
     Intent loginIntent; //로그인 엑티비티에서 로그인한 회원의 데이터 받아옴(비밀번호 빼고)
 
+    Bundle bundle;
+
     BottomNavigationView bottomNavigationView;
     int bottomNavi = 1; //하단 네비게이션 바 선택점 저장
 
@@ -141,6 +143,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         bottomNavi = 1;
                         return true;
                     case R.id.tabIrdntList:
+                        bundle = new Bundle();
+                        bundle.putLong("user_id", loginDTO.getUser_id());
+                        irdntListFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, irdntListFragment).commit();
                         bottomNavi = 2;
                         return true;

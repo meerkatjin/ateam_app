@@ -17,10 +17,12 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
+<<<<<<< HEAD:Ateam_app/app/src/main/java/com/example/ateam_app/recipe_fragment/Mainfragment_Recipe_Atask.java
 public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
     ArrayList<RecipeItem> myRecipeArrayList;
 
@@ -28,6 +30,21 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
     RecipeItem recipeItem;
 
 
+=======
+public class IrdntListView extends AsyncTask<Void, Void, Void> {
+    private static final String TAG = "main:IrdntListView";
+    ArrayList<IrdntListDTO> items;
+    IrdntListAdapter adapter;
+    ProgressDialog progressDialog;
+    Long user_id;
+
+    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id) {
+        this.items = items;
+        this.adapter = adapter;
+        this.progressDialog = progressDialog;
+        this.user_id = user_id;
+    }
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c:Ateam_app/app/src/main/java/com/example/ateam_app/irdnt_list_package/IrdntListView.java
 
     HttpClient httpClient;
     HttpPost httpPost;
@@ -49,17 +66,28 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+<<<<<<< HEAD:Ateam_app/app/src/main/java/com/example/ateam_app/recipe_fragment/Mainfragment_Recipe_Atask.java
 
 
         myRecipeArrayList.clear();
 
+=======
+        items.clear();
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c:Ateam_app/app/src/main/java/com/example/ateam_app/irdnt_list_package/IrdntListView.java
 
         try {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+<<<<<<< HEAD:Ateam_app/app/src/main/java/com/example/ateam_app/recipe_fragment/Mainfragment_Recipe_Atask.java
             builder.addTextBody("recipe_id", String.valueOf(recipe_id), ContentType.create("Multipart/related", "UTF-8"));
             String postURL = ipConfig + "/ateamappspring/recipeInfoMf";
+=======
+            builder.setCharset(Charset.forName("UTF-8"));
+            builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
+
+            String postURL = ipConfig + "/ateamappspring/irdntList";
+>>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c:Ateam_app/app/src/main/java/com/example/ateam_app/irdnt_list_package/IrdntListView.java
 
             // 전송
             InputStream inputStream = null;
