@@ -57,6 +57,7 @@ public class UserMnageFragment extends Fragment {
                 UserDTO dto = adapter.getItem(position);
                 Intent intent = new Intent(getContext(), UserInfoChangeActivity.class);
                 intent.putExtra("loginDTO",dto);
+                intent.putExtra("gradeCheck", (long)2);
 
                 startActivity(intent);
             }
