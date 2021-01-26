@@ -123,8 +123,6 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                         Log.d("error1", "Something Wrong", e);
                     }
 
-                    user_pro_img.setVisibility(View.VISIBLE);
-
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { // API24 이상 부터
                         intent.putExtra(MediaStore.EXTRA_OUTPUT,
@@ -222,6 +220,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            //Toast.makeText(this, "카메라", Toast.LENGTH_SHORT).show();
 
             try {
                 // 이미지 돌리기 및 리사이즈
@@ -234,7 +233,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
                 imageRealPathU = file.getAbsolutePath();
                 String uploadFileName = imageRealPathU.split("/")[imageRealPathU.split("/").length - 1];
-                imageDbPathU = ipConfig + "/app/resources/" + uploadFileName;
+                imageDbPathU = ipConfig + "/ateamappspring/resources/" + uploadFileName;
 
                 ImageView imageView = (ImageView) findViewById(R.id.user_pro_img);
                 imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));

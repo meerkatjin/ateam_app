@@ -9,6 +9,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
 
     <queries>
 
@@ -52,7 +55,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ateam_app"
-        android:usesCleartextTraffic="true">
+
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true">
+
         <activity android:name=".UserInfoChangeActivity" /> <!-- 애 빠져서 로그인 안되던거 -->
         <!-- https가 아니라 http로 오더라도 그냥 허가하는 부분 -->
         <!-- http 라이브러리 사용 -->
