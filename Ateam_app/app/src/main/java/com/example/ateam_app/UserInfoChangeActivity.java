@@ -107,6 +107,8 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_addr.setText(addr);
         user_phone_no.setText(phone);
 
+        imageDbPathU = img;
+
         //선택된 이미지 보여주기
         Glide.with(this).load(img).into(user_pro_img);
 
@@ -287,10 +289,36 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
             } catch (Exception e){
                 e.printStackTrace();
-            }//try-catch
-        }//if
 
-    }//onActivityResult()
+            }
+        }else if (requestCode == LOAD_IMAGE && resultCode == RESULT_OK) {
+
+            try {
+                String path = "";
+                // Get the url from data
+                Uri selectedImageUri = data.getData();
+                if (selectedImageUri != null) {
+                    // Get the path from the Uri
+                    path = getPathFromURI(selectedImageUri);
+                }
+
+                // 이미지 돌리기 및 리사이즈
+                Bitmap newBitmap = CommonMethod.imageRotateAndResize(path);
+                if(newBitmap != null){
+                    user_pro_img.setImageBitmap(newBitmap);
+                }else{
+                    Toast.makeText(this, "이미지가 null 입니다...", Toast.LENGTH_SHORT).show();
+                }
+
+                imageRealPathU = path;
+                String uploadFileName = imageRealPathU.split("/")[imageRealPathU.split("/").length - 1];
+                imageDbPathU = ipConfig + "/app/resources/" + uploadFileName;
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     private File createFile() throws IOException {
         java.text.SimpleDateFormat tmpDateFormat = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -319,7 +347,8 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
+                startActivity(intent);
             }
         });//setNegativeButton()
 
@@ -338,7 +367,4 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         cursor.close();
         return res;
     }//getPathFromURI()
-
-
-
 }//class
