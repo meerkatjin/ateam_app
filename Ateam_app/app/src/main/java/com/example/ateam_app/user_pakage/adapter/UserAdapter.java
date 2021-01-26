@@ -21,9 +21,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
         implements OnUserItemClickListener{
 
     OnUserItemClickListener listener;
-
-    private Context context;
-    private ArrayList<UserDTO> dtos;
+    Context context;
+    ArrayList<UserDTO> dtos;
 
     public UserAdapter(Context context, ArrayList<UserDTO> dtos){
         this.context = context;
@@ -50,6 +49,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
     public UserDTO getItem(int position) {return dtos.get(position);}
 
     public void addDTO(UserDTO dto){dtos.add(dto);}
+
+    public void setOnItemClicklistener(OnUserItemClickListener listener){
+        this.listener = listener;
+    }
 
     @Override
     public int getItemCount() {
