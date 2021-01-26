@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
 
     static final int USERINFO_CODE = 1004;
+    int backmode = 0;
+
     String deleteState;
     MainFragment mainFragment;
     IrdntListFragment irdntListFragment;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
     UserMnageFragment userMnageFragment;    //관리자 프레그먼트
-    Intent loginIntent; //로그인 엑티비티에서 로그인한 회원의 데이터 받아옴(비밀번호 빼고)
+    Intent loginIntent; //로그인 엑티비티에서 로그인한 회원의 데이터 받아옴
 
     Bundle bundle;
 
@@ -177,6 +179,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             withdrawalMessage();
         } else if (id == R.id.nav_admin) {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, userMnageFragment).commit();
+            backmode = 1;
+            bottomNavigationView.setVisibility(View.GONE);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -397,17 +401,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-
-        //뒤로 버튼을 한 번 누렀을 때 종료하시겠습니까? 알림
-        //2초 안에 두 번을 눌렀을 때 앱 종료
-        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
-            backKeyPressedTime = System.currentTimeMillis();
-            Toast.makeText(this, "뒤로 버튼을 한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
-        } else {
-            ActivityCompat.finishAffinity(this);
-            System.exit(0);
-        }//if
-
+        if(backmode == 1){  //1이면 그냥 뒤로가기 모드
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            backmode = 0;
+        }else{
+            //뒤로 버튼을 한 번 누렀을 때 종료하시겠습니까? 알림
+            //2초 안에 두 번을 눌렀을 때 앱 종료
+            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+                backKeyPressedTime = System.currentTimeMillis();
+                Toast.makeText(this, "뒤로 버튼을 한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
+            } else {
+                ActivityCompat.finishAffinity(this);
+                System.exit(0);
+            }//if
+        }
     }//onBackPressed()
 
     public void replaceFragment(Fragment fragment) {

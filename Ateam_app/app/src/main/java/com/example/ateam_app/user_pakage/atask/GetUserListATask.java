@@ -22,11 +22,11 @@ import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class GetUserList extends AsyncTask<Void, Void, Void> {
+public class GetUserListATask extends AsyncTask<Void, Void, Void> {
     ArrayList<UserDTO> dtos;
     UserAdapter adapter;
 
-    public GetUserList(ArrayList<UserDTO> dtos, UserAdapter adapter){
+    public GetUserListATask(ArrayList<UserDTO> dtos, UserAdapter adapter){
         this.dtos = dtos;
         this.adapter = adapter;
     }
@@ -72,6 +72,13 @@ public class GetUserList extends AsyncTask<Void, Void, Void> {
             }
         }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+
+        adapter.notifyDataSetChanged();
     }
 
     private void readJsonStream(InputStream inputStream) throws IOException {

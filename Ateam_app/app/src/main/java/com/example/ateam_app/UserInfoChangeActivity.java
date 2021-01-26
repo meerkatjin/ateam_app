@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.ateam_app.user_pakage.atask.UserInfoUpdate;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
 
@@ -23,7 +25,8 @@ import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 public class UserInfoChangeActivity extends AppCompatActivity {
     public static UserDTO loginDTO = null;
 
-    EditText user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no;
+    EditText user_email, user_pw, user_nm, user_addr, user_phone_no;
+    ImageView user_pro_img;
     Button btnInfoChange, btnInfoChangeCancel;
 
     String email, pw, name, addr, img="default.jpg", phone;
@@ -41,6 +44,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_pw = findViewById(R.id.user_pw);
         user_nm = findViewById(R.id.user_nm);
         user_addr = findViewById(R.id.user_addr);
+        user_pro_img = findViewById(R.id.user_pro_img);
         user_phone_no = findViewById(R.id.user_phone_no);
 
         //이메일 수정못하게
@@ -56,12 +60,14 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         name = loginDTO.getUser_nm();
         addr = loginDTO.getUser_addr();
         phone = loginDTO.getUser_phone_no();
+        img = loginDTO.getUser_pro_img();
 
         user_email.setText(email);
         user_pw.setText(pw);
         user_nm.setText(name);
         user_addr.setText(addr);
         user_phone_no.setText(phone);
+        Glide.with(user_pro_img).load(img).into(user_pro_img);
 
     }
 
