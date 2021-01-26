@@ -33,8 +33,8 @@ public class RecipeSubActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Intent intent;
     RecyclerView.LayoutManager mLayoutManager;
-
-
+    TextView recipe_nm_ko;
+    TextView level_nm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,11 @@ public class RecipeSubActivity extends AppCompatActivity {
         intent = this.getIntent();
         recyclerView = findViewById(R.id.recipe_item_recyclerview);
         mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-
+        recipe_nm_ko = findViewById(R.id.recipe_nm_ko);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
-
+        recipe_nm_ko.setText(intent.getStringExtra("recipe_nm_ko"));
+        //level_nm.setText(intent.getStringExtra("level_nm"));
         //레시피 아이디 값 넘겨주자
         int recipe_id = intent.getIntExtra("recipe_id" , 1);
         if(isNetworkConnected(this) == true) {
@@ -71,10 +72,6 @@ public class RecipeSubActivity extends AppCompatActivity {
 
         });//setOnclick
 
-
-
-
     }
-
 
 }

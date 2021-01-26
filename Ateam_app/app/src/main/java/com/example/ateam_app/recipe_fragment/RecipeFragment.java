@@ -87,7 +87,10 @@ public class RecipeFragment extends Fragment {
     }*/
 
 
+    public void recipeInfo() {
 
+
+    }
 
 
 }

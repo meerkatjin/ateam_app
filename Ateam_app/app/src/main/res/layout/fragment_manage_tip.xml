@@ -12,31 +12,7 @@
 
     //검색창
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="9"
-        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <SearchView
-                android:id="@+id/manageTipSearch"
-                android:layout_width="318dp"
-                android:layout_height="32dp"
-
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="46dp"
-                android:layout_marginRight="46dp" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
 
     //리스트
 

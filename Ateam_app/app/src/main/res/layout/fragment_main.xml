@@ -28,7 +28,10 @@
                 android:padding="10dp"
                 android:text="유통기한이 임박한 재료 '1'개가 냉장고 안에 있습니다!"
                 android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/gamjaflower_regular"
+
+                />
 
         </androidx.cardview.widget.CardView>
 
@@ -48,6 +51,7 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/img_url"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:src="@mipmap/ic_launcher_round"/>
@@ -64,16 +68,35 @@
                         android:text="오늘의 추천 요리"
                         android:textSize="22sp"
                         android:layout_gravity="right"
-                        android:gravity="right"/>
+                        android:gravity="right"
+                        android:fontFamily="@font/gamjaflower_regular"
+
+                        />
 
                     <TextView
+                        android:id="@+id/recipe_nm_ko"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="요리이름"
+                        android:textSize="16sp"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:fontFamily="@font/gamjaflower_regular"
+
+                        />
+                    <TextView
+                        android:id="@+id/sumry_main"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
                         android:text="오늘의 추천 요리 내용\n주저리주저리 이렇고 저렇고"
                         android:textSize="16sp"
                         android:layout_gravity="right"
-                        android:gravity="right"/>
+                        android:gravity="right"
+                        android:fontFamily="@font/gamjaflower_regular"
+
+                        />
 
                 </LinearLayout>
 
@@ -107,7 +130,10 @@
                         android:layout_height="wrap_content"
                         android:text="일일 냉장고 관리 Tip"
                         android:layout_gravity="left"
-                        android:textSize="22sp"/>
+                        android:textSize="22sp"
+                        android:fontFamily="@font/gamjaflower_regular"
+
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -115,7 +141,10 @@
                         android:layout_marginTop="7dp"
                         android:text="일일 냉장고 관리 Tip 내용\n어쩌고 저쩌고 이러쿵 저러쿵"
                         android:layout_gravity="left"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:fontFamily="@font/gamjaflower_regular"
+
+                        />
 
                 </LinearLayout>
 
