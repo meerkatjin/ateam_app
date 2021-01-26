@@ -7,7 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".user_pakage.LoginActivity"
     android:weightSum="4"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#1B000000"
+
+    >
 
     <TextView
         android:id="@+id/loginTitle"
@@ -16,7 +19,9 @@
         android:gravity="center"
         android:text="속보이는 냉장고"
         android:textSize="45sp"
-        android:layout_weight="0.7"/>
+        android:layout_weight="0.7"
+        android:textColor="#000000"
+        />
 
 
 
@@ -29,7 +34,8 @@
         android:textSize="20dp"
         android:layout_weight="0.5"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        />
 
     <EditText
         android:id="@+id/user_pw"
@@ -40,7 +46,9 @@
         android:layout_weight="0.5"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,7 +66,9 @@
             android:text="Login"
             android:textSize="20dp"
             android:layout_weight="1"
-            android:layout_marginRight="8dp"/>
+            android:layout_marginRight="8dp"
+
+            />
 
         <Button
             android:id="@+id/btnJoin"
@@ -67,7 +77,9 @@
             android:text="Join"
             android:textSize="20dp"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+
+            />
     </LinearLayout>
 
     <com.kakao.usermgmt.LoginButton
@@ -89,5 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_weight="0.5"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+
+        />
 </LinearLayout>

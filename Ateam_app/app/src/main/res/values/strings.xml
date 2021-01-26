@@ -2,7 +2,13 @@
     <string name="app_name">속보이는 냉장고</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+
+
     <string name="navi_drawer_open">Navigation Drawer Open</string>
+
     <string name="navi_drawer_close">Navigation Drawer Close</string>
     <string name="kakao_app_key">fe14eedc258e7dc082322d7d0ca3c223</string>
 </resources>

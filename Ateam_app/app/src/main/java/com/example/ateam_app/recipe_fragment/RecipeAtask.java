@@ -32,10 +32,17 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
         this.progressDialog = progressDialog;
     }
 
+
     HttpClient httpClient;
     HttpPost httpPost;
     HttpResponse httpResponse;
     HttpEntity httpEntity;
+
+    public RecipeAtask(ArrayList<RecipeItem> recipeItems) {
+
+    }
+
+
 
     @Override
     protected void onPreExecute() {

@@ -15,8 +15,8 @@ import com.example.ateam_app.R;
 import java.util.ArrayList;
 
 public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.ViewHolder> {
-    private ArrayList<IrdntListDTO> items;
     private Context context;
+    private ArrayList<IrdntListDTO> items;
 
     public IrdntListAdapter(Context context, ArrayList<IrdntListDTO> items) {
         this.context = context;

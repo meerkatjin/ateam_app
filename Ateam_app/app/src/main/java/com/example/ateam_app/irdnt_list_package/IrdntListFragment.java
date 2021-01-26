@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,16 +19,12 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
-import com.example.ateam_app.recipe_fragment.RecipeAtask;
-import com.example.ateam_app.user_pakage.dto.UserDTO;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
-import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
 public class IrdntListFragment extends Fragment {
     private static final String TAG = "IrdntListFragment";
@@ -150,11 +145,11 @@ public class IrdntListFragment extends Fragment {
                         }
                     });
 
-                //유통기한별 탭
+                    //유통기한별 탭
                 } else if (position == 1) {
                     irdnt_sort_type_tab.setVisibility(View.GONE);
                     tabSelected = 2;
-                //이름별 탭
+                    //이름별 탭
                 } else if (position == 2) {
                     irdnt_sort_type_tab.setVisibility(View.GONE);
                     tabSelected = 3;
@@ -196,7 +191,7 @@ public class IrdntListFragment extends Fragment {
                 if (content_nm.getText().toString().trim().equals("")) {
                     Toast.makeText(rootView.getContext(), "재료이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                     content_nm.requestFocus();
-                //값을 입력했을 때 추가 메소드 실행
+                    //값을 입력했을 때 추가 메소드 실행
                 }  else {
                     String name = content_nm.getText().toString().trim();
 

@@ -5,8 +5,10 @@
     android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    app:cardCornerRadius="30dp">
+    android:layout_marginVertical="5dp"
+    app:cardCornerRadius="30dp"
+
+    >
 
     <LinearLayout
         android:id="@+id/recipe_item_layout"
@@ -14,38 +16,42 @@
         android:layout_height="167dp"
         android:orientation="horizontal"
         android:padding="20dp"
+        android:background="#D9000000"
 
         >
 
         <ImageView
-            android:id="@+id/user_pro_img"
+            android:id="@+id/img_view"
             android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_height="126dp"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/ic_launcher"
+            android:layout_marginLeft="1dp"
+            android:background="#D9000000"
+            android:padding="3dp"
+            />
 
-            />
-        <ImageView
-            android:id="@+id/img_sub_url_im"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/ic_launcher"
-            android:visibility="gone"
-            />
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="#D9000000"
+                android:layout_marginLeft="2dp"
+
+                >
 
                 //간략 소개
                 <TextView
                     android:id="@+id/sumry"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="12sp" />
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="안녕하세요"
+                    android:fontFamily="@font/gamjaflower_regular"
+                    />
                 <TextView
                     android:id="@+id/nation_nm"
                     android:visibility="gone"
@@ -68,7 +74,7 @@
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/qnt"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -77,24 +83,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 //레시피 이름
+
+
                 <TextView
                     android:id="@+id/recipe_nm_ko"
-                    android:layout_width="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_gravity="top"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="12sp" />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/gamjaflower_regular"
+
+                    />
 
                 //난이도
+
+
                 <TextView
                     android:id="@+id/level_nm"
-                    android:layout_width="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_gravity="top"
-                    android:layout_marginStart="130dp"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="12sp" />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="@font/gamjaflower_regular"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    />
 
                 <TextView
                     android:id="@+id/recipe_id"
