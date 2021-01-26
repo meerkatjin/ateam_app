@@ -21,7 +21,9 @@ import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
 
-    private String user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no;
+    private long user_id;
+    private int gradeCheck;
+    private String user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no, user_grade, user_type;
 
     public UserInfoUpdate(String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no) {
         this.user_email = user_email;
@@ -30,6 +32,19 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
         this.user_addr = user_addr;
         this.user_pro_img = user_pro_img;
         this.user_phone_no = user_phone_no;
+    }
+
+    public UserInfoUpdate(long user_id, String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade, String user_type, int gradeCheck) {
+        this.user_id = user_id;
+        this.user_email = user_email;
+        this.user_pw = user_pw;
+        this.user_nm = user_nm;
+        this.user_addr = user_addr;
+        this.user_pro_img = user_pro_img;
+        this.user_phone_no = user_phone_no;
+        this.user_grade = user_grade;
+        this.user_type = user_type;
+        this.gradeCheck = gradeCheck;
     }
 
     @Override
@@ -59,6 +74,12 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
             builder.addTextBody("user_addr", user_addr, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_pro_img", user_pro_img, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_phone_no", user_phone_no, ContentType.create("Multipart/related", "UTF-8"));
+
+            if(gradeCheck == 2){
+                builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
+                builder.addTextBody("user_grade", user_grade, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addTextBody("user_type", user_type, ContentType.create("Multipart/related", "UTF-8"));
+            }
 
             Log.d("UpdateEmail", user_email);
             Log.d("UpdatePW", user_pw);

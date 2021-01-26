@@ -20,8 +20,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +31,8 @@ import com.bumptech.glide.Glide;
 import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.user_pakage.atask.UserInfoUpdate;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,14 +45,11 @@ public class UserInfoChangeActivity extends AppCompatActivity {
     public static UserDTO loginDTO = null;
 
     EditText user_email, user_pw, user_nm, user_addr, user_phone_no;
-    EditText user_id, user_type;    //관리자 모드에서 가져올것
-    RadioGroup user_grade;
-    RadioButton user_grade_user, user_grade_admin;
-
     Button btnInfoChange, btnInfoChangeCancel, btnImgUpload, btnCameraUpload;
     ImageView user_pro_img;
 
-    String email, pw, name, addr, img, phone;
+    long id;
+    String email, pw, name, addr, img, phone, grade, type;
     Intent mainIntent;
 
     public String imageRealPathU = "", imageDbPathU = "";
@@ -59,6 +60,14 @@ public class UserInfoChangeActivity extends AppCompatActivity {
     File file = null;
     long fileSize = 0;
 
+    //관리자 모드에서 가져올것
+    RadioGroup user_grade;
+    RadioButton user_grade_user, user_grade_admin;
+    EditText user_id, user_type;
+    View adminView;
+    TextView adminTitle;
+    LinearLayout adminLayout1, adminLayout2, adminLayout3;
+    int gradeCheck = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,18 +86,11 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_pro_img = findViewById(R.id.user_pro_img);
         user_phone_no = findViewById(R.id.user_phone_no);
         user_pro_img = findViewById(R.id.user_pro_img);
-        user_id = findViewById(R.id.user_id);
-        user_grade = findViewById(R.id.user_grade);
-        user_grade_user = findViewById(R.id.user_grade_user);
-        user_grade_admin = findViewById(R.id.user_grade_admin);
-        user_type = findViewById(R.id.user_type);
-
-       //이메일 수정못하게
-        user_email.setEnabled(false);
 
         //보내온 값 파싱
         mainIntent = getIntent();
         UserDTO loginDTO = (UserDTO) mainIntent.getSerializableExtra("loginDTO");
+        gradeCheck = mainIntent.getIntExtra("gradeCheck", 1); //등급 확인
         //Log.d("세라수정", "onCreate: email" + loginDTO.getUser_email());
 
         email = loginDTO.getUser_email();
@@ -96,6 +98,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         name = loginDTO.getUser_nm();
         addr = loginDTO.getUser_addr();
         phone = loginDTO.getUser_phone_no();
+        img = loginDTO.getUser_pro_img();
 
         //가져온값 써넣기
         user_email.setText(email);
@@ -104,10 +107,8 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_addr.setText(addr);
         user_phone_no.setText(phone);
 
-        img = loginDTO.getUser_pro_img();
         imageDbPathU = img;
 
-        user_pro_img.setVisibility(View.VISIBLE);
         //선택된 이미지 보여주기
         Glide.with(this).load(img).into(user_pro_img);
 
@@ -155,7 +156,39 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), LOAD_IMAGE);
             }
         });
-    }
+
+        //관리자일때 작업
+        if(gradeCheck == 2){
+            adminLayout1 = findViewById(R.id.adminLayout1);
+            adminLayout2 = findViewById(R.id.adminLayout2);
+            adminLayout3 = findViewById(R.id.adminLayout3);
+            user_id = findViewById(R.id.user_id);
+            user_grade = findViewById(R.id.user_grade);
+            user_grade_user = findViewById(R.id.user_grade_user);
+            user_grade_admin = findViewById(R.id.user_grade_admin);
+            user_type = findViewById(R.id.user_type);
+            adminView = findViewById(R.id.adminView);
+            adminTitle = findViewById(R.id.adminTitle);
+
+            adminView.setVisibility(View.VISIBLE);
+            adminTitle.setVisibility(View.VISIBLE);
+            adminLayout1.setVisibility(View.VISIBLE);
+            adminLayout2.setVisibility(View.VISIBLE);
+            adminLayout3.setVisibility(View.VISIBLE);
+
+            id = loginDTO.getUser_id();
+            grade = loginDTO.getUser_grade();
+            type = loginDTO.getUser_type();
+
+            user_id.setText(String.valueOf(id));
+            user_type.setText(type);
+            if(grade.equals("1")){
+                user_grade_user.setChecked(true);
+            }else{
+                user_grade_admin.setChecked(true);
+            }
+        }
+    }//onCreate()
 
     public void btnUpdateClicked(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -168,13 +201,26 @@ public class UserInfoChangeActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if(isNetworkConnected(getApplicationContext()) == true){
                     if(fileSize <= 30000000) {  // 파일크기가 30메가 보다 작아야 업로드 할수 있음
+                        UserInfoUpdate userInfoUpdate;
                         email = user_email.getText().toString();
                         pw = user_pw.getText().toString();
                         name = user_nm.getText().toString();
                         addr = user_addr.getText().toString();
                         phone = user_phone_no.getText().toString();
 
-                        UserInfoUpdate userInfoUpdate = new UserInfoUpdate(email, pw, name, addr, img, phone);
+                        if(gradeCheck == 2){    //관리자일때
+                            id = Long.parseLong(user_id.getText().toString());
+                            type = user_type.getText().toString();
+                            if( user_grade.getCheckedRadioButtonId() == R.id.user_grade_user){
+                                grade = "1";
+                            }else{
+                                grade = "2";
+                            }
+                            userInfoUpdate = new UserInfoUpdate(id, email, pw, name, addr, img, phone, grade, type, gradeCheck);
+                        }else{  //일반 유저가 접근할때
+                            userInfoUpdate = new UserInfoUpdate(email, pw, name, addr, img, phone);
+                        }
+
                         userInfoUpdate.execute();
 
                         Toast.makeText(UserInfoChangeActivity.this, "수정되었습니다!", Toast.LENGTH_SHORT).show();
@@ -202,20 +248,20 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(getApplicationContext(), "인터넷이 연결되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                }//if(isNetworkConnected)
+            }//onclick()
+        });//builder.setPositiveButton()
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
-        });
+        });//setNegativeButton()
 
         AlertDialog dialog = builder.create();
         dialog.show();
 
-    }
+    }//btnUpdateClicked()
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -242,6 +288,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
             } catch (Exception e){
                 e.printStackTrace();
+
             }
         }else if (requestCode == LOAD_IMAGE && resultCode == RESULT_OK) {
 
@@ -270,8 +317,6 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     private File createFile() throws IOException {
@@ -282,7 +327,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         File curFile = new File(storageDir, imageFileName);
 
         return curFile;
-    }
+    }//createFile()
 
     public void btnCancelClicked(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -296,7 +341,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                 finish();
 
             }
-        });
+        });//setPositiveButton()
 
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
@@ -304,11 +349,11 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
                 startActivity(intent);
             }
-        });
+        });//setNegativeButton()
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
+    }//btnCancelClicked()
 
     public String getPathFromURI(Uri contentUri) {
         String res = null;
@@ -320,8 +365,5 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         }
         cursor.close();
         return res;
-    }
-
-
-
-}
+    }//getPathFromURI()
+}//class
