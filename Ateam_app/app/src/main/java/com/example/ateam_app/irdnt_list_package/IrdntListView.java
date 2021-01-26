@@ -1,34 +1,41 @@
-package com.example.ateam_app.user_pakage.atask;
+package com.example.ateam_app.irdnt_list_package;
 
+import android.app.ProgressDialog;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 
-import com.example.ateam_app.user_pakage.adapter.UserAdapter;
-import com.example.ateam_app.user_pakage.dto.UserDTO;
+import com.example.ateam_app.recipe_fragment.RecipeItem;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class GetUserList extends AsyncTask<Void, Void, Void> {
-    ArrayList<UserDTO> dtos;
-    UserAdapter adapter;
+public class IrdntListView extends AsyncTask<Void, Void, Void> {
+    private static final String TAG = "main:IrdntListView";
+    ArrayList<IrdntListDTO> items;
+    IrdntListAdapter adapter;
+    ProgressDialog progressDialog;
+    Long user_id;
 
-    public GetUserList(ArrayList<UserDTO> dtos, UserAdapter adapter){
-        this.dtos = dtos;
+    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id) {
+        this.items = items;
         this.adapter = adapter;
+        this.progressDialog = progressDialog;
+        this.user_id = user_id;
     }
 
     HttpClient httpClient;
@@ -37,15 +44,24 @@ public class GetUserList extends AsyncTask<Void, Void, Void> {
     HttpEntity httpEntity;
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
     protected Void doInBackground(Void... voids) {
+        items.clear();
 
         try {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-            String postURL = ipConfig + "/ateamappspring/getUserList";
+            builder.setCharset(Charset.forName("UTF-8"));
+            builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
 
-            //전송
+            String postURL = ipConfig + "/ateamappspring/irdntList";
+
+            // 전송
             InputStream inputStream = null;
             httpClient = AndroidHttpClient.newInstance("Android");
             httpPost = new HttpPost(postURL);
@@ -55,9 +71,10 @@ public class GetUserList extends AsyncTask<Void, Void, Void> {
             inputStream = httpEntity.getContent();
 
             readJsonStream(inputStream);
-        }catch (Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if(httpEntity != null){
                 httpEntity = null;
             }
@@ -71,59 +88,60 @@ public class GetUserList extends AsyncTask<Void, Void, Void> {
                 httpClient = null;
             }
         }
+
         return null;
     }
 
-    private void readJsonStream(InputStream inputStream) throws IOException {
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
+
+        Log.d("IrdntListFragment", "List Select Complete!!!");
+
+        adapter.notifyDataSetChanged();
+    }
+
+    public void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
         try {
             reader.beginArray();
             while (reader.hasNext()) {
-                dtos.add(readMessage(reader));
+                items.add(readMessage(reader));
             }
             reader.endArray();
         }catch (Exception e){
             e.printStackTrace();
             e.getMessage();
+            Log.d("222", e.getMessage());
         }finally {
             reader.close();
         }
     }
 
-    //리스트 가져올때
-    private UserDTO readMessage(JsonReader reader) throws IOException {
-        long user_id = 0;
-        String  user_email = "", user_nm = "", user_pw = "",user_addr = "", user_pro_img = "",
-                user_phone_no = "", user_grade = "", user_type = "";
+    public IrdntListDTO readMessage(JsonReader reader) throws IOException {
+
+        String content_nm = "", content_ty = "", shelf_life_end = "";
 
         reader.beginObject();
-        while (reader.hasNext()){
+        while (reader.hasNext()) {
             String readStr = reader.nextName();
-            if(readStr.equals("user_id")){
-                user_id = reader.nextLong();
-            }else if(readStr.equals("user_email")){
-                user_email = reader.nextString();
-            }else if(readStr.equals("user_pw")) {
-                user_pw = reader.nextString();
-            }else if(readStr.equals("user_nm")){
-                user_nm = reader.nextString();
-            }else if(readStr.equals("user_addr")){
-                user_addr = reader.nextString();
-            }else if(readStr.equals("user_pro_img")){
-                user_pro_img = reader.nextString();
-            }else if(readStr.equals("user_phone_no")){
-                user_phone_no = reader.nextString();
-            }else if(readStr.equals("user_grade")){
-                user_grade = reader.nextString();
-            }else if(readStr.equals("user_type")){
-                user_type = reader.nextString();
-            }else {
+            if (readStr.equals("content_nm")) {
+                content_nm = reader.nextString();
+            } else if (readStr.equals("content_ty")) {
+                content_ty = reader.nextString();
+            } else if (readStr.equals("shelf_life_end")) {
+                shelf_life_end = reader.nextString();
+            }  else {
                 reader.skipValue();
             }
         }
         reader.endObject();
-        Log.d("main:getUser : ", user_email + ", " + user_nm + ", " + user_addr + ", " + user_phone_no);
-        return new UserDTO(user_id, user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no, user_grade, user_type);
+        return new IrdntListDTO(content_nm, content_ty, shelf_life_end);
+
+
     }
 
 }

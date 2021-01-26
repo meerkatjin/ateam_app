@@ -96,11 +96,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
         public void setItem(UserDTO dto){
             Glide.with(itemView).load(dto.getUser_pro_img()).into(user_pro_img);
 
-            user_id.append(String.valueOf(dto.getUser_id()));
-            user_email.append(dto.getUser_email());
-            user_nm.append(dto.getUser_nm());
-            user_grade.append(dto.getUser_grade());
-            user_type.append(dto.getUser_type());
+            user_id.setText("ID : " + dto.getUser_id());
+            user_email.setText("Email : " + dto.getUser_email());
+            user_nm.setText("Name : " + dto.getUser_nm());
+            user_grade.setText("Grade : " + dto.getUser_grade());
+            user_type.setText("Type : " + dto.getUser_type());
         }
     }
 }

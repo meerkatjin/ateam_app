@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,10 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.ateam_app.R;
+import com.example.ateam_app.RecipeSubActivity;
+import com.example.ateam_app.UserInfoChangeActivity;
 import com.example.ateam_app.user_pakage.adapter.OnUserItemClickListener;
 import com.example.ateam_app.user_pakage.adapter.UserAdapter;
-import com.example.ateam_app.user_pakage.atask.GetUserList;
-import com.example.ateam_app.user_pakage.atask.LoginSelect;
+import com.example.ateam_app.user_pakage.atask.GetUserListATask;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 //회원관리 프래그먼트
 public class UserMnageFragment extends Fragment {
 
-    GetUserList aTesk;
+    GetUserListATask aTesk;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<UserDTO> dtos;
@@ -48,17 +47,20 @@ public class UserMnageFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         if(isNetworkConnected(context)){
-            aTesk = new GetUserList(dtos, adapter);
+            aTesk = new GetUserListATask(dtos, adapter);
             aTesk.execute();
         }
         
-       /* adapter.setOnItemClicklistener(new OnUserItemClickListener() {
+       adapter.setOnItemClicklistener(new OnUserItemClickListener() {
             @Override
             public void onItenClick(UserAdapter.ViewHolder holder, View view, int position) {
-                Toast.makeText(context, "눌렀읍니다.", Toast.LENGTH_SHORT).show();
+                UserDTO dto = adapter.getItem(position);
+                Intent intent = new Intent(getContext(), UserInfoChangeActivity.class);
+                intent.putExtra("loginDTO",dto);
+
+                startActivity(intent);
             }
         });
-*/
         return rootView;
     }
 }

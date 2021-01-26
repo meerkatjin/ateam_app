@@ -1,3 +1,4 @@
+
 package com.example.ateam_app.common;
 
 import android.content.Context;
@@ -15,11 +16,7 @@ import java.io.IOException;
 
 public class CommonMethod {
     //public static String  ipConfig = "http://121.179.5.99:8989";  //선생님 컴퓨터로 보낼때
-    //public static String  ipConfig = "http://192.168.0.69:80";  //자기 ip 사용하기
-
-    public static String  ipConfig = "http://192.168.0.58:80";  //자기 ip 사용하기
-
-    //public static String  ipConfig = "http://192.168.0.64:80";  //자기 ip 사용하기
+    public static String  ipConfig = "http://192.168.0.24:80";
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {
