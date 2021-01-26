@@ -24,16 +24,13 @@ import static com.example.ateam_app.common.CommonMethod.ipConfig;
 public class IrdntListInsert extends AsyncTask<Void, Void, String> {
     //재료 추가 기능 수행
     private static final String TAG = "IrdntListInsert";
+    private Long user_id;
     private String content_nm;
 
-<<<<<<< HEAD
-    public IrdntListInsert(String name) { content_nm = name; }
-=======
     public IrdntListInsert(String name, Long user_id) {
         content_nm = name;
         this.user_id = user_id;
     }
->>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
 
     String state = "";
 
