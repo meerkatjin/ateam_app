@@ -40,11 +40,11 @@ public class IrdntListFragment extends Fragment {
     EditText content_nm;
     IrdntListView irdntListView;
     ProgressDialog progressDialog;
-    int tabSelected = 11;
     String content_ty;
 
     Bundle extra;
     Long user_id;
+    int tabSelected = 11;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,11 +85,6 @@ public class IrdntListFragment extends Fragment {
         adapter = new IrdntListAdapter(context, items);
         irdntRecyclerView.setAdapter(adapter);
 
-        if(isNetworkConnected(context) == true) {
-            irdntListView = new IrdntListView(items, adapter, progressDialog, user_id);
-            irdntListView.execute();
-        }
-
         //재료 탭 선택 리스너
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -98,10 +93,9 @@ public class IrdntListFragment extends Fragment {
 
                 //종류별 탭 선택 시 세부 탭 보여주기
                 if (position == 0) {
-                    if (tabSelected != 11) {
-
-                    }
                     irdnt_sort_type_tab.setVisibility(View.VISIBLE);
+
+
                     irdnt_sort_type_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                         @Override
                         public void onTabSelected(TabLayout.Tab tab) {
@@ -110,28 +104,61 @@ public class IrdntListFragment extends Fragment {
                             if (position2 == 0) {   //고기
                                 tabSelected = 11;
                                 content_ty = "고기";
+                                if(isNetworkConnected(context) == true) {
+                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                                    irdntListView.execute();
+                                }
                             } else if (position2 == 1) {    //수산물
                                 tabSelected = 12;
                                 content_ty = "수산물";
+                                if(isNetworkConnected(context) == true) {
+                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                                    irdntListView.execute();
+                                }
                             } else if (position2 == 2) {    //채소
                                 tabSelected = 13;
                                 content_ty = "채소";
+                                if(isNetworkConnected(context) == true) {
+                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                                    irdntListView.execute();
+                                }
                             } else if (position2 == 3) {    //과일
                                 tabSelected = 14;
                                 content_ty = "과일";
+                                if(isNetworkConnected(context) == true) {
+                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                                    irdntListView.execute();
+                                }
                             } else if (position2 == 4) {    //유제품
                                 tabSelected = 15;
                                 content_ty = "유제품";
+                                if(isNetworkConnected(context) == true) {
+                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                                    irdntListView.execute();
+                                }
                             } else if (position2 == 5) {    //곡류
                                 tabSelected = 16;
                                 content_ty = "곡류";
+                                if(isNetworkConnected(context) == true) {
+                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                                    irdntListView.execute();
+                                }
                             } else if (position2 == 6) {    //조미료
                                 tabSelected = 17;
                                 content_ty = "조미료";
+                                if(isNetworkConnected(context) == true) {
+                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                                    irdntListView.execute();
+                                }
                             } else if (position2 == 7) {    //음료/기타
                                 tabSelected = 18;
                                 content_ty = "음료/기타";
+                                if(isNetworkConnected(context) == true) {
+                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                                    irdntListView.execute();
+                                }
                             }
+
                         }
 
                         @Override
@@ -147,12 +174,22 @@ public class IrdntListFragment extends Fragment {
 
                     //유통기한별 탭
                 } else if (position == 1) {
-                    irdnt_sort_type_tab.setVisibility(View.GONE);
                     tabSelected = 2;
+                    irdnt_sort_type_tab.setVisibility(View.GONE);
+                    if(isNetworkConnected(context) == true) {
+                        irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
+                        irdntListView.execute();
+                    }
+
                     //이름별 탭
                 } else if (position == 2) {
-                    irdnt_sort_type_tab.setVisibility(View.GONE);
                     tabSelected = 3;
+                    irdnt_sort_type_tab.setVisibility(View.GONE);
+                    if(isNetworkConnected(context) == true) {
+                        irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
+                        irdntListView.execute();
+                    }
+
                 }
             }
 

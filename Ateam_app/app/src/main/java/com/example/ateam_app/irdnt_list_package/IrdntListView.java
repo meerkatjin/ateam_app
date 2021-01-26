@@ -5,7 +5,9 @@ import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.recipe_fragment.RecipeItem;
 
 import org.apache.http.HttpEntity;
@@ -30,12 +32,24 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
     IrdntListAdapter adapter;
     ProgressDialog progressDialog;
     Long user_id;
+    String content_ty;
+    int tabSelected;
 
-    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id) {
+    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id, int tabSelected) {
         this.items = items;
         this.adapter = adapter;
         this.progressDialog = progressDialog;
         this.user_id = user_id;
+        this.tabSelected = tabSelected;
+    }
+
+    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id, int tabSelected, String content_ty) {
+        this.items = items;
+        this.adapter = adapter;
+        this.progressDialog = progressDialog;
+        this.user_id = user_id;
+        this.tabSelected = tabSelected;
+        this.content_ty = content_ty;
     }
 
     HttpClient httpClient;
@@ -59,7 +73,15 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
             builder.setCharset(Charset.forName("UTF-8"));
             builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
 
-            String postURL = ipConfig + "/ateamappspring/irdntList";
+            String postURL = null;
+            if (tabSelected > 10) {
+                builder.addTextBody("content_ty", content_ty, ContentType.create("Multipart/related", "UTF-8"));
+                postURL = ipConfig + "/ateamappspring/irdntListType";
+            } else if (tabSelected == 2) {
+                postURL = ipConfig + "/ateamappspring/irdntListDate";
+            } else if (tabSelected == 3) {
+                postURL = ipConfig + "/ateamappspring/irdntListName";
+            }
 
             // 전송
             InputStream inputStream = null;
