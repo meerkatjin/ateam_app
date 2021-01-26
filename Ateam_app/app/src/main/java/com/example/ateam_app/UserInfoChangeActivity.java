@@ -105,6 +105,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_phone_no.setText(phone);
 
         img = loginDTO.getUser_pro_img();
+        imageDbPathU = img;
 
         user_pro_img.setVisibility(View.VISIBLE);
         //선택된 이미지 보여주기
@@ -243,7 +244,34 @@ public class UserInfoChangeActivity extends AppCompatActivity {
             } catch (Exception e){
                 e.printStackTrace();
             }
+        }else if (requestCode == LOAD_IMAGE && resultCode == RESULT_OK) {
+
+            try {
+                String path = "";
+                // Get the url from data
+                Uri selectedImageUri = data.getData();
+                if (selectedImageUri != null) {
+                    // Get the path from the Uri
+                    path = getPathFromURI(selectedImageUri);
+                }
+
+                // 이미지 돌리기 및 리사이즈
+                Bitmap newBitmap = CommonMethod.imageRotateAndResize(path);
+                if(newBitmap != null){
+                    user_pro_img.setImageBitmap(newBitmap);
+                }else{
+                    Toast.makeText(this, "이미지가 null 입니다...", Toast.LENGTH_SHORT).show();
+                }
+
+                imageRealPathU = path;
+                String uploadFileName = imageRealPathU.split("/")[imageRealPathU.split("/").length - 1];
+                imageDbPathU = ipConfig + "/app/resources/" + uploadFileName;
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
+
 
     }
 
@@ -274,7 +302,8 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
+                startActivity(intent);
             }
         });
 
