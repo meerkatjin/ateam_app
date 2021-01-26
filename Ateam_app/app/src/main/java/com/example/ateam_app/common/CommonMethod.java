@@ -15,15 +15,11 @@ import java.io.IOException;
 
 public class CommonMethod {
     //public static String  ipConfig = "http://121.179.5.99:8989";  //선생님 컴퓨터로 보낼때
-<<<<<<< HEAD
-    public static String  ipConfig = "http://192.168.0.69:80";  //자기 ip 사용하기
-=======
-<<<<<<< HEAD
+    //public static String  ipConfig = "http://192.168.0.69:80";  //자기 ip 사용하기
+
     public static String  ipConfig = "http://192.168.0.58:80";  //자기 ip 사용하기
-=======
-    public static String  ipConfig = "http://192.168.0.64:80";  //자기 ip 사용하기
->>>>>>> 706ee310b3ba18530cd25f6138df569a4e5aaca3
->>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
+
+    //public static String  ipConfig = "http://192.168.0.64:80";  //자기 ip 사용하기
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {

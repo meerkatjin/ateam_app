@@ -1,6 +1,7 @@
 package com.example.ateam_app.irdnt_list_package;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -20,9 +21,12 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.ateam_app.R;
+import com.example.ateam_app.recipe_fragment.Mainfragment_Recipe_Atask;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+
+import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 public class IrdntListFragment extends Fragment {
     private static final String TAG = "IrdntListFragment";
@@ -37,24 +41,21 @@ public class IrdntListFragment extends Fragment {
     Button btnInputTest, btnIrdntInsert, btnIrdntCancel;
     FrameLayout irdnt_input_frame;
     EditText content_nm;
-<<<<<<< HEAD
-=======
-    IrdntListView irdntListView;
+
+    Mainfragment_Recipe_Atask.IrdntListView irdntListView;
     ProgressDialog progressDialog;
     int tabSelected = 11;
     String content_ty;
 
     Bundle extra;
     Long user_id;
->>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
         Context context = rootView.getContext();
-<<<<<<< HEAD
-=======
+
         items = new ArrayList<>();
         adapter = new IrdntListAdapter(context, items);
 
@@ -63,7 +64,6 @@ public class IrdntListFragment extends Fragment {
             extra = getArguments();
             user_id = extra.getLong("user_id");
         }
->>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
 
         //재료 탭
         irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
@@ -83,8 +83,6 @@ public class IrdntListFragment extends Fragment {
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타"));
 
-<<<<<<< HEAD
-=======
         //DB에 있는 재료 리스트 가져오기
         irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
         layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
@@ -99,7 +97,6 @@ public class IrdntListFragment extends Fragment {
             irdntListView.execute();
         }
 
->>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
         //재료 탭 선택 리스너
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -147,7 +144,6 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
-<<<<<<< HEAD
         irdntRecyclerView = (RecyclerView) rootView.findViewById(R.id.irdntRecyclerView);
         layoutManager = new LinearLayoutManager(context);
         irdntRecyclerView.setLayoutManager(layoutManager);
@@ -172,8 +168,6 @@ public class IrdntListFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
 
-=======
->>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
         //재료 추가 버튼 (임시, 실제는 IoT로 구현)
         btnInputTest = rootView.findViewById(R.id.btnInputTest);
         irdnt_input_frame = rootView.findViewById(R.id.irdnt_input_frame);
@@ -201,11 +195,10 @@ public class IrdntListFragment extends Fragment {
                 }  else {
                     String name = content_nm.getText().toString().trim();
 
-<<<<<<< HEAD
                     irdntInsertConfirm(name);
-=======
+
                     irdntInsertConfirm(name, user_id);
->>>>>>> fbda0319cefdbd7f4453f9a014988c7be63c113c
+
                 }
             }
         });
