@@ -26,23 +26,20 @@ import java.util.ArrayList;
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
-    ArrayList<RecipeItem> myRecipeArrayList;
 
-    int recipe_id;
     RecipeItem recipeItem;
-
+    ArrayList<RecipeItem> items;
     HttpClient httpClient;
     HttpPost httpPost;
     HttpResponse httpResponse;
     HttpEntity httpEntity;
 
 
-    public Mainfragment_Recipe_Atask() {
 
+    public Mainfragment_Recipe_Atask(RecipeItem recipeItem) {
+        this.recipeItem = recipeItem;
     }
 
-    public Mainfragment_Recipe_Atask(RecipeItem recipeItem, int recipe_id) {
-    }
 
     @Override
     protected void onPreExecute() {
@@ -51,14 +48,15 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+        recipeItem = new RecipeItem();
 
-        myRecipeArrayList.clear();
 
         try {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-            builder.addTextBody("recipe_id", String.valueOf(recipe_id), ContentType.create("Multipart/related", "UTF-8"));
+
+         //   builder.addTextBody("recipe_id", String.valueOf(recipe_id), ContentType.create("Multipart/related", "UTF-8"));
             String postURL = ipConfig + "/ateamappspring/recipeInfoMf";
 
             // 전송
@@ -70,8 +68,10 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-            readJsonStream(inputStream);
+            recipeItem = readMessage(inputStream);
 
+
+            inputStream.close();
         } catch (Exception e) {
             Log.d("Sub1", e.getMessage());
             e.printStackTrace();
@@ -88,9 +88,7 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
             if(httpClient != null){
                 httpClient = null;
             }
-
         }
-
         return null;
     }
 
@@ -98,28 +96,10 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-
-
     }
 
-    public void readJsonStream(InputStream inputStream) throws IOException {
+    public RecipeItem readMessage(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
-        try {
-            reader.beginArray();
-            while (reader.hasNext()) {
-                myRecipeArrayList.add(readMessage(reader));
-            }
-            reader.endArray();
-        }catch (Exception e){
-            e.printStackTrace();
-            e.getMessage();
-            Log.d("222", e.getMessage());
-        }finally {
-            reader.close();
-        }
-    }
-
-    public RecipeItem readMessage(JsonReader reader) throws IOException {
 
         int recipe_id = 0;
         String recipe_nm_ko = "";
@@ -165,10 +145,6 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
         reader.endObject();
         return new RecipeItem(recipe_id, recipe_nm_ko, sumry, nation_nm, ty_nm, cooking_time, calorie, qnt, level_nm, irdnt_code, img_url);
 
-
     }
-
-
-
 
 }

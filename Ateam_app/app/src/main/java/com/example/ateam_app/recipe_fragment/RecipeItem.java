@@ -31,6 +31,15 @@ public class RecipeItem {
 
     }
 
+    public RecipeItem(String recipe_nm_ko, String sumry, String img_url) {
+        this.recipe_nm_ko = recipe_nm_ko;
+        this.sumry = sumry;
+        this.img_url = img_url;
+    }
+
+    public RecipeItem(int recipe_id, String recipe_nm_ko, String sumry, String img_url) {
+    }
+
     public int getRecipe_id() {
         return recipe_id;
     }
