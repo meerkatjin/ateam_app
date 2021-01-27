@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
+import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
@@ -374,21 +376,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
-                if (bottomNavi == 1) {
-                    //Toast.makeText(MainActivity.this, "통합 검색 : " + searchText, Toast.LENGTH_SHORT).show();
-
-
-                } else if (bottomNavi == 2) {
+                if (bottomNavi == 2) {
                     //Toast.makeText(MainActivity.this, "재료 검색 : " + searchText, Toast.LENGTH_SHORT).show();
-
-                } else if (bottomNavi == 3) {
-                    Toast.makeText(MainActivity.this, "여기서는 검색을 지원하지 않습니다.", Toast.LENGTH_SHORT).show();
 
                 } else if (bottomNavi == 4) {
                     //Toast.makeText(MainActivity.this, "레시피 검색 : " + searchText, Toast.LENGTH_SHORT).show();
 
-                } else if (bottomNavi == 5) {
-                    //Toast.makeText(MainActivity.this, "팁 검색 : " + searchText, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "여기서는 검색을 지원하지 않습니다.", Toast.LENGTH_SHORT).show();
 
                 }
 
