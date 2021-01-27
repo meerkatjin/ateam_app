@@ -55,8 +55,9 @@ public class SearchIrdnt extends AsyncTask<Void, Void, Void> {
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             builder.setCharset(Charset.forName("UTF-8"));
             builder.addTextBody("searchText", searchText, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
 
-            String postURL = ipConfig + "/ateamappspring/searchIrdntList";
+            String postURL = ipConfig + "/ateamappspring/searchIrdnt";
 
             // 전송
             InputStream inputStream = null;
