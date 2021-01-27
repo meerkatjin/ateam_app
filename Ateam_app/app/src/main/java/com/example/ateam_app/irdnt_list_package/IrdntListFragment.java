@@ -54,6 +54,7 @@ public class IrdntListFragment extends Fragment {
         items = new ArrayList<>();
         adapter = new IrdntListAdapter(context, items);
 
+        //회원 아이디 가져오기
         extra = this.getArguments();
         if (extra != null) {
             extra = getArguments();
@@ -73,7 +74,7 @@ public class IrdntListFragment extends Fragment {
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("과일"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("유제품"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류"));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료"));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료/주류"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타"));
 
         //DB에 있는 재료 리스트 가져오기
@@ -143,9 +144,9 @@ public class IrdntListFragment extends Fragment {
                                     irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
                                     irdntListView.execute();
                                 }
-                            } else if (position2 == 6) {    //조미료
+                            } else if (position2 == 6) {    //조미료/주류
                                 tabSelected = 17;
-                                content_ty = "조미료";
+                                content_ty = "조미료/주류";
                                 if(isNetworkConnected(context) == true) {
                                     irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
                                     irdntListView.execute();

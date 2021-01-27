@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class IrdntListView extends AsyncTask<Void, Void, Void> {
+    //DB와 연결해 내 냉장고 안에 있는 재료를 보여주는 클래스
     private static final String TAG = "main:IrdntListView";
     ArrayList<IrdntListDTO> items;
     IrdntListAdapter adapter;
@@ -56,11 +57,6 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
     HttpPost httpPost;
     HttpResponse httpResponse;
     HttpEntity httpEntity;
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
 
     @Override
     protected Void doInBackground(Void... voids) {

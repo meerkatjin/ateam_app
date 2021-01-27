@@ -1,6 +1,14 @@
 package com.example.ateam_app;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
+
+import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
+import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
+import com.example.ateam_app.manage_tip_package.ManagaeDTO;
+import com.example.ateam_app.manage_tip_package.ManageTipAddapter;
+import com.example.ateam_app.recipe_fragment.RecipeAdapter;
+import com.example.ateam_app.recipe_fragment.RecipeItem;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -10,13 +18,23 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 public class Search extends AsyncTask<Void, Void, String> {
-    private String searchText;
+    String searchText;
+    int bottomNavi;
+    IrdntListAdapter irdntListAdapter;
+    RecipeAdapter recipeAdapter;
+    ManageTipAddapter manageTipAdapter;
+    ArrayList<IrdntListDTO> irdntListDTO;
+    ArrayList<RecipeItem> recipeDTO;
+    ArrayList<ManagaeDTO> manageDTO;
+    ProgressDialog progressDialog;
 
-    public Search(String searchText) { this.searchText = searchText; }
-
-    String state = "";
+    public Search(String searchText, int bottomNavi) {
+        this.searchText = searchText;
+        this.bottomNavi = bottomNavi;
+    }
 
     HttpClient httpClient;
     HttpPost httpPost;
