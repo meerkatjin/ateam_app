@@ -88,7 +88,7 @@
                     <TextView
                         android:id="@+id/sumry_main"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="7dp"
                         android:text="오늘의 추천 요리 내용\n주저리주저리 이렇고 저렇고"
                         android:textSize="16sp"

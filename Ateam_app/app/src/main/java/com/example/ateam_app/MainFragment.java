@@ -3,6 +3,8 @@ package com.example.ateam_app;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -32,25 +34,20 @@ import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 public class MainFragment extends Fragment {
     private static final String TAG = "ddzgzzg";
     CardView shelfLifeAlertBanner, recipeRecommandBanner, manageTipBanner;
+    public static RecipeItem main_recipe_item = null;
 
-    Mainfragment_Recipe_Atask atask;
     ImageView img_url;
     TextView sumry;
 
-    RecipeItem recipeItem ;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
-        Context context = getContext();
-        recipeItem = new RecipeItem();
-        if(isNetworkConnected(context) == true) {
-            atask = new Mainfragment_Recipe_Atask(recipeItem);
-            atask.execute();
-        }
-        Log.d(TAG, "onCreateView: "+ recipeItem);
+
+
+        //Log.d(TAG, "onCreateView: "+ recipeItem);
         shelfLifeAlertBanner = rootView.findViewById(R.id.shelfLifeAlertBanner);
         recipeRecommandBanner = rootView.findViewById(R.id.recipeRecommandBanner);
         manageTipBanner = rootView.findViewById(R.id.manageTipBanner);
@@ -58,17 +55,22 @@ public class MainFragment extends Fragment {
         img_url = rootView.findViewById(R.id.img_url);
         sumry = rootView.findViewById(R.id.sumry_main);
         //랜덤 레시피
-        //rnd = new Random();
-        //int recipe_id = rnd.nextInt(499+1);
+        Context context = getContext();
+
+        if(isNetworkConnected(context) == true) {
+            Mainfragment_Recipe_Atask atask = new Mainfragment_Recipe_Atask();
+            try {
+                atask.execute().get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        sumry.setText(main_recipe_item.getSumry());
+        //Context context = getContext();
 
 
-        //sumry.setText(recipeItem.getSumry());
-
-
-
-
-
-        //
 
 
 
@@ -103,6 +105,8 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
+  
 
+    
 
 }

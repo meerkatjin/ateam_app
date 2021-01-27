@@ -24,7 +24,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
-
+import static com.example.ateam_app.MainFragment.main_recipe_item;
 public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
 
     RecipeItem recipeItem;
@@ -40,6 +40,10 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
         this.recipeItem = recipeItem;
     }
 
+    public Mainfragment_Recipe_Atask() {
+
+    }
+
 
     @Override
     protected void onPreExecute() {
@@ -48,7 +52,7 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        recipeItem = new RecipeItem();
+
 
 
         try {
@@ -68,9 +72,7 @@ public class Mainfragment_Recipe_Atask extends AsyncTask<Void, Void, Void> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-            recipeItem = readMessage(inputStream);
-
-
+            main_recipe_item = readMessage(inputStream);
             inputStream.close();
         } catch (Exception e) {
             Log.d("Sub1", e.getMessage());
