@@ -265,9 +265,8 @@ public class UserInfoChangeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == CAMERA_REQUEST) {
             //Toast.makeText(this, "카메라", Toast.LENGTH_SHORT).show();
-
             try {
                 // 이미지 돌리기 및 리사이즈
                 Bitmap newBitmap = CommonMethod.imageRotateAndResize(file.getAbsolutePath());
@@ -323,8 +322,9 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         java.text.SimpleDateFormat tmpDateFormat = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss");
 
         String imageFileName = "My" + tmpDateFormat.format(new Date()) + ".jpg";
-        File storageDir = Environment.getExternalStorageDirectory();
-        File curFile = new File(storageDir, imageFileName);
+        //File storageDir = Environment.getExternalStorageDirectory(); 이거빼고
+        //getExternalCacheDir() 넣어서 해결됨 왜 되는지는 모름..
+        File curFile = new File(getExternalCacheDir(), imageFileName);
 
         return curFile;
     }//createFile()

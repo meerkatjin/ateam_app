@@ -87,7 +87,7 @@
         </activity> <!-- API24 이상부터 Url 이 file:// 로 시작되면 안되서 content:// 으로 변환시키는 부분 -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
+            android:authorities="com.example.ateam_app.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
