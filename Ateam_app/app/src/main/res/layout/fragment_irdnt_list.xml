@@ -26,10 +26,10 @@
                 android:layout_height="wrap_content"
                 app:tabMode="fixed"
                 app:tabGravity="fill"
-                app:tabTextColor="#64B5F6"
-                app:tabSelectedTextColor="#FFFFFF"
+                app:tabTextColor="#000000"
+                app:tabSelectedTextColor="#64B5F6"
                 android:elevation="1dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
 
                 >
 
@@ -41,11 +41,11 @@
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable"
                 app:tabGravity="fill"
-                app:tabTextColor="#64B5F6"
-                app:tabSelectedTextColor="#FFFFFF"
+                app:tabTextColor="#000000"
+                app:tabSelectedTextColor="#64B5F6"
                 android:elevation="1dp"
-                android:visibility="visible"
-                android:background="#000000"
+                android:visibility="gone"
+                android:background="#FFFFFF"
 
                 >
 
@@ -59,13 +59,14 @@
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <Button
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnInputTest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="10dp"
-                android:text="테스트"
+                android:layout_gravity="top|end"
+                android:layout_margin="16dp"
+                android:src="@android:drawable/ic_input_add"
+                android:backgroundTint="#64B5F6"
                 android:visibility="visible"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -77,7 +78,7 @@
                 android:id="@+id/irdnt_input_frame"
                 android:layout_width="300dp"
                 android:layout_height="200dp"
-                android:background="#B3E91E63"
+                android:background="#B364B5F6"
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:visibility="gone"
