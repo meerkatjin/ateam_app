@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.ateam_app.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class IrdntListFragment extends Fragment {
     RecyclerView irdntRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     TabLayout irdnt_sort_tab, irdnt_sort_type_tab;
-    Button btnInputTest, btnIrdntInsert, btnIrdntCancel;
+    Button btnIrdntInsert, btnIrdntCancel;
+    FloatingActionButton btnInputTest;
     FrameLayout irdnt_input_frame;
     EditText content_nm;
     IrdntListView irdntListView;
@@ -63,8 +65,8 @@ public class IrdntListFragment extends Fragment {
 
         //재료 탭
         irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
-        irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("종류별"));
         irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("유통기한별"));
+        irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("종류별"));
         irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("이름별"));
         //재료 탭(종류 세부)
         irdnt_sort_type_tab = rootView.findViewById(R.id.irdnt_sort_type_tab);
@@ -92,10 +94,18 @@ public class IrdntListFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
 
-                //종류별 탭 선택 시 세부 탭 보여주기
+                //유통기한별 탭
                 if (position == 0) {
-                    irdnt_sort_type_tab.setVisibility(View.VISIBLE);
+                    tabSelected = 2;
+                    irdnt_sort_type_tab.setVisibility(View.GONE);
+                    if(isNetworkConnected(context) == true) {
+                        irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
+                        irdntListView.execute();
+                    }
 
+                    //종류별 탭 선택 시 세부 탭 보여주기
+                } else if (position == 1) {
+                    irdnt_sort_type_tab.setVisibility(View.VISIBLE);
 
                     irdnt_sort_type_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                         @Override
@@ -172,15 +182,6 @@ public class IrdntListFragment extends Fragment {
 
                         }
                     });
-
-                    //유통기한별 탭
-                } else if (position == 1) {
-                    tabSelected = 2;
-                    irdnt_sort_type_tab.setVisibility(View.GONE);
-                    if(isNetworkConnected(context) == true) {
-                        irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
-                        irdntListView.execute();
-                    }
 
                     //이름별 탭
                 } else if (position == 2) {
