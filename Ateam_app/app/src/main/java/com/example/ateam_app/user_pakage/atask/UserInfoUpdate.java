@@ -13,28 +13,26 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
+public class UserInfoUpdate extends AsyncTask<Void, Void, String> {
+
+    // 데이터베이스에 삽입결과 0보다크면 삽입성공, 같거나 작으면 실패
+    String state = "";
 
     private long user_id;
-    private int gradeCheck;
-    private String user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no, user_grade, user_type;
+    private String user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no, user_grade, user_type, imageRealPathU;
 
-    public UserInfoUpdate(String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no) {
-        this.user_email = user_email;
-        this.user_pw = user_pw;
-        this.user_nm = user_nm;
-        this.user_addr = user_addr;
-        this.user_pro_img = user_pro_img;
-        this.user_phone_no = user_phone_no;
-    }
-
-    public UserInfoUpdate(long user_id, String user_email, String user_pw, String user_nm, String user_addr, String user_pro_img, String user_phone_no, String user_grade, String user_type, int gradeCheck) {
+    public UserInfoUpdate(long user_id, String user_email, String user_pw,
+                          String user_nm, String user_addr, String user_pro_img,
+                          String user_phone_no, String user_grade, String user_type,
+                          String imageRealPathU) {
         this.user_id = user_id;
         this.user_email = user_email;
         this.user_pw = user_pw;
@@ -44,7 +42,7 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
         this.user_phone_no = user_phone_no;
         this.user_grade = user_grade;
         this.user_type = user_type;
-        this.gradeCheck = gradeCheck;
+        this.imageRealPathU = imageRealPathU;
     }
 
     @Override
@@ -53,32 +51,37 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
+    protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
 
     }
 
+    HttpClient httpClient;
+    HttpPost httpPost;
+    HttpResponse httpResponse;
+    HttpEntity httpEntity;
+
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected String doInBackground(Void... voids) {
         try {
             // MultipartEntityBuild 생성
-            String postURL = "";
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             builder.setCharset(Charset.forName("UTF-8"));
 
             // 문자열 및 데이터 추가
+            builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_email", user_email, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_pw", user_pw, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_nm", user_nm, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_addr", user_addr, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_pro_img", user_pro_img, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_phone_no", user_phone_no, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_grade", user_grade, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_type", user_type, ContentType.create("Multipart/related", "UTF-8"));
 
-            if(gradeCheck == 2){
-                builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
-                builder.addTextBody("user_grade", user_grade, ContentType.create("Multipart/related", "UTF-8"));
-                builder.addTextBody("user_type", user_type, ContentType.create("Multipart/related", "UTF-8"));
+            if(!imageRealPathU.trim().equals("")){
+                builder.addPart("image", new FileBody(new File(imageRealPathU)));
             }
 
             Log.d("UpdateEmail", user_email);
@@ -86,41 +89,29 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
             Log.d("UpdateName", user_nm);
             Log.d("UpdateAddr", user_addr);
             Log.d("UpdateImg", user_pro_img);
+            Log.d("imageRealPathU", imageRealPathU);
 
-            // 이미지를 새로 선택했으면 선택한 이미지와 기존에 이미지 경로를 같이 보낸다
-            if(!user_pro_img.equals("")){
-                Log.d("Sub1Update:postURL", "1");
-                // DB에 저장할 경로
-                builder.addTextBody("user_pro_img", user_pro_img, ContentType.create("Multipart/related", "UTF-8"));
-                // 실제 이미지 파일
-                builder.addPart("image", new FileBody(new File(user_pro_img)));
+            String postURL = ipConfig + "/ateamappspring/userInfoChange";
 
-                postURL = ipConfig + "/ateamappspring/userInfoChange";
-
-            }else if(user_pro_img.equals("")){  // 이미지를 바꾸지 않았다면
-                Log.d("Sub1Update:postURL", "3");
-                postURL = ipConfig + "/ateamappspring/userInfoChangeNo";
-            }else{
-                Log.d("Sub1Update:postURL", "5 : error");
-            }
-            Log.d("Sub1Update:postURL", postURL);
             // 전송
-            //InputStream inputStream = null;
-            HttpClient httpClient = AndroidHttpClient.newInstance("Android");
-            HttpPost httpPost = new HttpPost(postURL);
+            InputStream inputStream = null;
+            httpClient = AndroidHttpClient.newInstance("Android");
+            httpPost = new HttpPost(postURL);
             httpPost.setEntity(builder.build());
-            HttpResponse httpResponse = httpClient.execute(httpPost);
-            HttpEntity httpEntity = httpResponse.getEntity();
-            //inputStream = httpEntity.getContent();
+            httpResponse = httpClient.execute(httpPost);
+            httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
 
             // 응답
-                /*BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line = null;
-                while ((line = bufferedReader.readLine()) != null){
-                    stringBuilder.append(line + "\n");
-                }*/
-            //inputStream.close();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null){
+                stringBuilder.append(line + "\n");
+            }
+
+            state = stringBuilder.toString();
+            inputStream.close();
 
             // 응답결과
                /* String result = stringBuilder.toString();
@@ -130,6 +121,6 @@ public class UserInfoUpdate extends AsyncTask<Void, Void, Void> {
             e.printStackTrace();
         }
 
-        return null;
+        return state;
     }
 }

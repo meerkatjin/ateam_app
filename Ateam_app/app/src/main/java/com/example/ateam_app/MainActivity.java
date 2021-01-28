@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //좌측 메뉴 배경색 변경
         headerView.setBackgroundColor(Color.BLACK);
         //프로필 이미지 띄우기
-        Glide.with(this).load(loginDTO.getUser_pro_img()).into(header_user_pro_img);
+        Glide.with(this).load(loginDTO.getUser_pro_img()).error(R.drawable.thumb__ser).into(header_user_pro_img);
         header_user_nm.setText(loginDTO.getUser_nm() + " 님 반갑습니다!");
         header_user_email.setText(loginDTO.getUser_email());
 
