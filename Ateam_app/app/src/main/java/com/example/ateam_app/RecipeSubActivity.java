@@ -51,13 +51,20 @@ public class RecipeSubActivity extends AppCompatActivity {
         recipe_nm_ko.setText(intent.getStringExtra("recipe_nm_ko"));
         //level_nm.setText(intent.getStringExtra("level_nm"));
         //레시피 아이디 값 넘겨주자
+
         int recipe_id = intent.getIntExtra("recipe_id" , 1);
         if(isNetworkConnected(this) == true) {
-            recipeSubAtask = new RecipeSubAtask(items, recipe_id, adapter);
+                recipeSubAtask = new RecipeSubAtask(items, recipe_id, adapter);
+                recipeSubAtask.execute();
+            }
+
+
+        /*else {
+            int recipe_id_mf = intent.getIntExtra("recipe_id_mf", 2);
+            recipeSubAtask = new RecipeSubAtask(items, recipe_id_mf, adapter);
             recipeSubAtask.execute();
-
         }
-
+*/
 
         //버튼 누르면 뒤로 돌아가기
 
