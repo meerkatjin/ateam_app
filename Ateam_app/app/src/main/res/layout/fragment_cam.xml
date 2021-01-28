@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".CamFragment"
     android:orientation="vertical"
-
+    android:background="#FFFFFF"
     android:weightSum="3">
 
     <ImageView
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-
+        android:src="@android:color/holo_purple"
         android:layout_weight="1" />
 
     <ImageView
@@ -22,7 +22,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-
+        android:src="@android:color/holo_purple"
         android:layout_weight="1" />
 
     <ImageView
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-
+        android:src="@android:color/holo_purple"
         android:layout_weight="1" />
 
 </LinearLayout>

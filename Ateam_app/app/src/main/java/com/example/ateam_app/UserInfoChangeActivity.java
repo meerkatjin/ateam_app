@@ -1,6 +1,5 @@
 package com.example.ateam_app;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -9,11 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -32,27 +29,25 @@ import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.user_pakage.atask.UserInfoUpdate;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 public class UserInfoChangeActivity extends AppCompatActivity {
-    public static UserDTO loginDTO = null;
-
     EditText user_email, user_pw, user_nm, user_addr, user_phone_no;
     Button btnInfoChange, btnInfoChangeCancel, btnImgUpload, btnCameraUpload;
     ImageView user_pro_img;
+
+    String state;
 
     long id;
     String email, pw, name, addr, img, phone, grade, type;
     Intent mainIntent;
 
-    public String imageRealPathU = "", imageDbPathU = "";
+    public String imageRealPathU = "";
 
     final int CAMERA_REQUEST = 1010;
     final int LOAD_IMAGE = 1011;
@@ -78,6 +73,9 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         btnInfoChangeCancel = findViewById(R.id.btnInfoChangeCancel);
         btnImgUpload = findViewById(R.id.btnImgUpload);
         btnCameraUpload = findViewById(R.id.btnCameraUpload);
+        adminLayout1 = findViewById(R.id.adminLayout1);
+        adminLayout2 = findViewById(R.id.adminLayout2);
+        adminLayout3 = findViewById(R.id.adminLayout3);
 
         user_email = findViewById(R.id.user_email);
         user_pw = findViewById(R.id.user_pw);
@@ -86,6 +84,13 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_pro_img = findViewById(R.id.user_pro_img);
         user_phone_no = findViewById(R.id.user_phone_no);
         user_pro_img = findViewById(R.id.user_pro_img);
+        user_id = findViewById(R.id.user_id);
+        user_grade = findViewById(R.id.user_grade);
+        user_grade_user = findViewById(R.id.user_grade_user);
+        user_grade_admin = findViewById(R.id.user_grade_admin);
+        user_type = findViewById(R.id.user_type);
+        adminView = findViewById(R.id.adminView);
+        adminTitle = findViewById(R.id.adminTitle);
 
         //보내온 값 파싱
         mainIntent = getIntent();
@@ -99,6 +104,17 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         addr = loginDTO.getUser_addr();
         phone = loginDTO.getUser_phone_no();
         img = loginDTO.getUser_pro_img();
+        id = loginDTO.getUser_id();
+        grade = loginDTO.getUser_grade();
+        type = loginDTO.getUser_type();
+
+        user_id.setText(String.valueOf(id));
+        user_type.setText(type);
+        if(grade.equals("1")){
+            user_grade_user.setChecked(true);
+        }else{
+            user_grade_admin.setChecked(true);
+        }
 
         //가져온값 써넣기
         user_email.setText(email);
@@ -107,16 +123,13 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         user_addr.setText(addr);
         user_phone_no.setText(phone);
 
-        imageDbPathU = img;
-
         //선택된 이미지 보여주기
-        Glide.with(this).load(img).into(user_pro_img);
+        Glide.with(this).load(img).error(R.drawable.thumb__ser).into(user_pro_img);
 
         //사진찍기
         btnCameraUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
                     try{
                         file = createFile();
                         Log.d("FilePath ", file.getAbsolutePath());
@@ -137,10 +150,6 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivityForResult(intent, CAMERA_REQUEST);
                     }
-
-                }catch(Exception e){
-                    Log.d("Update:error2", "Something Wrong", e);
-                }
             }
         });
 
@@ -159,33 +168,16 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
         //관리자일때 작업
         if(gradeCheck == 2){
-            adminLayout1 = findViewById(R.id.adminLayout1);
-            adminLayout2 = findViewById(R.id.adminLayout2);
-            adminLayout3 = findViewById(R.id.adminLayout3);
-            user_id = findViewById(R.id.user_id);
-            user_grade = findViewById(R.id.user_grade);
-            user_grade_user = findViewById(R.id.user_grade_user);
-            user_grade_admin = findViewById(R.id.user_grade_admin);
-            user_type = findViewById(R.id.user_type);
-            adminView = findViewById(R.id.adminView);
-            adminTitle = findViewById(R.id.adminTitle);
-
             adminView.setVisibility(View.VISIBLE);
             adminTitle.setVisibility(View.VISIBLE);
             adminLayout1.setVisibility(View.VISIBLE);
             adminLayout2.setVisibility(View.VISIBLE);
             adminLayout3.setVisibility(View.VISIBLE);
 
-            id = loginDTO.getUser_id();
-            grade = loginDTO.getUser_grade();
-            type = loginDTO.getUser_type();
-
-            user_id.setText(String.valueOf(id));
-            user_type.setText(type);
-            if(grade.equals("1")){
-                user_grade_user.setChecked(true);
-            }else{
-                user_grade_admin.setChecked(true);
+            if(type != "nomal"){
+                user_pw.setVisibility(View.GONE);
+                user_addr.setVisibility(View.GONE);
+                user_phone_no.setVisibility(View.GONE);
             }
         }
     }//onCreate()
@@ -207,31 +199,38 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                         name = user_nm.getText().toString();
                         addr = user_addr.getText().toString();
                         phone = user_phone_no.getText().toString();
+                        type = user_type.getText().toString();
 
-                        if(gradeCheck == 2){    //관리자일때
-                            id = Long.parseLong(user_id.getText().toString());
-                            type = user_type.getText().toString();
-                            if( user_grade.getCheckedRadioButtonId() == R.id.user_grade_user){
-                                grade = "1";
-                            }else{
-                                grade = "2";
-                            }
-                            userInfoUpdate = new UserInfoUpdate(id, email, pw, name, addr, img, phone, grade, type, gradeCheck);
-                        }else{  //일반 유저가 접근할때
-                            userInfoUpdate = new UserInfoUpdate(email, pw, name, addr, img, phone);
+                        if(user_grade.getCheckedRadioButtonId() == R.id.user_grade_user){
+                            grade = "1";
+                        }else{
+                            grade = "2";
                         }
 
-                        userInfoUpdate.execute();
+                        userInfoUpdate = new UserInfoUpdate(id, email, pw, name, addr, img, phone, grade, type, imageRealPathU);
 
-                        Toast.makeText(UserInfoChangeActivity.this, "수정되었습니다!", Toast.LENGTH_SHORT).show();
-                        Log.d("main:UserInfoChange : ", user_email + ", " + user_pw + "," + user_nm + ", " + user_addr + ", " + user_phone_no);
-                        Intent showIntent = new Intent(getApplicationContext(), MainActivity.class);
-                        showIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |   // 이 엑티비티 플래그를 사용하여 엑티비티를 호출하게 되면 새로운 태스크를 생성하여 그 태스크안에 엑티비티를 추가하게 됩니다. 단, 기존에 존재하는 태스크들중에 생성하려는 엑티비티와 동일한 affinity(관계, 유사)를 가지고 있는 태스크가 있다면 그곳으로 새 엑티비티가 들어가게됩니다.
-                                Intent.FLAG_ACTIVITY_SINGLE_TOP | // 엑티비티를 호출할 경우 호출된 엑티비티가 현재 태스크의 최상단에 존재하고 있었다면 새로운 인스턴스를 생성하지 않습니다. 예를 들어 ABC가 엑티비티 스택에 존재하는 상태에서 C를 호출하였다면 여전히 ABC가 존재하게 됩니다.
-                                Intent.FLAG_ACTIVITY_CLEAR_TOP); // 만약에 엑티비티스택에 호출하려는 엑티비티의 인스턴스가 이미 존재하고 있을 경우에 새로운 인스턴스를 생성하는 것 대신에 존재하고 있는 엑티비티를 포그라운드로 가져옵니다. 그리고 엑티비티스택의 최상단 엑티비티부터 포그라운드로 가져올 엑티비티까지의 모든 엑티비티를 삭제합니다.
-                        startActivity(showIntent);
+                        try {
+                            state = userInfoUpdate.execute().get().trim();
+                            Log.d("좀 되라고 : ", state);
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if(state.equals("1")){
+                            Toast.makeText(UserInfoChangeActivity.this, "수정되었습니다!", Toast.LENGTH_SHORT).show();
+                            Log.d("main:UserInfoChange : ", user_email + ", " + user_pw + "," + user_nm + ", " + user_addr + ", " + user_phone_no);
+                            Intent showIntent = new Intent(getApplicationContext(), MainActivity.class);
+                            showIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |   // 이 엑티비티 플래그를 사용하여 엑티비티를 호출하게 되면 새로운 태스크를 생성하여 그 태스크안에 엑티비티를 추가하게 됩니다. 단, 기존에 존재하는 태스크들중에 생성하려는 엑티비티와 동일한 affinity(관계, 유사)를 가지고 있는 태스크가 있다면 그곳으로 새 엑티비티가 들어가게됩니다.
+                                    Intent.FLAG_ACTIVITY_SINGLE_TOP | // 엑티비티를 호출할 경우 호출된 엑티비티가 현재 태스크의 최상단에 존재하고 있었다면 새로운 인스턴스를 생성하지 않습니다. 예를 들어 ABC가 엑티비티 스택에 존재하는 상태에서 C를 호출하였다면 여전히 ABC가 존재하게 됩니다.
+                                    Intent.FLAG_ACTIVITY_CLEAR_TOP); // 만약에 엑티비티스택에 호출하려는 엑티비티의 인스턴스가 이미 존재하고 있을 경우에 새로운 인스턴스를 생성하는 것 대신에 존재하고 있는 엑티비티를 포그라운드로 가져옵니다. 그리고 엑티비티스택의 최상단 엑티비티부터 포그라운드로 가져올 엑티비티까지의 모든 엑티비티를 삭제합니다.
+                            startActivity(showIntent);
 
-                        finish();
+                            finish();
+                        }else{
+                            Toast.makeText(UserInfoChangeActivity.this, "다시 시도 해주세요!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }else{
                         // 알림창 띄움
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
@@ -265,7 +264,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST) {
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             //Toast.makeText(this, "카메라", Toast.LENGTH_SHORT).show();
             try {
                 // 이미지 돌리기 및 리사이즈
@@ -278,13 +277,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
                 imageRealPathU = file.getAbsolutePath();
                 String uploadFileName = imageRealPathU.split("/")[imageRealPathU.split("/").length - 1];
-                imageDbPathU = ipConfig + "/ateamappspring/resources/" + uploadFileName;
-
-                ImageView imageView = (ImageView) findViewById(R.id.user_pro_img);
-                imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-
-                Log.d("Sub1Update:picPath", file.getAbsolutePath());
-
+                img = ipConfig + "/ateamappspring/resources/" + uploadFileName;
             } catch (Exception e){
                 e.printStackTrace();
 
@@ -310,7 +303,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
                 imageRealPathU = path;
                 String uploadFileName = imageRealPathU.split("/")[imageRealPathU.split("/").length - 1];
-                imageDbPathU = ipConfig + "/app/resources/" + uploadFileName;
+                img = ipConfig + "/app/resources/" + uploadFileName;
 
             } catch (Exception e){
                 e.printStackTrace();
@@ -318,7 +311,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         }
     }
 
-    private File createFile() throws IOException {
+    private File createFile(){
         java.text.SimpleDateFormat tmpDateFormat = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss");
 
         String imageFileName = "My" + tmpDateFormat.format(new Date()) + ".jpg";
