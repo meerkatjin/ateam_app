@@ -1,14 +1,13 @@
-package com.example.ateam_app.irdnt_list_package;
+package com.example.ateam_app;
 
 import android.app.ProgressDialog;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.ateam_app.MainActivity;
-import com.example.ateam_app.recipe_fragment.RecipeItem;
+import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
+import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -26,31 +25,20 @@ import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class IrdntListView extends AsyncTask<Void, Void, Void> {
-    //DB와 연결해 내 냉장고 안에 있는 재료를 보여주는 클래스
-    private static final String TAG = "main:IrdntListView";
-    ArrayList<IrdntListDTO> items;
-    IrdntListAdapter adapter;
+public class SearchIrdnt extends AsyncTask<Void, Void, Void> {
+    String searchText;
+    IrdntListAdapter irdntListAdapter;
+    ArrayList<IrdntListDTO> irdntListItems;
     ProgressDialog progressDialog;
     Long user_id;
-    String content_ty;
-    int tabSelected;
 
-    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id, int tabSelected) {
-        this.items = items;
-        this.adapter = adapter;
+    //재료 검색
+    public SearchIrdnt(String searchText, ArrayList<IrdntListDTO> irdntListItems, IrdntListAdapter irdntListAdapter, ProgressDialog progressDialog, Long user_id) {
+        this.searchText = searchText;
+        this.irdntListItems = irdntListItems;
+        this.irdntListAdapter = irdntListAdapter;
         this.progressDialog = progressDialog;
         this.user_id = user_id;
-        this.tabSelected = tabSelected;
-    }
-
-    public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id, int tabSelected, String content_ty) {
-        this.items = items;
-        this.adapter = adapter;
-        this.progressDialog = progressDialog;
-        this.user_id = user_id;
-        this.tabSelected = tabSelected;
-        this.content_ty = content_ty;
     }
 
     HttpClient httpClient;
@@ -60,24 +48,16 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        items.clear();
+        irdntListItems.clear();
 
         try {
-            // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             builder.setCharset(Charset.forName("UTF-8"));
+            builder.addTextBody("searchText", searchText, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
 
-            String postURL = null;
-            if (tabSelected > 10) {
-                builder.addTextBody("content_ty", content_ty, ContentType.create("Multipart/related", "UTF-8"));
-                postURL = ipConfig + "/ateamappspring/irdntListType";
-            } else if (tabSelected == 2) {
-                postURL = ipConfig + "/ateamappspring/irdntListDate";
-            } else if (tabSelected == 3) {
-                postURL = ipConfig + "/ateamappspring/irdntListName";
-            }
+            String postURL = ipConfig + "/ateamappspring/searchIrdnt";
 
             // 전송
             InputStream inputStream = null;
@@ -119,7 +99,7 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
 
         Log.d("IrdntListFragment", "List Select Complete!!!");
 
-        adapter.notifyDataSetChanged();
+        irdntListAdapter.notifyDataSetChanged();
     }
 
     public void readJsonStream(InputStream inputStream) throws IOException {
@@ -127,7 +107,7 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
         try {
             reader.beginArray();
             while (reader.hasNext()) {
-                items.add(readMessage(reader));
+                irdntListItems.add(readMessage(reader));
             }
             reader.endArray();
         }catch (Exception e){
@@ -161,5 +141,4 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
 
 
     }
-
 }
