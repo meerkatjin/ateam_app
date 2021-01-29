@@ -46,7 +46,7 @@ public class IrdntListFragment extends Fragment {
 
     Bundle extra;
     Long user_id;
-    int tabSelected = 11;
+    int tabSelected = 2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +61,20 @@ public class IrdntListFragment extends Fragment {
         if (extra != null) {
             extra = getArguments();
             user_id = extra.getLong("user_id");
+        }
+
+        //DB에 있는 재료 리스트 가져오기
+        irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
+        layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        irdntRecyclerView.setLayoutManager(layoutManager);
+
+        items = new ArrayList<>();
+        adapter = new IrdntListAdapter(context, items);
+        irdntRecyclerView.setAdapter(adapter);
+
+        if(isNetworkConnected(context) == true) {
+            irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
+            irdntListView.execute();
         }
 
         //재료 탭
@@ -78,15 +92,6 @@ public class IrdntListFragment extends Fragment {
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료/주류"));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타"));
-
-        //DB에 있는 재료 리스트 가져오기
-        irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
-        layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-        irdntRecyclerView.setLayoutManager(layoutManager);
-
-        items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items);
-        irdntRecyclerView.setAdapter(adapter);
 
         //재료 탭 선택 리스너
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -106,6 +111,12 @@ public class IrdntListFragment extends Fragment {
                     //종류별 탭 선택 시 세부 탭 보여주기
                 } else if (position == 1) {
                     irdnt_sort_type_tab.setVisibility(View.VISIBLE);
+                    tabSelected = 11;
+
+                    if(isNetworkConnected(context) == true) {
+                        irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+                        irdntListView.execute();
+                    }
 
                     irdnt_sort_type_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                         @Override
@@ -209,6 +220,7 @@ public class IrdntListFragment extends Fragment {
 
         //재료 추가 버튼 (임시, 실제는 IoT로 구현)
         btnInputTest = rootView.findViewById(R.id.btnInputTest);
+        btnInputTest.bringToFront();
         irdnt_input_frame = rootView.findViewById(R.id.irdnt_input_frame);
         btnInputTest.setOnClickListener(new View.OnClickListener() {
             @Override

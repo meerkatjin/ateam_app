@@ -55,7 +55,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="2.5"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
 
@@ -66,9 +66,7 @@
             android:text="Login"
             android:textSize="20dp"
             android:layout_weight="1"
-            android:layout_marginRight="8dp"
-
-            />
+            android:layout_marginRight="8dp" />
 
         <Button
             android:id="@+id/btnJoin"
@@ -77,9 +75,15 @@
             android:text="Join"
             android:textSize="20dp"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="8dp" />
 
-            />
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="자동 로그인"
+            android:layout_weight="0.5"
+            android:button="@null"
+            android:drawableBottom="?android:attr/listChoiceIndicatorMultiple"/>
     </LinearLayout>
 
     <com.kakao.usermgmt.LoginButton
