@@ -8,7 +8,7 @@
     tools:context=".user_pakage.LoginActivity"
     android:weightSum="4"
     android:orientation="vertical"
-    android:background="#1B000000"
+    android:background="#D9D9D9"
 
     >
 
