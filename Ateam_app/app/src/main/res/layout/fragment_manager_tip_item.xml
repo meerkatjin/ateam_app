@@ -16,7 +16,7 @@
       android:layout_height="167dp"
       android:orientation="horizontal"
       android:padding="20dp"
-      android:background="#000000"
+      android:background="#595959"
 
       >
 
@@ -27,8 +27,9 @@
         android:layout_gravity="center_vertical"
         android:src="@mipmap/ic_launcher"
         android:layout_marginLeft="1dp"
-        android:background="#000000"
+        android:background="#737373"
         android:padding="1dp"
+        android:layout_marginRight="3dp"
         />
 
 
@@ -37,7 +38,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
+        android:background="#737373"
         android:layout_marginLeft="2dp"
 
         >
@@ -51,7 +52,7 @@
           android:layout_marginStart="15dp"
           android:layout_marginLeft="15dp"
           android:textSize="16sp"
-          android:textColor="#FFFFFF"
+          android:textColor="#000000"
           android:text="안녕하세요"
           />
 

@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="#262626"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -49,20 +49,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:background="#737373"
+                >
 
                 <ImageView
                     android:id="@+id/img_url_mf"
                     android:layout_width="165dp"
                     android:layout_height="295dp"
-                    android:src="@mipmap/ic_launcher_round" />
+                    android:src="@mipmap/ic_launcher_round"
+                    android:background="#D9D9D9"
+                    />
 
                 <LinearLayout
                     android:id="@+id/linearMainFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="#D9D9D9"
+                    >
 
                     <TextView
                         android:layout_width="match_parent"
@@ -156,13 +162,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:background="#737373"
+                android:weightSum="5"
+                >
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="182dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
-                    android:layout_weight="1"
+
+                    android:background="#D9D9D9"
                     android:orientation="vertical">
 
                     <TextView
@@ -185,15 +195,24 @@
                         android:textSize="16sp"
 
                         />
-
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="right"
-                    android:src="@mipmap/ic_launcher_round" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#D9D9D9"
+
+                    >
+                    <ImageView
+                        android:layout_width="165dp"
+                        android:layout_height="295dp"
+                        android:layout_gravity="center_vertical"
+                        android:foregroundGravity="center"
+                        android:src="@mipmap/ic_launcher_round"
+
+                        />
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

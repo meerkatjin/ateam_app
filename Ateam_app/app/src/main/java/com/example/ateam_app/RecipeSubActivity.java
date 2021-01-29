@@ -45,11 +45,12 @@ public class RecipeSubActivity extends AppCompatActivity {
         intent = this.getIntent();
         recyclerView = findViewById(R.id.recipe_item_recyclerview);
         mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        level_nm = findViewById(R.id.level_nm);
         recipe_nm_ko = findViewById(R.id.recipe_nm_ko);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
         recipe_nm_ko.setText(intent.getStringExtra("recipe_nm_ko"));
-        //level_nm.setText(intent.getStringExtra("level_nm"));
+        level_nm.setText(intent.getStringExtra("level_nm"));
         //레시피 아이디 값 넘겨주자
 
         int recipe_id = intent.getIntExtra("recipe_id" , 1);

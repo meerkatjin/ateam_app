@@ -26,10 +26,11 @@
                 android:layout_height="wrap_content"
                 app:tabMode="fixed"
                 app:tabGravity="fill"
-                app:tabTextColor="#000000"
-                app:tabSelectedTextColor="#64B5F6"
+                app:tabIndicatorColor="@color/white"
+                app:tabTextColor="#FFFFFF"
+                app:tabSelectedTextColor="#FFFFFF"
                 android:elevation="1dp"
-                android:background="#FFFFFF"
+                android:background="#000000"
 
                 >
 
@@ -41,11 +42,12 @@
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable"
                 app:tabGravity="fill"
-                app:tabTextColor="#000000"
-                app:tabSelectedTextColor="#64B5F6"
+                app:tabIndicatorColor="@color/white"
+                app:tabTextColor="#FFFFFF"
+                app:tabSelectedTextColor="#FFFFFF"
                 android:elevation="1dp"
                 android:visibility="gone"
-                android:background="#FFFFFF"
+                android:background="#000000"
 
                 >
 
@@ -72,7 +74,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/irdntRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="#595959"
+                />
 
             <FrameLayout
                 android:id="@+id/irdnt_input_frame"
