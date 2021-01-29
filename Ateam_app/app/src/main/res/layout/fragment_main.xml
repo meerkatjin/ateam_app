@@ -9,14 +9,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/shelfLifeAlertBanner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1">
 
             <TextView
@@ -24,12 +25,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/holo_red_dark"
+                android:fontFamily="@font/gamjaflower_regular"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="유통기한이 임박한 재료 '1'개가 냉장고 안에 있습니다!"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:fontFamily="@font/gamjaflower_regular"
 
                 />
 
@@ -40,8 +41,8 @@
             android:id="@+id/recipeRecommandBanner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="5">
 
             <LinearLayout
@@ -60,17 +61,17 @@
                     android:id="@+id/linearMainFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/gamjaflower_regular"
+                        android:gravity="right"
                         android:text="오늘의 추천 요리"
                         android:textSize="22sp"
-                        android:layout_gravity="right"
-                        android:gravity="right"
-                        android:fontFamily="@font/gamjaflower_regular"
 
                         />
 
@@ -86,41 +87,43 @@
                         android:textSize="22sp"
 
                         />
+
                     <TextView
                         android:id="@+id/recipe_id_mf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/nation_nm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gamjaflower_regular"
                         android:layout_gravity="right"
-                        android:gravity="right"
                         android:layout_marginTop="7dp"
-                        android:text="유형분류"
-                        />
+                        android:fontFamily="@font/gamjaflower_regular"
+                        android:gravity="right"
+                        android:text="유형분류" />
+
                     <TextView
                         android:id="@+id/qnt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gamjaflower_regular"
                         android:layout_gravity="right"
-                        android:gravity="right"
                         android:layout_marginTop="7dp"
-                        android:text="양"
-                        />
+                        android:fontFamily="@font/gamjaflower_regular"
+                        android:gravity="right"
+                        android:text="양" />
+
                     <TextView
                         android:id="@+id/calorie"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gamjaflower_regular"
                         android:layout_gravity="right"
-                        android:gravity="right"
                         android:layout_marginTop="7dp"
-                        android:text="칼로리"
-                        />
+                        android:fontFamily="@font/gamjaflower_regular"
+                        android:gravity="right"
+                        android:text="칼로리" />
+
                     <TextView
                         android:id="@+id/sumry_main"
                         android:layout_width="match_parent"
@@ -158,28 +161,28 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_marginRight="10dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="일일 냉장고 관리 Tip"
                         android:layout_gravity="left"
-                        android:textSize="22sp"
                         android:fontFamily="@font/gamjaflower_regular"
+                        android:text="일일 냉장고 관리 Tip"
+                        android:textSize="22sp"
 
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="일일 냉장고 관리 Tip 내용\n어쩌고 저쩌고 이러쿵 저러쿵"
                         android:layout_gravity="left"
-                        android:textSize="16sp"
+                        android:layout_marginTop="7dp"
                         android:fontFamily="@font/gamjaflower_regular"
+                        android:text="일일 냉장고 관리 Tip 내용\n어쩌고 저쩌고 이러쿵 저러쿵"
+                        android:textSize="16sp"
 
                         />
 

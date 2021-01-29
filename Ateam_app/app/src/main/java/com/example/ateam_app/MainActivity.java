@@ -11,7 +11,9 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,8 +30,6 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
-import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
-import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FragmentManager fragmentManager = getFragmentManager();//
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -143,26 +143,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.tabMain:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .replace(R.id.main_frame, mainFragment)
+                                .commit();
                         bottomNavi = 1;
                         return true;
                     case R.id.tabIrdntList:
                         bundle = new Bundle();
                         bundle.putLong("user_id", loginDTO.getUser_id());
                         irdntListFragment.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, irdntListFragment).commit();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .replace(R.id.main_frame, irdntListFragment)
+                                .commit();
                         bottomNavi = 2;
                         return true;
                     case R.id.tabCam:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, camFragment).commit();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .replace(R.id.main_frame, camFragment)
+                                .commit();
                         bottomNavi = 3;
                         return true;
                     case R.id.tabRecipe:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, recipeFragment).commit();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .replace(R.id.main_frame, recipeFragment)
+                                .commit();
                         bottomNavi = 4;
                         return true;
                     case R.id.tabManageTip:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, manageTipFragment).commit();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .replace(R.id.main_frame, manageTipFragment)
+                                .commit();
                         bottomNavi = 5;
                         return true;
 
@@ -421,6 +441,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }//if
         }
     }//onBackPressed()
+
+
 
     public void replaceFragment(Fragment fragment) {
 
