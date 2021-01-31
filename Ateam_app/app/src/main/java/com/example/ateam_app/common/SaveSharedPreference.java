@@ -6,6 +6,7 @@ import com.example.ateam_app.user_pakage.dto.UserDTO;
 
 public class SaveSharedPreference {
 
+    //사용할땐 getSharedPreferences("키값?", Activity.MODE_PRIVATE) 을 pref 쪽에 넣으면됨
     public static void setUserData(SharedPreferences pref, UserDTO dto) {
         SharedPreferences.Editor editor = pref.edit();
         editor.putLong("user_id", dto.getUser_id());
@@ -31,5 +32,11 @@ public class SaveSharedPreference {
             dto.setUser_type(pref.getString("user_type","nomal"));
         }
         return dto;
+    }
+
+    public static void clearUserData(SharedPreferences pref){
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
     }
 }

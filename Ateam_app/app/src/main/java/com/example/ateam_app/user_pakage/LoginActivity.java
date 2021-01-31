@@ -49,28 +49,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private SessionCallback sessionCallback;
 
-    //헤시키 가져오기 로그켓에 KeyHash 입력
-    private void getHashKey(){
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (packageInfo == null)
-            Log.e("KeyHash", "KeyHash:null");
-
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
-            }
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -261,6 +239,28 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
                 }
+            }
+        }
+    }
+
+    //헤시키 가져오기 로그켓에 KeyHash 입력
+    private void getHashKey(){
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packageInfo == null)
+            Log.e("KeyHash", "KeyHash:null");
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            } catch (NoSuchAlgorithmException e) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
         }
     }
