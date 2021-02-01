@@ -94,7 +94,6 @@
             android:gravity="center"
             android:paddingTop="30px"
             android:text="자동 로그인"
-<<<<<<< HEAD
             android:textSize="10sp"
             android:fontFamily="@font/cafe24ssurroundair"
 
