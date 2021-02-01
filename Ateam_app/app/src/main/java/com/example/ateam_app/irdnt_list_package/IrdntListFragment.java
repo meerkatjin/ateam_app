@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.ateam_app.R;
@@ -79,19 +81,21 @@ public class IrdntListFragment extends Fragment {
 
         //재료 탭
         irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
+
         irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("유통기한별"));
         irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("종류별"));
         irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("이름별"));
         //재료 탭(종류 세부)
         irdnt_sort_type_tab = rootView.findViewById(R.id.irdnt_sort_type_tab);
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("고기"));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("수산물"));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("채소"));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("과일"));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("유제품"));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류"));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료/주류"));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타"));
+
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("고기").setIcon(R.drawable.meat));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("수산물").setIcon(R.drawable.fish));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("채소").setIcon(R.drawable.vegetable));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("과일").setIcon(R.drawable.fruit));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("유제품").setIcon(R.drawable.milk));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류").setIcon(R.drawable.rice));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료/주류").setIcon(R.drawable.beer));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타").setIcon(R.drawable.can));
 
         //재료 탭 선택 리스너
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

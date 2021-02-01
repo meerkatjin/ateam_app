@@ -42,14 +42,15 @@
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable"
                 app:tabGravity="fill"
-                app:tabIndicatorColor="@color/white"
+                app:tabIndicatorColor="#FFFFFF"
                 app:tabTextColor="#FFFFFF"
                 app:tabSelectedTextColor="#FFFFFF"
+                app:tabIconTint="@color/white"
                 android:elevation="1dp"
                 android:visibility="gone"
                 android:background="#000000"
-
                 >
+
 
             </com.google.android.material.tabs.TabLayout>
 
