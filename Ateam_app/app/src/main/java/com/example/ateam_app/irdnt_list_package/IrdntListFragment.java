@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.ateam_app.R;
+import com.example.ateam_app.user_pakage.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -32,7 +34,7 @@ import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 public class IrdntListFragment extends Fragment {
     private static final String TAG = "IrdntListFragment";
 
-    String state;
+    String state_insert, state_delete;
     IrdntListAdapter adapter;
     ArrayList<IrdntListDTO> items;
     RecyclerView irdntRecyclerView;
@@ -264,6 +266,44 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
+        //재료 클릭시 삭제 구현 중
+        adapter.setOnItemClickListener(new OnIrdntItemClickListener() {
+            @Override
+            public void onItemClick(IrdntListAdapter.ViewHolder holder, View view, int position) {
+                IrdntListDTO dto = adapter.getItem(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("삭제 알림");
+                builder.setMessage("선택하신 " + dto.getContent_nm() + "이/가 삭제됩니다.\n삭제하시겠습니까?");
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        IrdntListDelete delete = new IrdntListDelete(user_id, dto.getContent_list_id());
+                        try {
+                            state_delete = delete.execute().get().trim();
+                            Log.d("main:state : ", state_delete);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(getActivity().getApplicationContext(), "삭제되었습니다!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
         return rootView;
     }//onCreateView()
 
@@ -280,14 +320,14 @@ public class IrdntListFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 IrdntListInsert insert = new IrdntListInsert(name, user_id);
                 try {
-                    state = insert.execute().get().trim();
-                    Log.d("main:state : ", state);
+                    state_insert = insert.execute().get().trim();
+                    Log.d("main:state : ", state_insert);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                if (state.equals(name)) {
+                if (state_insert.equals(name)) {
                     Toast.makeText(getActivity().getApplicationContext(), "추가되었습니다!", Toast.LENGTH_SHORT).show();
                     irdnt_input_frame.setVisibility(View.GONE);
                     btnInputTest.setVisibility(View.VISIBLE);

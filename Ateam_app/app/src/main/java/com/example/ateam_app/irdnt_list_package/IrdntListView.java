@@ -142,11 +142,14 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
     public IrdntListDTO readMessage(JsonReader reader) throws IOException {
 
         String content_nm = "", content_ty = "", shelf_life_end = "";
+        int content_list_id = 0;
 
         reader.beginObject();
         while (reader.hasNext()) {
             String readStr = reader.nextName();
-            if (readStr.equals("content_nm")) {
+            if (readStr.equals("content_list_id")) {
+                content_list_id = reader.nextInt();
+            } else if (readStr.equals("content_nm")) {
                 content_nm = reader.nextString();
             } else if (readStr.equals("content_ty")) {
                 content_ty = reader.nextString();
@@ -157,7 +160,7 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
             }
         }
         reader.endObject();
-        return new IrdntListDTO(content_nm, content_ty, shelf_life_end);
+        return new IrdntListDTO(content_list_id, content_nm, content_ty, shelf_life_end);
 
 
     }
