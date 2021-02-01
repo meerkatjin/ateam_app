@@ -50,11 +50,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
-
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,7 +104,8 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(rootView.getContext(), "유통기한 알림배너", Toast.LENGTH_SHORT).show();
-                ((MainActivity)getActivity()).replaceFragment(IrdntListFragment.newInstance());
+                //((MainActivity)getActivity()).replaceFragment(IrdntListFragment.newInstance());
+                ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
             }
         });
 
@@ -136,8 +133,9 @@ public class MainFragment extends Fragment {
         manageTipBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(rootView.getContext(), "냉장고 관리 팁 배너", Toast.LENGTH_SHORT).show();
-                ((MainActivity)getActivity()).replaceFragment(ManageTipFragment.newInstance());
+                //Toast.makeText(rootView.getContext(), "냉장고 관리 팁 배너", Toast.LENGTH_SHORT).show();
+                //((MainActivity)getActivity()).replaceFragment(ManageTipFragment.newInstance());
+                ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabManageTip);
             }
         });
 
