@@ -173,12 +173,6 @@ public class UserInfoChangeActivity extends AppCompatActivity {
             adminLayout1.setVisibility(View.VISIBLE);
             adminLayout2.setVisibility(View.VISIBLE);
             adminLayout3.setVisibility(View.VISIBLE);
-
-            if(type != "nomal"){
-                user_pw.setVisibility(View.GONE);
-                user_addr.setVisibility(View.GONE);
-                user_phone_no.setVisibility(View.GONE);
-            }
         }
     }//onCreate()
 

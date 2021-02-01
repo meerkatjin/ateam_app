@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -44,9 +46,7 @@ public class JoinActivity extends AppCompatActivity {
         btnJoinConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 joinActivate();
-
             }//onClick()
         });//btnJoinConfirm.setOnClickListener()
 
@@ -56,6 +56,7 @@ public class JoinActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }//onCreate()
 
     //회원가입 실행 메소드

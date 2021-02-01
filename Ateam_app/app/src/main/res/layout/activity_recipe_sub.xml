@@ -20,12 +20,14 @@
 
         <TextView
             android:id="@+id/recipe_nm_ko"
-            android:layout_width="169dp"
-            android:layout_height="37dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:fontFamily="@font/gamjaflower_regular"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="10dp"
             android:text="레시피 이름"
             android:textSize="24sp"
+            android:fontFamily="@font/cafe24ssurround"
 
             />
 
@@ -34,7 +36,9 @@
             android:layout_width="97dp"
             android:layout_height="38dp"
             android:visibility="gone"
-            android:text="레시피 아이디" />
+            android:text="레시피 아이디"
+
+            />
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -42,7 +46,8 @@
             android:text="난이도"
             android:layout_marginStart="250dp"
             android:layout_marginLeft="250dp"
-            android:fontFamily="@font/gamjaflower_regular"
+            android:fontFamily="@font/cafe24ssurroundair"
+
 
             />
         <TextView
@@ -51,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="250dp"
             android:layout_marginLeft="250dp"
-            android:fontFamily="@font/gamjaflower_regular"
+            android:fontFamily="@font/cafe24ssurroundair"
+
 
             />
 
@@ -64,16 +70,17 @@
             android:orientation="vertical"
             android:layout_weight="1.5"
             >
+
             <Button
                 android:id="@+id/btnRecipeSub"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginStart="300dp"
-                android:layout_marginLeft="300dp"
-                android:fontFamily="@font/gamjaflower_regular"
+                android:layout_marginStart="250dp"
+                android:layout_marginLeft="250dp"
+                android:fontFamily="@font/cafe24ssurround"
                 android:text="뒤로가기"
-                android:textSize="16sp"
-                />
+                android:textSize="20sp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recipe_item_recyclerview"
                 android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -15,12 +16,15 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
 import com.example.ateam_app.common.CommonMethod;
+import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.user_pakage.atask.KakaoLoginSelect;
 import com.example.ateam_app.user_pakage.atask.LoginSelect;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
@@ -46,8 +50,34 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText user_email, user_pw;
     Button btnLogin, btnJoin;
+    CheckBox autoLoginCheck;
 
     private SessionCallback sessionCallback;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        autoLoginCheck = findViewById(R.id.autoLoginCheck);
+
+        boolean loginChack = SaveSharedPreference.getAutoLogin
+                                (getSharedPreferences("autoLogin", Activity.MODE_PRIVATE));
+
+        if(loginChack){
+            autoLoginCheck.setChecked(true);
+            loginDTO = SaveSharedPreference.getUserData
+                    (getSharedPreferences("userData",Activity.MODE_PRIVATE));
+            if(loginDTO.getUser_id() != 0){
+                if(CommonMethod.isNetworkConnected(LoginActivity.this)){
+                    loginEvent();
+                }else{
+                    Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else{
+            autoLoginCheck.setChecked(false);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +95,23 @@ public class LoginActivity extends AppCompatActivity {
         user_pw = findViewById(R.id.user_pw);
         btnLogin = findViewById(R.id.btnLogin);
         btnJoin = findViewById(R.id.btnJoin);
+        autoLoginCheck = findViewById(R.id.autoLoginCheck);
+
+        //자동로그인 체크 이벤트
+        autoLoginCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(buttonView.getId() == R.id.autoLoginCheck){
+                    if(isChecked){
+                        SaveSharedPreference.setAutoLogin
+                                (getSharedPreferences("autoLogin", Activity.MODE_PRIVATE), true);
+                    }else{
+                        SaveSharedPreference.setAutoLogin
+                                (getSharedPreferences("autoLogin", Activity.MODE_PRIVATE), false);
+                    }
+                }
+            }
+        });
 
         //로그인 버튼
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -86,11 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                        }
 
                        if(loginDTO != null){
-                           Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
-                           Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                           intent.putExtra("loginDTO", loginDTO);
-                           startActivityForResult(intent, MAIN_CODE);
-                           user_email.setText(""); user_pw.setText("");
+                           loginEvent();
                        }else {
                            Toast.makeText(LoginActivity.this, "아이디나 비밀번호가 일치안함 !!!", Toast.LENGTH_SHORT).show();
                            user_email.setText(""); user_pw.setText("");
@@ -178,10 +221,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         if (loginDTO != null) {
-                            Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.putExtra("loginDTO", loginDTO);
-                            startActivityForResult(intent, MAIN_CODE);
+                            loginEvent();
                         } else {
                             Toast.makeText(LoginActivity.this, "로그인 실패 !!!", Toast.LENGTH_SHORT).show();
                         }
@@ -263,5 +303,14 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
         }
+    }
+
+    private void loginEvent(){
+        Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("loginDTO", loginDTO);
+        startActivityForResult(intent, MAIN_CODE);
+        user_email.setText(""); user_pw.setText("");
+        finish();
     }
 }

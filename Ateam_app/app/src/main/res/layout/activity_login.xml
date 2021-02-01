@@ -18,9 +18,10 @@
         android:text="속보이는 냉장고"
         android:textSize="45sp"
         android:layout_weight="0.7"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/cafe24ssurround"
 
-
+        />
 
     <EditText
         android:id="@+id/user_email"
@@ -31,7 +32,10 @@
         android:textSize="20dp"
         android:layout_weight="0.5"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_marginRight="16dp"
+        android:fontFamily="@font/cafe24ssurroundair"
+
+        />
 
     <EditText
         android:id="@+id/user_pw"
@@ -42,7 +46,10 @@
         android:layout_weight="0.5"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:fontFamily="@font/cafe24ssurroundair"
+
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +67,10 @@
             android:text="Login"
             android:textSize="20sp"
             android:layout_weight="1"
-            android:layout_marginRight="8dp" />
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/cafe24ssurround"
+
+            />
 
         <Button
             android:id="@+id/btnJoin"
@@ -69,9 +79,13 @@
             android:text="Join"
             android:textSize="20sp"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/cafe24ssurround"
+
+            />
 
         <CheckBox
+            android:id="@+id/autoLoginCheck"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
@@ -80,18 +94,27 @@
             android:gravity="center"
             android:paddingTop="30px"
             android:text="자동 로그인"
+            android:textSize="10sp"
+            android:fontFamily="@font/cafe24ssurroundair"
+
+            />
+=======
             android:textSize="10sp" />
+
+>>>>>>> 6bad19071a05cdeb9963bd6fc689dae6535a5458
     </LinearLayout>
 
     <com.kakao.usermgmt.LoginButton
-        android:layout_marginTop="20dp"
         android:id="@+id/btnKakaoLogin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="30dp"
         android:layout_weight="0.5"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+
+        />
 
     <Button
         android:id="@+id/btnGoogleLogin"
@@ -102,5 +125,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_weight="0.5"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_marginRight="16dp"
+        android:fontFamily="@font/cafe24ssurround"
+
+        />
 </LinearLayout>

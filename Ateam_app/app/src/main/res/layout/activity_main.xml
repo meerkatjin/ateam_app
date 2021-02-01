@@ -82,6 +82,7 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/main_drawer_menu"
         android:background="@color/white"
+
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>

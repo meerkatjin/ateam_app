@@ -52,7 +52,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:text="안녕하세요"
-                    android:fontFamily="@font/gamjaflower_regular"
+                    android:fontFamily="@font/cafe24ssurroundair"
                     />
                 <TextView
                     android:id="@+id/nation_nm"
@@ -96,7 +96,7 @@
                     android:layout_marginLeft="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/gamjaflower_regular"
+                    android:fontFamily="@font/cafe24ssurroundair"
 
                     />
 
@@ -111,7 +111,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="22dp"
-                    android:fontFamily="@font/gamjaflower_regular"
+                    android:fontFamily="@font/cafe24ssurroundair"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:visibility="gone"

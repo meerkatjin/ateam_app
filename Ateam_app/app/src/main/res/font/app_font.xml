@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedAttribute,ResourceCycle"
+    >
+    <!--regular-->
+    <font
+        android:font="@font/cafe24ssurroundair"
+        android:fontStyle="normal"
+        android:fontWeight="500"
+        app:font="@font/cafe24ssurroundair"
+        app:fontStyle="normal"
+        app:fontWeight="500" />
+
+    <!--medium-->
+    <font
+        android:font="@font/cafe24ssurround"
+        android:fontStyle="normal"
+        android:fontWeight="1000"
+        app:font="@font/cafe24ssurround"
+        app:fontStyle="normal"
+        app:fontWeight="1000" />
+</font-family>

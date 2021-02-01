@@ -100,7 +100,7 @@ public class RecipeSubAdapter extends RecyclerView.Adapter<RecipeSubAdapter.View
         public void setItem(RecipeSubItem item) {
             //recipe_id.setText(String.valueOf(item.getRecipe_id()));
 
-                cooking_no.setText(item.getCooking_no());
+                //cooking_no.setText(item.getCooking_no()+"번째 순서");
 
                 //cooking_no.setText("");
 
