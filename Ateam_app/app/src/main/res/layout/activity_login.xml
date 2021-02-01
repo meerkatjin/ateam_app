@@ -20,8 +20,6 @@
         android:layout_weight="0.7"
         android:textColor="#000000" />
 
-
-
     <EditText
         android:id="@+id/user_email"
         android:layout_width="match_parent"
@@ -72,6 +70,7 @@
             android:layout_marginLeft="8dp" />
 
         <CheckBox
+            android:id="@+id/autoLoginCheck"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
@@ -81,6 +80,7 @@
             android:paddingTop="30px"
             android:text="자동 로그인"
             android:textSize="10sp" />
+
     </LinearLayout>
 
     <com.kakao.usermgmt.LoginButton
