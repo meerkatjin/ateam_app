@@ -26,6 +26,8 @@
                 android:textSize="35sp"
                 android:text="Irdnt Name"
                 android:textColor="@android:color/black"
+                android:fontFamily="@font/cafe24ssurround"
+
                 />
 
             <TextView
@@ -39,6 +41,7 @@
                 android:visibility="gone"
                 android:text="Due Date"
                 android:textColor="@android:color/holo_blue_bright"
+                android:fontFamily="@font/cafe24ssurroundair"
 
                 />
 
@@ -52,6 +55,8 @@
                 android:textSize="25sp"
                 android:text="Shelf Life End"
                 android:textColor="@android:color/holo_red_light"
+                android:fontFamily="@font/cafe24ssurroundair"
+
                 />
 
         </LinearLayout>

@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ID : "
+                android:fontFamily="@font/cafe24ssurroundair"
 
                 />
 
@@ -44,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email : "
+                android:fontFamily="@font/cafe24ssurroundair"
 
                 />
 
@@ -52,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name : "
+                android:fontFamily="@font/cafe24ssurroundair"
 
                 />
 
@@ -60,6 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Grade : "
+                android:fontFamily="@font/cafe24ssurroundair"
+
                 />
 
             <TextView
@@ -67,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Type : "
+                android:fontFamily="@font/cafe24ssurroundair"
                 />
 
         </LinearLayout>

@@ -25,12 +25,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/holo_red_dark"
-                android:fontFamily="@font/gamjaflower_regular"
+
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="유통기한이 임박한 재료 '1'개가 냉장고 안에 있습니다!"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
+                android:fontFamily="@font/cafe24ssurroundair"
 
                 />
 
@@ -68,16 +69,19 @@
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical"
                     android:background="#D9D9D9"
+
+
                     >
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:fontFamily="@font/gamjaflower_regular"
+
                         android:gravity="right"
                         android:text="오늘의 추천 요리"
                         android:textSize="22sp"
+                        android:fontFamily="@font/cafe24ssurround"
 
                         />
 
@@ -87,10 +91,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginTop="7dp"
-                        android:fontFamily="@font/gamjaflower_regular"
+
                         android:gravity="right"
                         android:text="요리이름"
                         android:textSize="22sp"
+                        android:fontFamily="@font/cafe24ssurround"
 
                         />
 
@@ -98,7 +103,10 @@
                         android:id="@+id/recipe_id_mf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:fontFamily="@font/cafe24ssurroundair"
+
+                        />
 
                     <TextView
                         android:id="@+id/nation_nm"
@@ -106,7 +114,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginTop="7dp"
-                        android:fontFamily="@font/gamjaflower_regular"
+                        android:fontFamily="@font/cafe24ssurroundair"
+
                         android:gravity="right"
                         android:text="유형분류" />
 
@@ -116,7 +125,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginTop="7dp"
-                        android:fontFamily="@font/gamjaflower_regular"
+                        android:fontFamily="@font/cafe24ssurroundair"
+
                         android:gravity="right"
                         android:text="양" />
 
@@ -126,7 +136,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginTop="7dp"
-                        android:fontFamily="@font/gamjaflower_regular"
+                        android:fontFamily="@font/cafe24ssurroundair"
+
                         android:gravity="right"
                         android:text="칼로리" />
 
@@ -136,7 +147,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="fill"
                         android:layout_marginTop="7dp"
-                        android:fontFamily="@font/gamjaflower_regular"
+                        android:fontFamily="@font/cafe24ssurroundair"
+
                         android:gravity="right"
                         android:text="오늘의 추천 요리 내용\n주저리주저리 이렇고 저렇고"
                         android:textSize="16sp"
@@ -179,7 +191,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
-                        android:fontFamily="@font/gamjaflower_regular"
+                        android:fontFamily="@font/cafe24ssurround"
+
                         android:text="일일 냉장고 관리 Tip"
                         android:textSize="22sp"
 
@@ -190,9 +203,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:layout_marginTop="7dp"
-                        android:fontFamily="@font/gamjaflower_regular"
                         android:text="일일 냉장고 관리 Tip 내용\n어쩌고 저쩌고 이러쿵 저러쿵"
                         android:textSize="16sp"
+                        android:fontFamily="@font/cafe24ssurroundair"
 
                         />
                 </LinearLayout>
