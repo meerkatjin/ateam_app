@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
@@ -82,14 +84,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //로그인 데이터 받는곳
         loginIntent = getIntent();
         loginDTO = (UserDTO) loginIntent.getSerializableExtra("loginDTO");
-        Log.d(TAG, "getLogin: userid : " + loginDTO.getUser_id()
-                + ", user_email : " + loginDTO.getUser_email()
-                + ", user_nm : " + loginDTO.getUser_nm()
-                + ", user_addr : " + loginDTO.getUser_addr()
-                + ", user_pro_img : " + loginDTO.getUser_pro_img()
-                + ", user_phone_no : " + loginDTO.getUser_phone_no()
-                + ", user_grade : " + loginDTO.getUser_grade()
-                + ", user_type : " + loginDTO.getUser_type());
+        SaveSharedPreference.setUserData    //로그인 유지하기위한 로그인 정보 저장
+                (getSharedPreferences("userData", Activity.MODE_PRIVATE), loginDTO);
 
         //측면 메뉴 호출 (Navigation Drawer)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -353,11 +349,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                     @Override
                     public void onCompleteLogout() {
-                        Intent logout = new Intent();
-                        loginDTO = null;
-                        logout.putExtra("logout", loginDTO);
+                        SaveSharedPreference.clearUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
+                        Intent logout = new Intent(MainActivity.this, LoginActivity.class);
+                        logout.putExtra("logout", loginDTO = null);
                         setResult(RESULT_OK, logout);
-                        finish();
+                        startActivity(logout);
                     }
                 });
             }
