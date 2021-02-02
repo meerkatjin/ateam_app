@@ -10,6 +10,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
@@ -18,6 +19,7 @@ import static com.example.ateam_app.common.CommonMethod.ipConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class RecipeAtask extends AsyncTask<Void, Void, Void> {
@@ -25,11 +27,22 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     RecipeItem dto ;
     RecipeAdapter adapter;
     ProgressDialog progressDialog;
+    String searchText;
+    int listing_position;
 
     public RecipeAtask(ArrayList<RecipeItem> myRecipeArrayList, RecipeAdapter adapter, ProgressDialog progressDialog) {
         this.myRecipeArrayList = myRecipeArrayList;
         this.adapter = adapter;
         this.progressDialog = progressDialog;
+        listing_position = 0;
+    }
+
+    public RecipeAtask(String searchText, ArrayList<RecipeItem> myRecipeArrayList, RecipeAdapter adapter, ProgressDialog progressDialog) {
+        this.searchText = searchText;
+        this.myRecipeArrayList = myRecipeArrayList;
+        this.adapter = adapter;
+        this.progressDialog = progressDialog;
+        listing_position = 1;
     }
 
 
@@ -37,11 +50,6 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     HttpPost httpPost;
     HttpResponse httpResponse;
     HttpEntity httpEntity;
-
-    public RecipeAtask(ArrayList<RecipeItem> recipeItems) {
-
-    }
-
 
 
     @Override
@@ -53,11 +61,19 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
         myRecipeArrayList.clear();
 
-        String postURL = ipConfig + "/ateamappspring/recipeInfo";
         try {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.setCharset(Charset.forName("UTF-8"));
+
+            String postURL = null;
+            if (listing_position == 0) {
+                postURL = ipConfig + "/ateamappspring/recipeInfo";
+            } else if (listing_position == 1) {
+                builder.addTextBody("searchText", searchText, ContentType.create("Multipart/related", "UTF-8"));
+                postURL = ipConfig + "/ateamappspring/searchRecipe";
+            }
 
             // 전송
             InputStream inputStream = null;
