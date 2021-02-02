@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.ateam_app.irdnt_list_package.IrdntLifeEndNumATask;
 import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.Mainfragment_Recipe_Atask;
@@ -39,6 +40,7 @@ public class MainFragment extends Fragment {
     private static final String TAG = "ddzgzzg";
     CardView shelfLifeAlertBanner, recipeRecommandBanner, manageTipBanner;
     public static RecipeItem main_recipe_item = null;
+    public static int lifeEndNum = 0;   //유통기한 끝난게 몇개 있는지 카운트
     TextView recipe_id;
     TextView recipe_nm_ko;
     ImageView img_url;
@@ -47,6 +49,8 @@ public class MainFragment extends Fragment {
     TextView nation_nm;
     TextView qnt;
     TextView calorie;
+    TextView shelfLifeAlertText;
+    Bundle extra;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -57,8 +61,8 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
 
-
         //Log.d(TAG, "onCreateView: "+ recipeItem);
+        shelfLifeAlertText = rootView.findViewById(R.id.shelfLifeAlertText);
         shelfLifeAlertBanner = rootView.findViewById(R.id.shelfLifeAlertBanner);
         recipeRecommandBanner = rootView.findViewById(R.id.recipeRecommandBanner);
         manageTipBanner = rootView.findViewById(R.id.manageTipBanner);
@@ -94,10 +98,8 @@ public class MainFragment extends Fragment {
         qnt.setText(main_recipe_item.getQnt());
         nation_nm.setText(main_recipe_item.getNation_nm());
 
-
-
-
-
+        shelfLifeAlertText
+                .setText("유통기한이 임박한 재료 '"+getLifeEndNum(context)+"'개가 냉장고 안에 있습니다!");
 
         //유통기한 알림 배너 클릭 시 유통기한별 정렬 재료 리스트로 이동
         shelfLifeAlertBanner.setOnClickListener(new View.OnClickListener() {
@@ -142,8 +144,31 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
-  
 
-    
+    //회원 아이디 가져오기
+    public long getUserId(){
+        extra = this.getArguments();
+        if (extra != null) {
+            extra = getArguments();
+            return extra.getLong("user_id");
+        }else {
+            return 0;
+        }
+    }
 
+    //유통기한 넘은 내용물 갯수 가져오기
+    public String getLifeEndNum(Context context){
+        String num = "0";
+        if(isNetworkConnected(context) == true) {
+            IrdntLifeEndNumATask endNum = new IrdntLifeEndNumATask(getUserId());
+            try {
+                num = endNum.execute().get().trim();
+            } catch (ExecutionException e) {
+                e.getMessage();
+            } catch (InterruptedException e) {
+                e.getMessage();
+            }
+        }
+        return num;
+    }
 }
