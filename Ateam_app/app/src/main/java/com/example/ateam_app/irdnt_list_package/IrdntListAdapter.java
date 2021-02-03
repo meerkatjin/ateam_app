@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,12 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     Context context;
     ArrayList<IrdntListDTO> items;
     static OnIrdntItemClickListener listener;
+    ArrayList<Long> irdnt_ids;
 
-    public IrdntListAdapter(Context context, ArrayList<IrdntListDTO> items) {
+    public IrdntListAdapter(Context context, ArrayList<IrdntListDTO> items, ArrayList<Long> irdnt_ids) {
         this.context = context;
         this.items = items;
+        this.irdnt_ids = irdnt_ids;
     }
 
     //화면 연결
@@ -44,7 +47,11 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull IrdntListAdapter.ViewHolder holder, int position) {
         IrdntListDTO item = items.get(position);
-        holder.setItem(item);
+        if(irdnt_ids == null){
+            holder.setItem(item);
+        }else{
+            holder.setItem(item, irdnt_ids);
+        }
     }
 
     public IrdntListDTO getItem(int position) { return items.get(position); }
@@ -103,6 +110,18 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
             });
         }
 
+        public void setItem(IrdntListDTO dto, ArrayList<Long> ids) {
+            for (Long id : ids) {
+                if(id == dto.getContent_list_id()){
+                    irdnt_layout.setBackgroundColor(Color.parseColor("#FF3333"));
+                    shelf_life_end.setTextColor(Color.parseColor("#FFFFFF"));
+                }
+            }
+            //content_list_id.setText(dto.getContent_list_id());
+            content_nm.setText(dto.getContent_nm());
+            content_ty.setText(dto.getContent_ty());
+            shelf_life_end.setText(dto.getShelf_life_end());
+        }
         public void setItem(IrdntListDTO dto) {
             //content_list_id.setText(dto.getContent_list_id());
             content_nm.setText(dto.getContent_nm());
