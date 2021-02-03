@@ -37,6 +37,7 @@ public class IrdntListFragment extends Fragment {
 
     String state_insert, state_delete;
     IrdntListAdapter adapter;
+    ArrayList<Long> irdnt_ids;
     ArrayList<IrdntListDTO> items;
     RecyclerView irdntRecyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -46,6 +47,7 @@ public class IrdntListFragment extends Fragment {
     FrameLayout irdnt_input_frame;
     EditText content_nm;
     IrdntListView irdntListView;
+    IrdntLifeEndListATask irdntLifeEndListATask;
     ProgressDialog progressDialog;
     String content_ty;
 
@@ -58,8 +60,6 @@ public class IrdntListFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
         Context context = rootView.getContext();
-        items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items);
 
         //회원 아이디 가져오기
         extra = this.getArguments();
@@ -68,13 +68,28 @@ public class IrdntListFragment extends Fragment {
             user_id = extra.getLong("user_id");
         }
 
+        //유통기한 지난 재료의 아이디 가져오기
+        if(isNetworkConnected(context) == true) {
+            irdntLifeEndListATask = new IrdntLifeEndListATask(user_id);
+            try {
+                irdnt_ids = irdntLifeEndListATask.execute().get();
+            } catch (ExecutionException e) {
+                e.getMessage();
+            } catch (InterruptedException e) {
+                e.getMessage();
+            }
+        }
+
+        items = new ArrayList<>();
+        adapter = new IrdntListAdapter(context, items, irdnt_ids);
+
         //DB에 있는 재료 리스트 가져오기
         irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
         layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         irdntRecyclerView.setLayoutManager(layoutManager);
 
         items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items);
+        adapter = new IrdntListAdapter(context, items, irdnt_ids);
         irdntRecyclerView.setAdapter(adapter);
 
         if(isNetworkConnected(context) == true) {

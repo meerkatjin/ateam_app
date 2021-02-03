@@ -3,6 +3,7 @@ package com.example.ateam_app.irdnt_list_package;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
+import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,6 +13,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +37,7 @@ public class IrdntLifeEndListATask extends AsyncTask<Void, Void, ArrayList<Long>
 
     @Override
     protected ArrayList<Long> doInBackground(Void... voids) {
-
+        String msg = "";
         try {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -52,7 +54,17 @@ public class IrdntLifeEndListATask extends AsyncTask<Void, Void, ArrayList<Long>
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-            ids = readJsonStream(inputStream);
+            // 응답
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null){
+                stringBuilder.append(line + "\n");
+            }
+            msg = stringBuilder.toString();
+
+            Log.d("시발", msg);
+            inputStream.close();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -71,36 +83,18 @@ public class IrdntLifeEndListATask extends AsyncTask<Void, Void, ArrayList<Long>
             }
         }
 
-        return ids;
-    }
+        if(msg.substring(msg.indexOf('[')+1,msg.indexOf(']')).trim().equals("")
+                || msg.substring(msg.indexOf('[')+1,msg.indexOf(']')) == null){
+            ids = null;
+        }else{
+            String temp[] = msg.substring(msg.indexOf('[')+1,msg.indexOf(']')).split(",");
+            ids = new ArrayList<>();
 
-    private ArrayList<Long> readJsonStream(InputStream inputStream) throws IOException {
-        ArrayList<Long> longs = new ArrayList<>();
-        JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
-        try {
-            reader.beginArray();
-            while (reader.hasNext()) {
-                longs.add(readMessage(reader));
+            for(int i = 0; i < temp.length; i++){
+                ids.add(Long.parseLong(temp[i]));
+                Log.d("시발", temp[i]);
             }
-            reader.endArray();
-        }catch (Exception e){
-            e.printStackTrace();
-            e.getMessage();
-        }finally {
-            reader.close();
         }
-
-        return longs;
-    }
-
-    private Long readMessage(JsonReader reader) throws IOException{
-        long user_id = 0;
-
-        reader.beginObject();
-        while (reader.hasNext()){
-            user_id = reader.nextLong();
-        }
-        reader.endObject();
-        return  user_id;
+        return ids;
     }
 }

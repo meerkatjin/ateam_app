@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.example.ateam_app.irdnt_list_package.IrdntLifeEndListATask;
 import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
 import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
 import com.example.ateam_app.irdnt_list_package.IrdntListDelete;
@@ -27,6 +28,7 @@ import com.example.ateam_app.recipe_fragment.RecipeItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
@@ -39,6 +41,7 @@ public class SearchResultActivity extends AppCompatActivity {
     IrdntListView irdntListView;
     ArrayList<IrdntListDTO> irdntItems;
     IrdntListAdapter irdntListAdapter;
+    IrdntLifeEndListATask irdntLifeEndListATask;
 
     RecipeAtask recipeAtask;
     ArrayList<RecipeItem> recipeItems;
@@ -48,6 +51,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
     String searchText;
     Long user_id;
+
+    ArrayList<Long> irdnt_ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +74,19 @@ public class SearchResultActivity extends AppCompatActivity {
 
         irdntItems = new ArrayList<>();
 
-        irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems);
+        //유통기한 지난 재료의 아이디 가져오기
+        if(isNetworkConnected(SearchResultActivity.this) == true) {
+            irdntLifeEndListATask = new IrdntLifeEndListATask(user_id);
+            try {
+                irdnt_ids = irdntLifeEndListATask.execute().get();
+            } catch (ExecutionException e) {
+                e.getMessage();
+            } catch (InterruptedException e) {
+                e.getMessage();
+            }
+        }
+
+        irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids);
         searchRecyclerView.setAdapter(irdntListAdapter);
 
         if (isNetworkConnected(this) == true) {
@@ -84,7 +101,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 if (position == 0) {
                     irdntItems = new ArrayList<>();
-                    irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems);
+                    irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids);
                     searchRecyclerView.setAdapter(irdntListAdapter);
 
                     if (isNetworkConnected(getApplicationContext()) == true) {
