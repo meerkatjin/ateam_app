@@ -393,6 +393,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MenuItem searchItem = menu.findItem(R.id.menu_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint("검색어를 입력하세요.");
+        SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchAutoComplete.setHintTextColor(Color.WHITE);
+        searchAutoComplete.setTextColor(Color.WHITE);
+        searchAutoComplete.setBackgroundColor(Color.GRAY);
         ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
         searchIcon.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
 
@@ -412,18 +416,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
-                if (bottomNavi == 2) {
-                    //Toast.makeText(MainActivity.this, "재료 검색 : " + searchText, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
+                intent.putExtra("searchText", searchText.trim());
+                intent.putExtra("user_id", loginDTO.getUser_id());
+                startActivity(intent);
 
-                } else if (bottomNavi == 4) {
-                    //Toast.makeText(MainActivity.this, "레시피 검색 : " + searchText, Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(MainActivity.this, "여기서는 검색을 지원하지 않습니다.", Toast.LENGTH_SHORT).show();
-
-                }
-
-                return false;
+                return true;
             }
 
             @Override
