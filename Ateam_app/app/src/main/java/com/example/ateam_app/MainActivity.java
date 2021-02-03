@@ -397,8 +397,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchAutoComplete.setHintTextColor(Color.WHITE);
         searchAutoComplete.setTextColor(Color.WHITE);
         searchAutoComplete.setBackgroundColor(Color.GRAY);
-        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
-        searchIcon.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
 
         //검색창 활성화 및 축소
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {

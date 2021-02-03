@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#262626"
+        android:background="#595959"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -31,9 +31,7 @@
                 android:text="유통기한이 임박한 재료 '1'개가 냉장고 안에 있습니다!"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:fontFamily="@font/cafe24ssurroundair"
-
-                />
+                android:fontFamily="@font/cafe24ssurroundair" />
 
         </androidx.cardview.widget.CardView>
 
@@ -44,119 +42,122 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:background="#D9D9D9">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:background="#737373"
-                >
-
-                <ImageView
-                    android:id="@+id/img_url_mf"
-                    android:layout_width="165dp"
-                    android:layout_height="295dp"
-                    android:src="@mipmap/ic_launcher_round"
-                    android:background="#D9D9D9"
-                    />
+                android:orientation="vertical"
+                android:background="#D9D9D9">
 
                 <LinearLayout
-                    android:id="@+id/linearMainFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical"
-                    android:background="#D9D9D9"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="5"
+                    android:background="#D9D9D9">
 
-
-                    >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-
-                        android:gravity="right"
-                        android:text="오늘의 추천 요리"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/cafe24ssurround"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/recipe_nm_ko_mf"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="7dp"
-
-                        android:gravity="right"
-                        android:text="요리이름"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/cafe24ssurround"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/recipe_id_mf"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:id="@+id/img_url_mf"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:visibility="gone"
-                        android:fontFamily="@font/cafe24ssurroundair"
-
+                        android:src="@mipmap/ic_launcher_round"
+                        android:background="#D9D9D9"
+                        android:layout_weight="1.2"
+                        android:layout_marginLeft="7dp"
                         />
 
-                    <TextView
-                        android:id="@+id/nation_nm"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="7dp"
-                        android:fontFamily="@font/cafe24ssurroundair"
+                    <LinearLayout
+                        android:id="@+id/linearMainFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#D9D9D9"
+                        android:orientation="vertical">
 
-                        android:gravity="right"
-                        android:text="유형분류" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:background="#D9D9D9"
+                            android:fontFamily="@font/cafe24ssurround"
+                            android:gravity="center"
+                            android:text="오늘의 추천 요리"
+                            android:paddingVertical="5dp"
+                            android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/qnt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="7dp"
-                        android:fontFamily="@font/cafe24ssurroundair"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center">
 
-                        android:gravity="right"
-                        android:text="양" />
+                            <TextView
+                                android:id="@+id/recipe_nm_ko_mf"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/cafe24ssurround"
+                                android:gravity="center"
+                                android:text="요리이름"
+                                android:textSize="18sp"
+                                android:layout_marginBottom="10dp"/>
 
-                    <TextView
-                        android:id="@+id/calorie"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="7dp"
-                        android:fontFamily="@font/cafe24ssurroundair"
+                            <TextView
+                                android:id="@+id/recipe_id_mf"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/cafe24ssurroundair"
+                                android:visibility="gone" />
 
-                        android:gravity="right"
-                        android:text="칼로리" />
+                            <TextView
+                                android:id="@+id/nation_nm"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/cafe24ssurroundair"
+                                android:gravity="right"
+                                android:layout_marginBottom="7dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="유형분류" />
 
-                    <TextView
-                        android:id="@+id/sumry_main"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="fill"
-                        android:layout_marginTop="7dp"
-                        android:fontFamily="@font/cafe24ssurroundair"
+                            <TextView
+                                android:id="@+id/qnt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/cafe24ssurroundair"
+                                android:gravity="right"
+                                android:layout_marginBottom="7dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="양" />
 
-                        android:gravity="right"
-                        android:text="오늘의 추천 요리 내용\n주저리주저리 이렇고 저렇고"
-                        android:textSize="16sp"
+                            <TextView
+                                android:id="@+id/calorie"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/cafe24ssurroundair"
+                                android:gravity="right"
+                                android:layout_marginBottom="7dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="칼로리" />
 
-                        />
+                        </LinearLayout>
 
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/sumry_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.3"
+                    android:layout_gravity="fill"
+                    android:fontFamily="@font/cafe24ssurroundair"
+                    android:gravity="right"
+                    android:background="#D9D9D9"
+                    android:paddingVertical="7dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="오늘의 추천 요리 내용\n주저리주저리 이렇고 저렇고" />
 
             </LinearLayout>
 
@@ -168,64 +169,58 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="10dp"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:background="#D9D9D9">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:padding="10dp"
-                android:background="#737373"
-                android:weightSum="5"
-                >
+                android:background="#D9D9D9"
+                android:padding="7dp">
 
                 <LinearLayout
-                    android:layout_width="182dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-
                     android:background="#D9D9D9"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_weight="1.5">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:fontFamily="@font/cafe24ssurround"
-
                         android:text="일일 냉장고 관리 Tip"
-                        android:textSize="22sp"
-
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:layout_marginTop="7dp"
                         android:text="일일 냉장고 관리 Tip 내용\n어쩌고 저쩌고 이러쿵 저러쿵"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/cafe24ssurroundair"
+                        android:fontFamily="@font/cafe24ssurroundair" />
 
-                        />
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="#D9D9D9"
+                    android:layout_marginLeft="7dp">
 
-                    >
                     <ImageView
-                        android:layout_width="165dp"
-                        android:layout_height="295dp"
-                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
                         android:foregroundGravity="center"
-                        android:src="@mipmap/ic_launcher_round"
+                        android:src="@mipmap/ic_launcher_round" />
 
-                        />
                 </LinearLayout>
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
