@@ -146,63 +146,22 @@ public class IrdntListFragment extends Fragment {
                             int position2 = tab.getPosition();
 
                             if (position2 == 0) {   //고기
-                                tabSelected = 11;
-                                content_ty = "고기";
-                                if(isNetworkConnected(context) == true) {
-                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                                    irdntListView.execute();
-                                }
+                                tabChange(context, 11, "고기");
                             } else if (position2 == 1) {    //수산물
-                                tabSelected = 12;
-                                content_ty = "수산물";
-                                if(isNetworkConnected(context) == true) {
-                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                                    irdntListView.execute();
-                                }
+                                tabChange(context, 12, "수산물");
                             } else if (position2 == 2) {    //채소
-                                tabSelected = 13;
-                                content_ty = "채소";
-                                if(isNetworkConnected(context) == true) {
-                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                                    irdntListView.execute();
-                                }
+                                tabChange(context, 13, "채소");
                             } else if (position2 == 3) {    //과일
-                                tabSelected = 14;
-                                content_ty = "과일";
-                                if(isNetworkConnected(context) == true) {
-                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                                    irdntListView.execute();
-                                }
+                                tabChange(context, 14, "과일");
                             } else if (position2 == 4) {    //유제품
-                                tabSelected = 15;
-                                content_ty = "유제품";
-                                if(isNetworkConnected(context) == true) {
-                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                                    irdntListView.execute();
-                                }
+                                tabChange(context, 15, "유제품");
                             } else if (position2 == 5) {    //곡류
-                                tabSelected = 16;
-                                content_ty = "곡류";
-                                if(isNetworkConnected(context) == true) {
-                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                                    irdntListView.execute();
-                                }
+                                tabChange(context, 15, "곡류");
                             } else if (position2 == 6) {    //조미료/주류
-                                tabSelected = 17;
-                                content_ty = "조미료/주류";
-                                if(isNetworkConnected(context) == true) {
-                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                                    irdntListView.execute();
-                                }
+                                tabChange(context, 17, "조미료/주류");
                             } else if (position2 == 7) {    //음료/기타
-                                tabSelected = 18;
-                                content_ty = "음료/기타";
-                                if(isNetworkConnected(context) == true) {
-                                    irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                                    irdntListView.execute();
-                                }
+                                tabChange(context, 18, "음료/기타");
                             }
-
                         }
 
                         @Override
@@ -372,16 +331,11 @@ public class IrdntListFragment extends Fragment {
         return new IrdntListFragment();
     }
 
-    public void getLifeEndlist(Context context){
+    public void tabChange(Context context, int tabSelected, String content_ty){
         if(isNetworkConnected(context) == true) {
-            IrdntLifeEndNumATask endNum = new IrdntLifeEndNumATask(user_id);
-            try {
-                endNum.execute().get().trim();
-            } catch (ExecutionException e) {
-                e.getMessage();
-            } catch (InterruptedException e) {
-                e.getMessage();
-            }
+            irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
+            irdntListView.execute();
+            adapter.notifyDataSetChanged();
         }
     }
 }//class

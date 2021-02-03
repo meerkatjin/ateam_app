@@ -47,6 +47,9 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull IrdntListAdapter.ViewHolder holder, int position) {
         IrdntListDTO item = items.get(position);
+
+        holder.irdnt_layout.setBackgroundColor(Color.parseColor("#D9D9D9"));
+        holder.shelf_life_end.setTextColor(Color.parseColor("#FF4444"));
         if(irdnt_ids == null){
             holder.setItem(item);
         }else{

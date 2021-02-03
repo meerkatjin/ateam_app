@@ -92,7 +92,6 @@ public class IrdntLifeEndListATask extends AsyncTask<Void, Void, ArrayList<Long>
 
             for(int i = 0; i < temp.length; i++){
                 ids.add(Long.parseLong(temp[i]));
-                Log.d("시발", temp[i]);
             }
         }
         return ids;
