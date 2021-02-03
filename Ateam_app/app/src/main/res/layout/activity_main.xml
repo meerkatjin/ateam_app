@@ -23,7 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/ThemeOverlay.AppCompat"
-
                 >
 
                 <androidx.appcompat.widget.Toolbar
@@ -33,6 +32,7 @@
                     android:background="?attr/colorPrimary"
                     app:popupTheme="@style/Widget.AppCompat.Toolbar"
                     app:titleTextColor="#FFFFFF"
+                    app:subtitleTextColor="#FFFFFF"
                     />
 
             </com.google.android.material.appbar.AppBarLayout>
