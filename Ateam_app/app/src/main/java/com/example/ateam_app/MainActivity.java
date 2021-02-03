@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ateam_app.common.SaveSharedPreference;
+import com.example.ateam_app.irdnt_list_package.IrdntLifeEndNumATask;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
@@ -51,6 +53,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
 
+import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static final int USERINFO_CODE = 1004;
     int backmode = 0;
 
+    String endLifeNum;
     String deleteState;
     MainFragment mainFragment;
     IrdntListFragment irdntListFragment;
@@ -75,18 +79,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int bottomNavi = 1; //하단 네비게이션 바 선택점 저장
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        //로그인 데이터 받는곳
+        loginIntent = getIntent();
+        loginDTO = (UserDTO) loginIntent.getSerializableExtra("loginDTO");
+        SaveSharedPreference.setUserData    //로그인 유지하기위한 로그인 정보 저장
+                (getSharedPreferences("userData", Activity.MODE_PRIVATE), loginDTO);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FragmentManager fragmentManager = getFragmentManager();//
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //로그인 데이터 받는곳
-        loginIntent = getIntent();
-        loginDTO = (UserDTO) loginIntent.getSerializableExtra("loginDTO");
-        SaveSharedPreference.setUserData    //로그인 유지하기위한 로그인 정보 저장
-                (getSharedPreferences("userData", Activity.MODE_PRIVATE), loginDTO);
 
         //측면 메뉴 호출 (Navigation Drawer)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -133,6 +141,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         manageTipFragment = new ManageTipFragment();
         userMnageFragment = new UserMnageFragment();
 
+        endLifeNum = getLifeEndNum(MainActivity.this, loginDTO.getUser_id());
+        mainFragment.shelfLifeAlertText.setText("유통기한이 임박한 재료 '"+endLifeNum+"'개가 냉장고 안에 있습니다!");
+
         //하단 메뉴 (Bottom Navigation View)
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -140,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.tabMain:
+                        bundle = new Bundle();
+                        bundle.putLong("user_id", loginDTO.getUser_id());
+                        mainFragment.setArguments(bundle);
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
@@ -398,12 +412,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
-                Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
-                intent.putExtra("searchText", searchText.trim());
-                intent.putExtra("user_id", loginDTO.getUser_id());
-                startActivity(intent);
+                if (bottomNavi == 2) {
+                    //Toast.makeText(MainActivity.this, "재료 검색 : " + searchText, Toast.LENGTH_SHORT).show();
 
-                return true;
+                } else if (bottomNavi == 4) {
+                    //Toast.makeText(MainActivity.this, "레시피 검색 : " + searchText, Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(MainActivity.this, "여기서는 검색을 지원하지 않습니다.", Toast.LENGTH_SHORT).show();
+
+                }
+
+                return false;
             }
 
             @Override
@@ -445,4 +465,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
     }//replaceFragment()
 
+    //유통기한 넘은 내용물 갯수 가져오기
+    public String getLifeEndNum(Context context, long id){
+        String num = "0";
+        if(isNetworkConnected(context) == true) {
+            IrdntLifeEndNumATask endNum = new IrdntLifeEndNumATask(id);
+            try {
+                num = endNum.execute().get().trim();
+            } catch (ExecutionException e) {
+                e.getMessage();
+            } catch (InterruptedException e) {
+                e.getMessage();
+            }
+        }
+        return num;
+    }
 }//class
