@@ -1,108 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="5dp"
-    android:layout_marginHorizontal="2dp"
-    app:cardCornerRadius="30dp"
-
-    >
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:id="@+id/recipe_item_layout"
         android:layout_width="match_parent"
         android:layout_height="167dp"
         android:orientation="horizontal"
-        android:padding="20dp"
-        android:background="#737373"
-
-        >
+        android:padding="5dp"
+        android:background="@drawable/card_background_drawer">
 
         <ImageView
             android:id="@+id/img_view"
-            android:layout_width="120dp"
-            android:layout_height="126dp"
-            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:src="@mipmap/ic_launcher"
             android:layout_marginLeft="1dp"
-            android:background="#D9D9D9"
-            android:padding="3dp"
+            android:padding="3dp" />
 
-            />
-
-            <FrameLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="#D9D9D9"
-                android:layout_marginLeft="2dp"
+                android:layout_weight="1.5"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
 
-                >
+                <!-- 레시피 이름 -->
+                <TextView
+                    android:id="@+id/recipe_nm_ko"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cafe24ssurroundair"
+                    android:gravity="center"
+                    android:text="음식 이름"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:autoSizeTextType="uniform" />
 
-                //간략 소개
+                <!-- 간략 소개 -->
                 <TextView
                     android:id="@+id/sumry"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="16sp"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:textColor="@color/black"
                     android:text="안녕하세요"
                     android:fontFamily="@font/cafe24ssurroundair"
                     />
+
+                <!-- 음식 종류 -->
                 <TextView
                     android:id="@+id/nation_nm"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+                <!-- 타입 이름 -->
                 <TextView
                     android:id="@+id/ty_nm"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+                <!-- 조리 시간 -->
                 <TextView
                     android:id="@+id/cooking_time"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+                <!-- 열량 -->
                 <TextView
                     android:id="@+id/calorie"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+                <!-- 양 -->
                 <TextView
                     android:id="@+id/qnt"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+                <!-- 재료 코드 -->
                 <TextView
                     android:id="@+id/irdnt_code"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                //레시피 이름
 
-
-                <TextView
-                    android:id="@+id/recipe_nm_ko"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_gravity="top"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/cafe24ssurroundair"
-
-                    />
-
-                //난이도
-
-
+                <!-- 난이도 -->
                 <TextView
                     android:id="@+id/level_nm"
                     android:layout_width="match_parent"
@@ -117,13 +116,14 @@
                     android:visibility="gone"
                     />
 
+                <!-- 값을 넘겨주기 위한 레시피 아이디 -->
                 <TextView
                     android:id="@+id/recipe_id"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />//recipe_id 값 넘겨주기 위한 텍스트뷰
-          </FrameLayout>
+                    android:layout_height="wrap_content" />
+
+          </LinearLayout>
 
     </LinearLayout>
 

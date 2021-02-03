@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="170dp"
     android:orientation="vertical"
-    android:background="#8F8F8F"
+    android:background="@drawable/background_drawer"
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -33,6 +34,8 @@
         android:layout_height="wrap_content"
         android:text="hanul@hanuledu.co.kr"
         android:fontFamily="@font/cafe24ssurroundair"
+        app:autoSizeTextType="uniform"
+        app:autoSizePresetSizes="@array/autosize_text_sizes"
 
         />
 
