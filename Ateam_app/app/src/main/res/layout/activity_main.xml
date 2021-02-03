@@ -63,7 +63,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:itemBackground="@color/black"
+                android:background="#000000"
                 app:itemIconTint="@drawable/item_color"
                 app:itemTextColor="@drawable/item_color"
                 app:menu="@menu/menu_bottom"/>
@@ -80,9 +80,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/main_drawer_menu"
-        android:background="@color/white"
-
-        />
+        app:menu="@menu/main_drawer_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

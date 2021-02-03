@@ -116,7 +116,7 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
         public void setItem(IrdntListDTO dto, ArrayList<Long> ids) {
             for (Long id : ids) {
                 if(id == dto.getContent_list_id()){
-                    irdnt_layout.setBackgroundColor(Color.parseColor("#FF3333"));
+                    irdnt_layout.setBackgroundResource(R.drawable.redcard_background_drawer);
                     shelf_life_end.setTextColor(Color.parseColor("#FFFFFF"));
                 }
             }
