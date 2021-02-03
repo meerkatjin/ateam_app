@@ -74,6 +74,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int bottomNavi = 1; //하단 네비게이션 바 선택점 저장
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -125,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().findItem(R.id.admin_item).setVisible(true);
         }
 
-        mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_view);
+        mainFragment = new MainFragment();
         irdntListFragment = new IrdntListFragment();
         camFragment = new CamFragment();
         recipeFragment = new RecipeFragment();
@@ -139,6 +144,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.tabMain:
+                        bundle = new Bundle();
+                        bundle.putLong("user_id", loginDTO.getUser_id());
+                        mainFragment.setArguments(bundle);
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)

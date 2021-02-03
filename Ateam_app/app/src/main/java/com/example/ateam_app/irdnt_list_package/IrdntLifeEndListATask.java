@@ -2,6 +2,7 @@ package com.example.ateam_app.irdnt_list_package;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
+import android.util.JsonReader;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -11,21 +12,21 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
-import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class IrdntLifeEndNumATask extends AsyncTask<Void, Void, String> {
+public class IrdntLifeEndListATask extends AsyncTask<Void, Void, ArrayList<Long>> {
 
+    ArrayList<Long> ids;
     private long id;
 
-    public IrdntLifeEndNumATask(long id) {
+    public IrdntLifeEndListATask(long id) {
         this.id = id;
     }
-
-    String num = "";
 
     HttpClient httpClient;
     HttpPost httpPost;
@@ -33,13 +34,14 @@ public class IrdntLifeEndNumATask extends AsyncTask<Void, Void, String> {
     HttpEntity httpEntity;
 
     @Override
-    protected String doInBackground(Void... voids) {
+    protected ArrayList<Long> doInBackground(Void... voids) {
+
         try {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
             builder.addTextBody("user_id", String.valueOf(id), ContentType.create("Multipart/related", "UTF-8"));
-            String postURL = ipConfig + "/ateamappspring/getLifeEndNum";
+            String postURL = ipConfig + "/ateamappspring/getLifeEndList";
 
             //전송
             InputStream inputStream = null;
@@ -50,16 +52,7 @@ public class IrdntLifeEndNumATask extends AsyncTask<Void, Void, String> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-            // 응답
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null){
-                stringBuilder.append(line + "\n");
-            }
-            num = stringBuilder.toString();
-
-            inputStream.close();
+            ids = readJsonStream(inputStream);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -77,11 +70,37 @@ public class IrdntLifeEndNumATask extends AsyncTask<Void, Void, String> {
                 httpClient = null;
             }
         }
-        return num;
+
+        return ids;
     }
 
-    @Override
-    protected void onPostExecute(String num) {
+    private ArrayList<Long> readJsonStream(InputStream inputStream) throws IOException {
+        ArrayList<Long> longs = new ArrayList<>();
+        JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
+        try {
+            reader.beginArray();
+            while (reader.hasNext()) {
+                longs.add(readMessage(reader));
+            }
+            reader.endArray();
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getMessage();
+        }finally {
+            reader.close();
+        }
 
+        return longs;
+    }
+
+    private Long readMessage(JsonReader reader) throws IOException{
+        long user_id = 0;
+
+        reader.beginObject();
+        while (reader.hasNext()){
+            user_id = reader.nextLong();
+        }
+        reader.endObject();
+        return  user_id;
     }
 }

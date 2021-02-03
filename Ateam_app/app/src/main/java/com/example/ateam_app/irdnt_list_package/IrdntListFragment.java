@@ -28,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
@@ -356,4 +357,16 @@ public class IrdntListFragment extends Fragment {
         return new IrdntListFragment();
     }
 
+    public void getLifeEndlist(Context context){
+        if(isNetworkConnected(context) == true) {
+            IrdntLifeEndNumATask endNum = new IrdntLifeEndNumATask(user_id);
+            try {
+                endNum.execute().get().trim();
+            } catch (ExecutionException e) {
+                e.getMessage();
+            } catch (InterruptedException e) {
+                e.getMessage();
+            }
+        }
+    }
 }//class

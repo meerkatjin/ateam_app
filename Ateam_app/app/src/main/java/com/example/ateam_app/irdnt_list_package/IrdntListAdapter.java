@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,10 +79,12 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView content_list_id, content_nm, content_ty, shelf_life_end;
+        LinearLayout irdnt_layout;
 
         public ViewHolder(@NonNull View itemView, OnIrdntItemClickListener listener) {
             super(itemView);
 
+            irdnt_layout = itemView.findViewById(R.id.irdnt_layout);
             content_list_id = itemView.findViewById(R.id.content_list_id);
             content_nm = itemView.findViewById(R.id.content_nm);
             content_ty = itemView.findViewById(R.id.content_ty);
