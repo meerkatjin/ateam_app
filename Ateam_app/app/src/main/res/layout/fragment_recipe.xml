@@ -3,39 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_drawer"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-
-
-    android:weightSum="10"
     tools:context=".manage_tip_package.ManageTipFragment">
-
-
-
-
-    //리스트
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-       
-        >
-
-
-
+        android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recipeRecycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
         </androidx.recyclerview.widget.RecyclerView>
 
-
     </LinearLayout>
-
 
 </LinearLayout>

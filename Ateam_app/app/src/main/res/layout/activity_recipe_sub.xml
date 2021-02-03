@@ -53,7 +53,7 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:layout_weight="8"
-            android:background="@drawable/background_drawer">
+            android:background="#FFFFFF">
 
             <Button
                 android:id="@+id/btnRecipeSub"
