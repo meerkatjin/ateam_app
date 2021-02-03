@@ -33,8 +33,17 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
     IrdntListAdapter adapter;
     ProgressDialog progressDialog;
     Long user_id;
-    String content_ty;
+    String content_ty, searchText;
     int tabSelected;
+
+    public IrdntListView(String searchText, ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id) {
+        this.searchText = searchText;
+        this.items = items;
+        this.adapter = adapter;
+        this.progressDialog = progressDialog;
+        this.user_id = user_id;
+        tabSelected = 0;
+    }
 
     public IrdntListView(ArrayList<IrdntListDTO> items, IrdntListAdapter adapter, ProgressDialog progressDialog, Long user_id, int tabSelected) {
         this.items = items;
@@ -77,6 +86,9 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
                 postURL = ipConfig + "/ateamappspring/irdntListDate";
             } else if (tabSelected == 3) {
                 postURL = ipConfig + "/ateamappspring/irdntListName";
+            } else if (tabSelected == 0) {
+                builder.addTextBody("searchText", searchText, ContentType.create("Multipart/related", "UTF-8"));
+                postURL = ipConfig + "/ateamappspring/searchIrdnt";
             }
 
             // 전송

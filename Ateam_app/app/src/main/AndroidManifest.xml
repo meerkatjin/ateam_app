@@ -59,10 +59,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ateam_app"
         android:usesCleartextTraffic="true">
+        <activity android:name=".SearchResultActivity"></activity>
+
         <service
             android:name=".common.AlarmService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity android:name=".UserInfoChangeActivity" /> <!-- 애 빠져서 로그인 안되던거 -->
         <!-- https가 아니라 http로 오더라도 그냥 허가하는 부분 -->
