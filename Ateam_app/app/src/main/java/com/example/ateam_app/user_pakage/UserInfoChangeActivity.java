@@ -335,8 +335,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
-                startActivity(intent);
+
             }
         });//setNegativeButton()
 
