@@ -11,11 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.ateam_app.R;
-import com.example.ateam_app.RecipeSubActivity;
-import com.example.ateam_app.UserInfoChangeActivity;
+import com.example.ateam_app.user_pakage.UserInfoChangeActivity;
 import com.example.ateam_app.user_pakage.adapter.OnUserItemClickListener;
 import com.example.ateam_app.user_pakage.adapter.UserAdapter;
 import com.example.ateam_app.user_pakage.atask.GetUserListATask;
