@@ -98,6 +98,8 @@ public class MainFragment extends Fragment {
         qnt.setText(main_recipe_item.getQnt());
         nation_nm.setText(main_recipe_item.getNation_nm());
 
+        if(getLifeEndNum(context).equals("0")) shelfLifeAlertBanner.setVisibility(View.GONE);
+
         shelfLifeAlertText
                 .setText("유통기한이 임박한 재료 '"+getLifeEndNum(context)+"'개가 냉장고 안에 있습니다!");
 
