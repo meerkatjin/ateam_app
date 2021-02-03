@@ -141,6 +141,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userMnageFragment = new UserMnageFragment();
 
         endLifeNum = getLifeEndNum(MainActivity.this, loginDTO.getUser_id());
+
+        if(endLifeNum.equals("0")) mainFragment.shelfLifeAlertBanner.setVisibility(View.GONE);
+
         mainFragment.shelfLifeAlertText.setText("유통기한이 임박한 재료 '"+endLifeNum+"'개가 냉장고 안에 있습니다!");
 
         //하단 메뉴 (Bottom Navigation View)
