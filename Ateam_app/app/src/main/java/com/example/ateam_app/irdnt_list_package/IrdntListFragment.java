@@ -123,23 +123,11 @@ public class IrdntListFragment extends Fragment {
 
                 //유통기한별 탭
                 if (position == 0) {
-                    tabSelected = 2;
-                    irdnt_sort_type_tab.setVisibility(View.GONE);
-                    if(isNetworkConnected(context) == true) {
-                        irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
-                        irdntListView.execute();
-                    }
-
+                    tabChange(context, 2);
                     //종류별 탭 선택 시 세부 탭 보여주기
                 } else if (position == 1) {
                     irdnt_sort_type_tab.setVisibility(View.VISIBLE);
-                    tabSelected = 11;
-
-                    if(isNetworkConnected(context) == true) {
-                        irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-                        irdntListView.execute();
-                    }
-
+                    tabChange(context, 11, "고기");
                     irdnt_sort_type_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                         @Override
                         public void onTabSelected(TabLayout.Tab tab) {
@@ -177,13 +165,8 @@ public class IrdntListFragment extends Fragment {
 
                     //이름별 탭
                 } else if (position == 2) {
-                    tabSelected = 3;
                     irdnt_sort_type_tab.setVisibility(View.GONE);
-                    if(isNetworkConnected(context) == true) {
-                        irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
-                        irdntListView.execute();
-                    }
-
+                    tabChange(context,3);
                 }
             }
 
@@ -335,7 +318,15 @@ public class IrdntListFragment extends Fragment {
         if(isNetworkConnected(context) == true) {
             irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
             irdntListView.execute();
-            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public void tabChange(Context context, int tabSelected){
+        if(isNetworkConnected(context) == true) {
+            if(isNetworkConnected(context) == true) {
+                irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
+                irdntListView.execute();
+            }
         }
     }
 }//class

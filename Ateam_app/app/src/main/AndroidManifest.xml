@@ -66,7 +66,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".UserInfoChangeActivity" /> <!-- 애 빠져서 로그인 안되던거 -->
+        <activity android:name=".user_pakage.UserInfoChangeActivity" /> <!-- 애 빠져서 로그인 안되던거 -->
         <!-- https가 아니라 http로 오더라도 그냥 허가하는 부분 -->
         <!-- http 라이브러리 사용 -->
         <uses-library

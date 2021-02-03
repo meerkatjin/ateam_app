@@ -1,4 +1,4 @@
-package com.example.ateam_app;
+package com.example.ateam_app.user_pakage;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.example.ateam_app.MainActivity;
+import com.example.ateam_app.R;
 import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.user_pakage.atask.UserInfoUpdate;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
