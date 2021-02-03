@@ -165,7 +165,6 @@ public class IrdntListFragment extends Fragment {
 
                     //이름별 탭
                 } else if (position == 2) {
-                    irdnt_sort_type_tab.setVisibility(View.GONE);
                     tabChange(context,3);
                 }
             }
@@ -322,6 +321,7 @@ public class IrdntListFragment extends Fragment {
     }
 
     public void tabChange(Context context, int tabSelected){
+        irdnt_sort_type_tab.setVisibility(View.GONE);
         if(isNetworkConnected(context) == true) {
             if(isNetworkConnected(context) == true) {
                 irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
