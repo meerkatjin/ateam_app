@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user_pakage.UserInfoChangeActivity"
-    android:background="#D9D9D9"
+    android:background="@drawable/card_background_drawer"
     >
 
     <ScrollView
@@ -24,7 +24,8 @@
                 android:id="@+id/infoTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="회원정보수정"
                 android:textSize="45sp"
@@ -35,20 +36,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/emailText"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="40dp"
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="이메일"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -57,9 +57,10 @@
                     android:id="@+id/user_email"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="40dp"
                     android:layout_weight="1.3"
-                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:enabled="false"
                     android:fontFamily="@font/cafe24ssurroundair"
 
@@ -70,20 +71,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/pwText"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="비밀번호"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -92,9 +92,10 @@
                     android:id="@+id/user_pw"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:inputType="textPassword"
                     android:fontFamily="@font/cafe24ssurroundair"
 
@@ -105,20 +106,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/nameText"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="이름(닉네임)"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -127,9 +127,10 @@
                     android:id="@+id/user_nm"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -139,20 +140,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/addrText"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="주소"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -161,9 +161,10 @@
                     android:id="@+id/user_addr"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
                     />
 
@@ -172,20 +173,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/phonNoText"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_height="40dp"
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="전화번호"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -194,9 +194,10 @@
                     android:id="@+id/user_phone_no"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
                     />
 
@@ -205,39 +206,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginRight="16dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/user_pro_img"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:src="@mipmap/ic_launcher_round" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical"
-                    android:weightSum="2">
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:orientation="horizontal"
-                        android:weightSum="2"
-                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_weight="1">
 
-                        >
                         <Button
                             android:id="@+id/btnImgUpload"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="이미지 올리기"
+                            app:autoSizeTextType="uniform"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
                             android:layout_marginRight="5dp"
                             android:fontFamily="@font/cafe24ssurround"
                             />
@@ -245,9 +245,11 @@
                         <Button
                             android:id="@+id/btnCameraUpload"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginLeft="5dp"
+                            app:autoSizeTextType="uniform"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
                             android:text="사진 찍기"
                             android:fontFamily="@font/cafe24ssurround"
                             />
@@ -256,7 +258,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:layout_weight="1">
 
                         <TextView
@@ -264,7 +266,6 @@
                             android:layout_height="match_parent"
                             android:text="등록할 프로필 사진을 올려주세요"
                             android:gravity="center"
-
                             />
 
                     </LinearLayout>
@@ -282,59 +283,52 @@
                 android:layout_height="2dp"
                 android:background="#000000"
                 android:visibility="gone"
-                android:fontFamily="@font/cafe24ssurroundair"
-                />
+                android:fontFamily="@font/cafe24ssurroundair" />
 
             <TextView
                 android:id="@+id/adminTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="관리자 전용"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 android:visibility="gone"
-                android:fontFamily="@font/cafe24ssurroundair"
-
-                />
+                android:fontFamily="@font/cafe24ssurroundair" />
 
             <LinearLayout
                 android:id="@+id/adminLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:visibility="gone"
-                android:fontFamily="@font/cafe24ssurroundair"
-
-                >
+                android:fontFamily="@font/cafe24ssurroundair">
 
                 <TextView
                     android:id="@+id/idText"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_height="40dp"
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="아이디"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/cafe24ssurroundair"
-
-                    />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    android:fontFamily="@font/cafe24ssurroundair" />
 
                 <EditText
                     android:id="@+id/user_id"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="16sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:enabled="false"
-                    android:fontFamily="@font/cafe24ssurroundair"
-
-                    />
+                    android:fontFamily="@font/cafe24ssurroundair" />
 
             </LinearLayout>
 
@@ -342,40 +336,35 @@
                 android:id="@+id/adminLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:visibility="gone"
-                android:fontFamily="@font/cafe24ssurroundair"
-
-                >
+                android:fontFamily="@font/cafe24ssurroundair">
 
                 <TextView
                     android:id="@+id/gradeText"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="등급"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/cafe24ssurroundair"
-
-                    />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    android:fontFamily="@font/cafe24ssurroundair" />
 
                 <RadioGroup
                     android:id="@+id/user_grade"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="16sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:orientation="horizontal"
                     android:weightSum="2"
-                    android:fontFamily="@font/cafe24ssurroundair"
-
-                    >
+                    android:fontFamily="@font/cafe24ssurroundair">
                     
                     <RadioButton
                         android:id="@+id/user_grade_user"
@@ -383,9 +372,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="유저"
-                        android:fontFamily="@font/cafe24ssurroundair"
-
-                        />
+                        android:fontFamily="@font/cafe24ssurroundair" />
 
                     <RadioButton
                         android:id="@+id/user_grade_admin"
@@ -394,9 +381,7 @@
                         android:layout_weight="1"
                         android:text="관리자"
                         android:checked="true"
-                        android:fontFamily="@font/cafe24ssurroundair"
-
-                        />
+                        android:fontFamily="@font/cafe24ssurroundair" />
 
                 </RadioGroup>
 
@@ -406,8 +391,9 @@
                 android:id="@+id/adminLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:visibility="gone">
@@ -416,26 +402,22 @@
                     android:id="@+id/typeText"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="타입"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/cafe24ssurroundair"
-
-                    />
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    android:fontFamily="@font/cafe24ssurroundair" />
 
                 <EditText
                     android:id="@+id/user_type"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
                     android:layout_weight="1.3"
-                    android:textSize="16sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:enabled="false"
-                    android:fontFamily="@font/cafe24ssurroundair"
-
-                    />
+                    android:fontFamily="@font/cafe24ssurroundair" />
 
             </LinearLayout>
 
@@ -444,9 +426,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="30dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -454,7 +435,6 @@
                     android:id="@+id/btnInfoChange"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginRight="16dp"
                     android:layout_weight="1"
                     android:text="수정"
                     android:textSize="20sp"

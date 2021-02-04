@@ -29,7 +29,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
+                    android:background="@drawable/background_drawer"
                     app:popupTheme="@style/Widget.AppCompat.Toolbar"
                     app:titleTextColor="#FFFFFF"
                     app:subtitleTextColor="#FFFFFF"
@@ -49,9 +49,7 @@
                     android:id="@+id/main_fragment_view"
                     class="com.example.ateam_app.MainFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    />
+                    android:layout_height="match_parent" />
 
             </FrameLayout>
 

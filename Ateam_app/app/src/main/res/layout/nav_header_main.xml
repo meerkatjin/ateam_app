@@ -5,16 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="170dp"
     android:orientation="vertical"
-    android:background="@drawable/background_drawer"
     android:gravity="bottom"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:background="@drawable/background_drawer">
 
     <ImageView
         android:id="@+id/user_pro_img"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:paddingTop="8dp"
         android:src="@mipmap/ic_launcher_round"/>
 
     <TextView
