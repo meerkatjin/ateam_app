@@ -80,11 +80,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
-        //로그인 데이터 받는곳
-        loginIntent = getIntent();
-        loginDTO = (UserDTO) loginIntent.getSerializableExtra("loginDTO");
-        SaveSharedPreference.setUserData    //로그인 유지하기위한 로그인 정보 저장
-                (getSharedPreferences("userData", Activity.MODE_PRIVATE), loginDTO);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loginDTO = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        ImageView header_user_pro_img = headerView.findViewById(R.id.user_pro_img);
+        TextView header_user_nm = headerView.findViewById(R.id.user_nm);
+        TextView header_user_email = headerView.findViewById(R.id.user_email);
+        //좌측 메뉴 배경색 변경
+        headerView.setBackgroundColor(Color.BLACK);
+        //프로필 이미지 띄우기
+        Glide.with(this).load(loginDTO.getUser_pro_img()).error(R.drawable.thumb__ser).into(header_user_pro_img);
+        header_user_nm.setText(loginDTO.getUser_nm() + " 님 반갑습니다!");
+        header_user_email.setText(loginDTO.getUser_email());
     }
 
     @Override
@@ -111,17 +125,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        View headerView = navigationView.getHeaderView(0);
-        ImageView header_user_pro_img = headerView.findViewById(R.id.user_pro_img);
-        TextView header_user_nm = headerView.findViewById(R.id.user_nm);
-        TextView header_user_email = headerView.findViewById(R.id.user_email);
-        //좌측 메뉴 배경색 변경
-        headerView.setBackgroundColor(Color.BLACK);
-        //프로필 이미지 띄우기
-        Glide.with(this).load(loginDTO.getUser_pro_img()).error(R.drawable.thumb__ser).into(header_user_pro_img);
-        header_user_nm.setText(loginDTO.getUser_nm() + " 님 반갑습니다!");
-        header_user_email.setText(loginDTO.getUser_email());
 
         //소셜 로그인 유저는 회원정보 수정 불가하게 막음
         if(!loginDTO.getUser_type().equals("nomal")){
@@ -216,7 +219,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
             intent.putExtra("loginDTO", loginDTO);
             startActivityForResult(intent, USERINFO_CODE);
-
         } else if (id == R.id.nav_logout) {
             logoutMessage();
         } else if (id == R.id.nav_withdrawal){
@@ -368,8 +370,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onCompleteLogout() {
                         SaveSharedPreference.clearUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
                         Intent logout = new Intent(MainActivity.this, LoginActivity.class);
-                        logout.putExtra("logout", loginDTO = null);
-                        setResult(RESULT_OK, logout);
+                        loginDTO = null;
                         startActivity(logout);
                     }
                 });

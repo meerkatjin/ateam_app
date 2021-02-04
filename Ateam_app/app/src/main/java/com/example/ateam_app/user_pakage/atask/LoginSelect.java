@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class LoginSelect extends AsyncTask<Void, Void, Void> {
+public class LoginSelect extends AsyncTask<Void, Void, UserDTO> {
 
     private String email, pw;
 
@@ -38,7 +38,7 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
     HttpEntity httpEntity;
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected UserDTO doInBackground(Void... voids) {
 
         try {
             // MultipartEntityBuild 생성
@@ -80,7 +80,7 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
                 httpClient = null;
             }
         }
-        return null;
+        return loginDTO;
     }
 
     //로그인시 개인 데이터 가져올때
@@ -121,4 +121,9 @@ public class LoginSelect extends AsyncTask<Void, Void, Void> {
         Log.d("main:loginselect : ", user_email + ", " + user_nm + ", " + user_addr + ", " + user_phone_no);
         return new UserDTO(user_id, user_email, user_pw, user_nm, user_addr, user_pro_img, user_phone_no, user_grade, user_type);
     }//readMessage()
+
+    @Override
+    protected void onPostExecute(UserDTO userDTO) {
+        super.onPostExecute(userDTO);
+    }
 }

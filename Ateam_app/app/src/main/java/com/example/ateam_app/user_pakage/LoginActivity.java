@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     // 로그인이 성공하면 static 로그인DTO 변수에 담아서
     // 어느곳에서나 접근할 수 있게 한다
     public static UserDTO loginDTO = null;
-    static final int MAIN_CODE = 1001;   //메인 엑티비티로 로그인값을 넘기기위한 요청코드
 
     EditText user_email, user_pw;
     Button btnLogin, btnJoin;
@@ -157,18 +156,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    //로그아웃되면 메인엑티비티에서 회원정보를 null로 초기화해서 로그인 엑티비티로 돌아온다.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data)){
-            super.onActivityResult(requestCode, resultCode, data);
-            if(requestCode == MAIN_CODE){
-                loginDTO = (UserDTO) data.getSerializableExtra("logout");
-            }
-            return;
-        }
     }
 
     @Override
@@ -306,10 +293,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginEvent(){
+        SaveSharedPreference.setUserData    //로그인 유지하기위한 로그인 정보 저장
+                (getSharedPreferences("userData", Activity.MODE_PRIVATE), loginDTO);
         Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("loginDTO", loginDTO);
-        startActivityForResult(intent, MAIN_CODE);
+        startActivity(intent);
         user_email.setText(""); user_pw.setText("");
         finish();
     }
