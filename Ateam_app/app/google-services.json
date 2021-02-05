@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "594759555771",
+    "project_id": "refrigerator-eaa72",
+    "storage_bucket": "refrigerator-eaa72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594759555771:android:e35f5022190973f971a79e",
+        "android_client_info": {
+          "package_name": "com.example.ateam_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594759555771-utvkf46j46a0issncj8vulltl8g3jh71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEVMxVEOqUbjIiJ0b4dXdjAhVeXZ0JQ5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594759555771-utvkf46j46a0issncj8vulltl8g3jh71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

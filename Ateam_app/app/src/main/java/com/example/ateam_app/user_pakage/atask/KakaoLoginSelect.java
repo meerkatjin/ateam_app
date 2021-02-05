@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
-public class KakaoLoginSelect extends AsyncTask<Void, Void, Void> {
+public class KakaoLoginSelect extends AsyncTask<Void, Void, UserDTO> {
     private UserDTO dto;
 
     public KakaoLoginSelect(UserDTO dto){
@@ -39,7 +39,7 @@ public class KakaoLoginSelect extends AsyncTask<Void, Void, Void> {
     HttpEntity httpEntity;
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected UserDTO doInBackground(Void... voids) {
         try {
             // MultipartEntityBuild 생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -85,7 +85,7 @@ public class KakaoLoginSelect extends AsyncTask<Void, Void, Void> {
                 httpClient = null;
             }
         }
-        return null;
+        return loginDTO;
     }
 
     private UserDTO readMessage(InputStream inputStream) throws IOException {

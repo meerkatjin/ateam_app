@@ -64,7 +64,11 @@
         <service
             android:name=".common.AlarmService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <activity android:name=".user_pakage.UserInfoChangeActivity" /> <!-- 애 빠져서 로그인 안되던거 -->
         <!-- https가 아니라 http로 오더라도 그냥 허가하는 부분 -->
@@ -75,6 +79,10 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
+        <!--파이어 베이스 알림채널 설정-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="2000" />
 
         <activity android:name=".RecipeSubActivity" />
         <activity

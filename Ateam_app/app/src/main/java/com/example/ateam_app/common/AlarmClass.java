@@ -11,7 +11,6 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 
 public class AlarmClass {
-
     //manager 에는 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE) 를 넣는다.
     public static void showPushAlarm(NotificationManager manager, String chnnel_id,
                                      String chnnel_name, Context context,

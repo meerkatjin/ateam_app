@@ -31,6 +31,10 @@ android {
     useLibrary 'org.apache.http.legacy'
 }
 
+/*파이어베이스 추가 여기다 하는게 맞것지..*/
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -61,6 +65,11 @@ dependencies {
     /*글라이드 이미지올리기*/
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    /*파이어베이스 추가*/
+    implementation platform('com.google.firebase:firebase-bom:26.4.0')
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
 }
 
 allprojects {

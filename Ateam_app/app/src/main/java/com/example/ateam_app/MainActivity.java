@@ -42,6 +42,9 @@ import com.example.ateam_app.user_pakage.dto.UserDTO;
 import com.example.ateam_app.user_pakage.fragment.UserMnageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
+import com.google.firebase.installations.FirebaseInstallations;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.ApiErrorCode;
 import com.kakao.usermgmt.UserManagement;
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecipeFragment recipeFragment;
     ManageTipFragment manageTipFragment;
     UserMnageFragment userMnageFragment;    //관리자 프레그먼트
-    Intent loginIntent; //로그인 엑티비티에서 로그인한 회원의 데이터 받아옴
+    LoginActivity loginActivity;
 
     Bundle bundle;
 
@@ -85,6 +88,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
+        loginDTO = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
+        loginActivity = new LoginActivity();
+        SaveSharedPreference.setUserData
+                (getSharedPreferences("userData", Activity.MODE_PRIVATE),
+                        loginActivity.nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw()));
         loginDTO = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -108,6 +116,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager = getFragmentManager();//
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Log.d("디바이스", FirebaseInstallations.getInstance().getToken(true).toString());
+        Log.d("디바이스", FirebaseInstanceId.getInstance().toString());
+
+//        //서비스 호출
+//        Intent serviceIntent = new Intent(getApplicationContext(), AlarmService.class);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForegroundService(serviceIntent);
+//        }else{
+//            startService(serviceIntent);
+//        }
 
         //측면 메뉴 호출 (Navigation Drawer)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

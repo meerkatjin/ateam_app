@@ -28,6 +28,9 @@ import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.user_pakage.atask.KakaoLoginSelect;
 import com.example.ateam_app.user_pakage.atask.LoginSelect;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -35,6 +38,7 @@ import com.kakao.usermgmt.ApiErrorCode;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
+import com.kakao.usermgmt.response.model.User;
 import com.kakao.util.exception.KakaoException;
 
 import java.security.MessageDigest;
@@ -68,6 +72,11 @@ public class LoginActivity extends AppCompatActivity {
                     (getSharedPreferences("userData",Activity.MODE_PRIVATE));
             if(loginDTO.getUser_id() != 0){
                 if(CommonMethod.isNetworkConnected(LoginActivity.this)){
+                    if(loginDTO.getUser_type() == "nomal"){
+                        nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw());
+                    }else{
+                        socialLogin(loginDTO);
+                    }
                     loginEvent();
                 }else{
                     Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
@@ -122,14 +131,8 @@ public class LoginActivity extends AppCompatActivity {
                     String pw = user_pw.getText().toString();
 
                    if(CommonMethod.isNetworkConnected(LoginActivity.this)){
-                       LoginSelect loginSelect = new LoginSelect(email, pw);
-                       try {
-                           loginSelect.execute().get();
-                       } catch (ExecutionException e) {
-                           e.getMessage();
-                       } catch (InterruptedException e) {
-                           e.getMessage();
-                       }
+
+                       nomalLogin(email,pw);    //로그인 수행
 
                        if(loginDTO != null){
                            loginEvent();
@@ -198,15 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     KakaoLoginDTO.setUser_type("kakao");
                     if(CommonMethod.isNetworkConnected(getApplicationContext())) {
-                        KakaoLoginSelect kakaoLoginSelect = new KakaoLoginSelect(KakaoLoginDTO);
-                        try {
-                            kakaoLoginSelect.execute().get();
-                        } catch (ExecutionException e) {
-                            e.getMessage();
-                        } catch (InterruptedException e) {
-                            e.getMessage();
-                        }
-
+                        socialLogin(KakaoLoginDTO);
                         if (loginDTO != null) {
                             loginEvent();
                         } else {
@@ -300,5 +295,30 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         user_email.setText(""); user_pw.setText("");
         finish();
+    }
+
+    public UserDTO nomalLogin(String email, String pw){
+        UserDTO dto = new UserDTO();
+        LoginSelect loginSelect = new LoginSelect(email, pw);
+        try {
+            dto = loginSelect.execute().get();
+        } catch (ExecutionException e) {
+            e.getMessage();
+        } catch (InterruptedException e) {
+            e.getMessage();
+        }
+        return dto;
+    }
+
+    public UserDTO socialLogin(UserDTO dto){
+        KakaoLoginSelect kakaoLoginSelect = new KakaoLoginSelect(dto);
+        try {
+            dto = kakaoLoginSelect.execute().get();
+        } catch (ExecutionException e) {
+            e.getMessage();
+        } catch (InterruptedException e) {
+            e.getMessage();
+        }
+        return dto;
     }
 }
