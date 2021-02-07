@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -117,8 +119,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Log.d("디바이스", FirebaseInstallations.getInstance().getToken(true).toString());
-        Log.d("디바이스", FirebaseInstanceId.getInstance().toString());
+        Log.d("디바이스", FirebaseInstallations.getInstance().getToken(true).toString());
+        Log.d("디바이스", FirebaseInstanceId.getInstance().getToken().toString());
 
 //        //서비스 호출
 //        Intent serviceIntent = new Intent(getApplicationContext(), AlarmService.class);
@@ -127,6 +129,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        }else{
 //            startService(serviceIntent);
 //        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create channel to show notifications.
+            String channelId = "alramService";
+            String channelName = "alramService";
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationManager.IMPORTANCE_LOW));
+        }
+
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.d(TAG, "Key: " + key + " Value: " + value);
+            }
+        }
 
         //측면 메뉴 호출 (Navigation Drawer)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
