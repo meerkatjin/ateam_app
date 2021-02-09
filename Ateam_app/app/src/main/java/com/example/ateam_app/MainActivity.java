@@ -11,6 +11,13 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.work.BackoffPolicy;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -34,6 +41,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ateam_app.common.SaveSharedPreference;
+import com.example.ateam_app.firebase.AteamFirebaseMessagingService;
+import com.example.ateam_app.firebase.AteamWorker;
 import com.example.ateam_app.irdnt_list_package.IrdntLifeEndNumATask;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
@@ -54,6 +63,7 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
 
@@ -119,33 +129,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Log.d("디바이스", FirebaseInstallations.getInstance().getToken(true).toString());
-        Log.d("디바이스", FirebaseInstanceId.getInstance().getToken().toString());
+        alarmCall();    //알람호출
 
-//        //서비스 호출
-//        Intent serviceIntent = new Intent(getApplicationContext(), AlarmService.class);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            startForegroundService(serviceIntent);
-//        }else{
-//            startService(serviceIntent);
-//        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create channel to show notifications.
-            String channelId = "alramService";
-            String channelName = "alramService";
-            NotificationManager notificationManager =
-                    getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
-                    channelName, NotificationManager.IMPORTANCE_LOW));
-        }
-
-        if (getIntent().getExtras() != null) {
-            for (String key : getIntent().getExtras().keySet()) {
-                Object value = getIntent().getExtras().get(key);
-                Log.d(TAG, "Key: " + key + " Value: " + value);
-            }
-        }
+        Log.d("시발", "onCreate: " + FirebaseInstanceId.getInstance().getToken());
 
         //측면 메뉴 호출 (Navigation Drawer)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -246,6 +232,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });//bottomNavigationView.setOnNavigationItemSelectedListener()
 
     }//onCreate()
+
+    private void alarmCall() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.UNMETERED)
+                .setRequiresCharging(true)
+                .build();
+
+        PeriodicWorkRequest work = new PeriodicWorkRequest
+                .Builder(AteamWorker.class,15, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .setBackoffCriteria(BackoffPolicy.LINEAR,
+                        OneTimeWorkRequest.MAX_BACKOFF_MILLIS,
+                        TimeUnit.DAYS)
+                .build();
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "requstMessage",
+                ExistingPeriodicWorkPolicy.KEEP,
+                work);
+
+//        Intent serviceIntent = new Intent(getApplicationContext(), AteamFirebaseMessagingService.class);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            // Create channel to show notifications.
+//            String channelId = "alramService";
+//            String channelName = "alramService";
+//            NotificationManager notificationManager =
+//                    getSystemService(NotificationManager.class);
+//            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+//                    channelName, NotificationManager.IMPORTANCE_LOW));
+//        }else{
+//            startService(serviceIntent);
+//        }
+//
+//        if (getIntent().getExtras() != null) {
+//            for (String key : getIntent().getExtras().keySet()) {
+//                Object value = getIntent().getExtras().get(key);
+//                Log.d(TAG, "Key: " + key + " Value: " + value);
+//            }
+//        }
+    }
 
     //측면 메뉴(Navigation Drawer) 설정
     @Override

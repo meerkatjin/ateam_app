@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ateam_app.MainActivity;
@@ -54,38 +55,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText user_email, user_pw;
     Button btnLogin, btnJoin;
     CheckBox autoLoginCheck;
+    ImageView appThema;
 
     private SessionCallback sessionCallback;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        autoLoginCheck = findViewById(R.id.autoLoginCheck);
-
-        boolean loginChack = SaveSharedPreference.getAutoLogin
-                                (getSharedPreferences("autoLogin", Activity.MODE_PRIVATE));
-
-        if(loginChack){
-            autoLoginCheck.setChecked(true);
-            loginDTO = SaveSharedPreference.getUserData
-                    (getSharedPreferences("userData",Activity.MODE_PRIVATE));
-            if(loginDTO.getUser_id() != 0){
-                if(CommonMethod.isNetworkConnected(LoginActivity.this)){
-                    if(loginDTO.getUser_type() == "nomal"){
-                        nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw());
-                    }else{
-                        socialLogin(loginDTO);
-                    }
-                    loginEvent();
-                }else{
-                    Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }else{
-            autoLoginCheck.setChecked(false);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +76,9 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnJoin = findViewById(R.id.btnJoin);
         autoLoginCheck = findViewById(R.id.autoLoginCheck);
+        appThema = findViewById(R.id.appThema);
+
+        autoLoginBox(autoLoginCheck);
 
         //자동로그인 체크 이벤트
         autoLoginCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -320,5 +295,32 @@ public class LoginActivity extends AppCompatActivity {
             e.getMessage();
         }
         return dto;
+    }
+
+    private void autoLoginBox(CheckBox autoLoginCheck) {
+        autoLoginCheck = findViewById(R.id.autoLoginCheck);
+
+        boolean loginChack = SaveSharedPreference.getAutoLogin
+                (getSharedPreferences("autoLogin", Activity.MODE_PRIVATE));
+
+        if(loginChack){
+            autoLoginCheck.setChecked(true);
+            loginDTO = SaveSharedPreference.getUserData
+                    (getSharedPreferences("userData",Activity.MODE_PRIVATE));
+            if(loginDTO.getUser_id() != 0){
+                if(CommonMethod.isNetworkConnected(LoginActivity.this)){
+                    if(loginDTO.getUser_type() == "nomal"){
+                        nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw());
+                    }else{
+                        socialLogin(loginDTO);
+                    }
+                    loginEvent();
+                }else{
+                    Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else{
+            autoLoginCheck.setChecked(false);
+        }
     }
 }

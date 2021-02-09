@@ -10,6 +10,13 @@
     android:orientation="vertical"
     android:background="@drawable/card_background_drawer" >
 
+    <ImageView
+        android:id="@+id/appThema"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_launcher_background"
+        />
+
     <TextView
         android:id="@+id/loginTitle"
         android:layout_width="match_parent"
@@ -95,13 +102,8 @@
             android:paddingTop="30px"
             android:text="자동 로그인"
             android:textSize="10sp"
-            android:fontFamily="@font/cafe24ssurroundair"
+            android:fontFamily="@font/cafe24ssurroundair" />
 
-            />
-=======
-            android:textSize="10sp" />
-
->>>>>>> 6bad19071a05cdeb9963bd6fc689dae6535a5458
     </LinearLayout>
 
     <com.kakao.usermgmt.LoginButton
@@ -112,9 +114,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="30dp"
-        android:layout_weight="0.5"
-
-        />
+        android:layout_weight="0.5" />
 
     <Button
         android:id="@+id/btnGoogleLogin"
@@ -126,7 +126,5 @@
         android:layout_weight="0.5"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:fontFamily="@font/cafe24ssurround"
-
-        />
+        android:fontFamily="@font/cafe24ssurround" />
 </LinearLayout>
