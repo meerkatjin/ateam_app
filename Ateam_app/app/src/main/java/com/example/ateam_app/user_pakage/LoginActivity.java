@@ -12,6 +12,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText user_email, user_pw;
     Button btnLogin, btnJoin;
     CheckBox autoLoginCheck;
+    ImageView titleImg;
 
     private SessionCallback sessionCallback;
 
@@ -75,8 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnJoin = findViewById(R.id.btnJoin);
         autoLoginCheck = findViewById(R.id.autoLoginCheck);
-
-        autoLoginBox(autoLoginCheck);
+        titleImg = findViewById(R.id.titleImg);
 
         //자동로그인 체크 이벤트
         autoLoginCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -132,6 +133,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        autoLoginBox();
     }
 
     @Override
@@ -295,30 +298,35 @@ public class LoginActivity extends AppCompatActivity {
         return dto;
     }
 
-    protected void autoLoginBox(CheckBox autoLoginCheck) {
-        autoLoginCheck = findViewById(R.id.autoLoginCheck);
+    protected void autoLoginBox() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean loginChack = SaveSharedPreference.getAutoLogin
+                        (getSharedPreferences("autoLogin", Activity.MODE_PRIVATE));
 
-        boolean loginChack = SaveSharedPreference.getAutoLogin
-                (getSharedPreferences("autoLogin", Activity.MODE_PRIVATE));
-
-        if(loginChack){
-            autoLoginCheck.setChecked(true);
-            loginDTO = SaveSharedPreference.getUserData
-                    (getSharedPreferences("userData",Activity.MODE_PRIVATE));
-            if(loginDTO.getUser_id() != 0){
-                if(CommonMethod.isNetworkConnected(LoginActivity.this)){
-                    if(loginDTO.getUser_type() == "nomal"){
-                        nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw());
-                    }else{
-                        socialLogin(loginDTO);
+                if(loginChack){
+                    autoLoginCheck.setChecked(true);
+                    loginDTO = SaveSharedPreference.getUserData
+                            (getSharedPreferences("userData",Activity.MODE_PRIVATE));
+                    if(loginDTO.getUser_id() != 0){
+                        if(CommonMethod.isNetworkConnected(LoginActivity.this)){
+                            if(loginDTO.getUser_type() == "nomal"){
+                                nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw());
+                            }else{
+                                socialLogin(loginDTO);
+                            }
+                            loginEvent();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    loginEvent();
                 }else{
-                    Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                    autoLoginCheck.setChecked(false);
                 }
+                titleImg.setVisibility(View.GONE);
             }
-        }else{
-            autoLoginCheck.setChecked(false);
-        }
+        }, 3000); //딜레이 타임 조절
     }
 }

@@ -9,6 +9,14 @@
     android:weightSum="4"
     android:orientation="vertical"
     android:background="@drawable/card_background_drawer" >
+
+    <ImageView
+        android:id="@+id/titleImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ateamthema"
+        />
+
     <TextView
         android:id="@+id/loginTitle"
         android:layout_width="match_parent"
