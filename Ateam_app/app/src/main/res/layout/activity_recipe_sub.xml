@@ -7,70 +7,243 @@
     tools:context=".RecipeSubActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1.2"
-        android:background="#FFFFFF">
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_drawer">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnRecipeSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="5dp"
+            android:background="#64B5F6"
+            android:backgroundTint="#64B5F6"
+            android:src="@android:drawable/ic_delete" />
 
         <TextView
             android:id="@+id/recipe_nm_ko"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
             android:text="레시피 이름"
             android:textSize="24sp"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/cafe24ssurround" />
 
         <TextView
             android:id="@+id/recipe_id"
-            android:layout_width="97dp"
-            android:layout_height="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone"
             android:text="레시피 아이디" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="난이도"
-            android:fontFamily="@font/cafe24ssurroundair" />
+    </FrameLayout>
 
-        <TextView
-            android:id="@+id/level_nm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="250dp"
-            android:layout_marginLeft="250dp"
-            android:fontFamily="@font/cafe24ssurroundair" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="8"
+        android:background="#FFFFFF">
 
-        </LinearLayout>
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:layout_weight="8"
-            android:background="#FFFFFF">
+            android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/btnRecipeSub"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="250dp"
-                android:layout_marginLeft="250dp"
-                android:fontFamily="@font/cafe24ssurround"
-                android:text="뒤로가기"
-                android:textSize="20sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recipe_item_recyclerview"
+            <LinearLayout
+                android:descendantFocusability="blocksDescendants"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="음식타입"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                    <TextView
+                        android:id="@+id/nation_nm"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="7dp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="한식"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="조리시간"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                    <TextView
+                        android:id="@+id/cooking_time"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="7dp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="30분"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="열량"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                    <TextView
+                        android:id="@+id/calorie"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="7dp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="500kcal"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="난이도"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                    <TextView
+                        android:id="@+id/level_nm"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="7dp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="★★☆ (보통)"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="재료준비"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                    <TextView
+                        android:id="@+id/qnt"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="4인분"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="기준"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recipe_irdnt_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:text="조리방법"
+                        android:fontFamily="@font/cafe24ssurroundair"/>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recipe_item_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="2dp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
 
 </LinearLayout>
