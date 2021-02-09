@@ -55,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText user_email, user_pw;
     Button btnLogin, btnJoin;
     CheckBox autoLoginCheck;
-    ImageView appThema;
 
     private SessionCallback sessionCallback;
 
@@ -76,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnJoin = findViewById(R.id.btnJoin);
         autoLoginCheck = findViewById(R.id.autoLoginCheck);
-        appThema = findViewById(R.id.appThema);
 
         autoLoginBox(autoLoginCheck);
 
@@ -262,7 +260,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void loginEvent(){
+    protected void loginEvent(){
         SaveSharedPreference.setUserData    //로그인 유지하기위한 로그인 정보 저장
                 (getSharedPreferences("userData", Activity.MODE_PRIVATE), loginDTO);
         Toast.makeText(LoginActivity.this, "로그인 되었습니다 !!!", Toast.LENGTH_SHORT).show();
@@ -297,7 +295,7 @@ public class LoginActivity extends AppCompatActivity {
         return dto;
     }
 
-    private void autoLoginBox(CheckBox autoLoginCheck) {
+    protected void autoLoginBox(CheckBox autoLoginCheck) {
         autoLoginCheck = findViewById(R.id.autoLoginCheck);
 
         boolean loginChack = SaveSharedPreference.getAutoLogin
