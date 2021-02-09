@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnJoin = findViewById(R.id.btnJoin);
         autoLoginCheck = findViewById(R.id.autoLoginCheck);
-        appThema = findViewById(R.id.appThema);
+
 
         autoLoginBox(autoLoginCheck);
 
