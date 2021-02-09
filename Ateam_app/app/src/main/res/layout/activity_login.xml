@@ -9,7 +9,6 @@
     android:weightSum="4"
     android:orientation="vertical"
     android:background="@drawable/card_background_drawer" >
-
     <TextView
         android:id="@+id/loginTitle"
         android:layout_width="match_parent"
