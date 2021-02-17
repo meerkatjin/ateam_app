@@ -435,6 +435,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Intent logout = new Intent(MainActivity.this, LoginActivity.class);
                         loginDTO = null;
                         startActivity(logout);
+                        finish();
                     }
                 });
             }

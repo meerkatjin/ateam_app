@@ -138,6 +138,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data)){
+            super.onActivityResult(requestCode,resultCode,data);
+            return;
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Session.getCurrentSession().removeCallback(sessionCallback);
@@ -147,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onSessionOpened() {
             UserManagement.getInstance().me(new MeV2ResponseCallback() {
+
                 @Override
                 public void onFailure(ErrorResult errorResult) {
                     int result = errorResult.getErrorCode();
