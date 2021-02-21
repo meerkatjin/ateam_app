@@ -2,12 +2,12 @@ package com.example.ateam_app.recipe_fragment;
 
 public class RecipeSubItem {
     private int recipe_id;
-    private String cooking_no;
+    private int cooking_no;
     private String cooking_dc;
     private String stre_step_image_url;
     private String step_tip;
 
-    public RecipeSubItem(int recipe_id, String cooking_no, String cooking_dc, String stre_step_image_url, String step_tip) {
+    public RecipeSubItem(int recipe_id, int cooking_no, String cooking_dc, String stre_step_image_url, String step_tip) {
         this.recipe_id = recipe_id;
         this.cooking_no = cooking_no;
         this.cooking_dc = cooking_dc;
@@ -23,11 +23,11 @@ public class RecipeSubItem {
         this.recipe_id = recipe_id;
     }
 
-    public String getCooking_no() {
+    public int getCooking_no() {
         return cooking_no;
     }
 
-    public void setCooking_no(String cooking_no) {
+    public void setCooking_no(int cooking_no) {
         this.cooking_no = cooking_no;
     }
 

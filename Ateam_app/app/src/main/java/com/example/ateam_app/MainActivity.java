@@ -131,8 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         alarmCall();    //알람호출
 
-        Log.d("시발", "onCreate: " + FirebaseInstanceId.getInstance().getToken());
-
         //측면 메뉴 호출 (Navigation Drawer)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle

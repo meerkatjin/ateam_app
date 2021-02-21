@@ -122,7 +122,7 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
     public RecipeSubItem readMessage(JsonReader reader) throws IOException {
 
         int recipe_id = 0;
-        String cooking_no = "";
+        int cooking_no = 0;
         String cooking_dc = "";
         String stre_step_image_url = "";
         String step_tip = "";
@@ -133,7 +133,7 @@ public class RecipeSubAtask extends AsyncTask<Void, Void, Void> {
             if (readStr.equals("recipe_id")) {
                 recipe_id = Integer.parseInt(reader.nextString());
             } else if (readStr.equals("cooking_no")) {
-                cooking_no = reader.nextString();
+                cooking_no = Integer.parseInt(reader.nextString());
             } else if (readStr.equals("cooking_dc")) {
                 cooking_dc = reader.nextString();
             } else if (readStr.equals("stre_step_image_url")) {
