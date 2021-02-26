@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         mainFragment.setArguments(bundle);
                         getSupportFragmentManager()
                                 .beginTransaction()
-                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
                                 .replace(R.id.main_frame, mainFragment)
                                 .commit();
                         bottomNavi = 1;
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         irdntListFragment.setArguments(bundle);
                         getSupportFragmentManager()
                                 .beginTransaction()
-                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
                                 .replace(R.id.main_frame, irdntListFragment)
                                 .commit();
                         bottomNavi = 2;
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.tabCam:
                         getSupportFragmentManager()
                                 .beginTransaction()
-                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
                                 .replace(R.id.main_frame, camFragment)
                                 .commit();
                         bottomNavi = 3;
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.tabRecipe:
                         getSupportFragmentManager()
                                 .beginTransaction()
-                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
                                 .replace(R.id.main_frame, recipeFragment)
                                 .commit();
                         bottomNavi = 4;
