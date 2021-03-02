@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -25,8 +26,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     Bundle bundle;
 
-    BottomNavigationView bottomNavigationView;
+    public BottomNavigationView bottomNavigationView;
     int bottomNavi = 1; //하단 네비게이션 바 선택점 저장
 
     @Override
@@ -219,10 +223,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         return true;
 
                 }//switch-case
-                return false;
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .commit();
+                return true;
             }//onNavigationItemSelected()
         });//bottomNavigationView.setOnNavigationItemSelectedListener()
 
+        PowerManager pm= (PowerManager) getSystemService(Context.POWER_SERVICE);
+        String packageName= getPackageName();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (pm.isIgnoringBatteryOptimizations(packageName) ){
+
+            } else {    // 메모리 최적화가 되어 있다면, 풀기 위해 설정 화면 띄움.
+                Intent intent=new Intent();
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+                startActivityForResult(intent,0);
+            }
+        }
     }//onCreate()
 
     private void alarmCall() {
@@ -242,26 +267,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "requstMessage",
                 ExistingPeriodicWorkPolicy.KEEP,
                 work);
-
-//        Intent serviceIntent = new Intent(getApplicationContext(), AteamFirebaseMessagingService.class);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            // Create channel to show notifications.
-//            String channelId = "alramService";
-//            String channelName = "alramService";
-//            NotificationManager notificationManager =
-//                    getSystemService(NotificationManager.class);
-//            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
-//                    channelName, NotificationManager.IMPORTANCE_LOW));
-//        }else{
-//            startService(serviceIntent);
-//        }
-//
-//        if (getIntent().getExtras() != null) {
-//            for (String key : getIntent().getExtras().keySet()) {
-//                Object value = getIntent().getExtras().get(key);
-//                Log.d(TAG, "Key: " + key + " Value: " + value);
-//            }
-//        }
     }
 
     //측면 메뉴(Navigation Drawer) 설정

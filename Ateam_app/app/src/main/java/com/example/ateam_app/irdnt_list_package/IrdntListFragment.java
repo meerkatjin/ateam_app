@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,8 +25,10 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
 import com.example.ateam_app.user_pakage.LoginActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -49,7 +54,6 @@ public class IrdntListFragment extends Fragment {
     IrdntListView irdntListView;
     IrdntLifeEndListATask irdntLifeEndListATask;
     ProgressDialog progressDialog;
-    String content_ty;
 
     Bundle extra;
     Long user_id;
@@ -240,10 +244,12 @@ public class IrdntListFragment extends Fragment {
                         try {
                             state_delete = delete.execute().get().trim();
                             Log.d("main:state : ", state_delete);
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
+                        replace();
+                        adapter.notifyDataSetChanged(); // adapter 갱신
 
                         Toast.makeText(getActivity().getApplicationContext(), "삭제되었습니다!", Toast.LENGTH_SHORT).show();
                     }
@@ -293,6 +299,9 @@ public class IrdntListFragment extends Fragment {
                     irdnt_input_frame.setVisibility(View.GONE);
                     btnInputTest.setVisibility(View.VISIBLE);
                 }
+
+                replace();
+                adapter.notifyDataSetChanged(); // adapter 갱신
             }
         });
 
@@ -328,5 +337,14 @@ public class IrdntListFragment extends Fragment {
                 irdntListView.execute();
             }
         }
+    }
+
+    //프래그먼트 갱신하는 메소드 굿굿
+    public void replace(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(this).attach(this).commit();
     }
 }//class
