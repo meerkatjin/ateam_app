@@ -13,20 +13,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
-import androidx.work.BackoffPolicy;
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-
-import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
 import com.example.ateam_app.user_pakage.LoginActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.util.concurrent.TimeUnit;
 
 public class AteamFirebaseMessagingService extends FirebaseMessagingService {
     //푸시 알림 설정

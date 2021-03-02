@@ -5,42 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ateam_app.irdnt_list_package.IrdntLifeEndNumATask;
-import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
-import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.Mainfragment_Recipe_Atask;
-import com.example.ateam_app.recipe_fragment.RecipeAdapter;
-import com.example.ateam_app.recipe_fragment.RecipeAtask;
-import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.recipe_fragment.RecipeItem;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 public class MainFragment extends Fragment {
-    private static final String TAG = "ddzgzzg";
     CardView shelfLifeAlertBanner, recipeRecommandBanner, manageTipBanner;
     public static RecipeItem main_recipe_item = null;
-    public static int lifeEndNum = 0;   //유통기한 끝난게 몇개 있는지 카운트
     TextView recipe_id;
     TextView recipe_nm_ko;
     ImageView img_url;

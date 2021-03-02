@@ -21,8 +21,6 @@ import androidx.work.WorkManager;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,7 +39,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ateam_app.common.SaveSharedPreference;
-import com.example.ateam_app.firebase.AteamFirebaseMessagingService;
 import com.example.ateam_app.firebase.AteamWorker;
 import com.example.ateam_app.irdnt_list_package.IrdntLifeEndNumATask;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
@@ -53,9 +50,6 @@ import com.example.ateam_app.user_pakage.dto.UserDTO;
 import com.example.ateam_app.user_pakage.fragment.UserMnageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
-import com.google.firebase.installations.FirebaseInstallations;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.ApiErrorCode;
 import com.kakao.usermgmt.UserManagement;

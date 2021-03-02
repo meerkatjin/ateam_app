@@ -12,7 +12,10 @@ import androidx.work.WorkerParameters;
 
 import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -40,12 +43,26 @@ public class AteamWorker extends Worker {
     HttpResponse httpResponse;
     HttpEntity httpEntity;
 
+    String tokenID;
+
     @NonNull
     @Override
     public Result doWork() {
         UserDTO dto
                 = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
-        String tokenID = FirebaseInstanceId.getInstance().getToken();
+
+        //디바이스 토큰 가져오기
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+                        tokenID = task.getResult();
+                    }
+                });
 
         try {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
