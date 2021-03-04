@@ -63,15 +63,13 @@ public class AteamWorker extends Worker {
 //                    }
 //                });
 
-        String tokenID = FirebaseInstanceId.getInstance().getToken();
-
         try {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             builder.setCharset(Charset.forName("UTF-8"));
 
             builder.addTextBody("user_id", String.valueOf(dto.getUser_id()), ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("tokenID", tokenID, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("tokenID", FirebaseInstanceId.getInstance().getToken(), ContentType.create("Multipart/related", "UTF-8"));
             String postURL = ipConfig + "/ateamappspring/alarmRequest";
 
             //전송
