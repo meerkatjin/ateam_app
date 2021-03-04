@@ -10,7 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
@@ -54,6 +53,7 @@ import com.example.ateam_app.user_pakage.dto.UserDTO;
 import com.example.ateam_app.user_pakage.fragment.UserMnageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.ApiErrorCode;
 import com.kakao.usermgmt.UserManagement;
@@ -97,12 +97,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
+        String tokenID = FirebaseInstanceId.getInstance().getToken();
         super.onResume();
         loginDTO = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
         loginActivity = new LoginActivity();
         SaveSharedPreference.setUserData
                 (getSharedPreferences("userData", Activity.MODE_PRIVATE),
-                        loginActivity.nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw()));
+                        loginActivity.nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw(), tokenID));
         loginDTO = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -517,13 +518,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }//if
         }
     }//onBackPressed()
-
-
-
-    public void replaceFragment(Fragment fragment) {
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
-    }//replaceFragment()
 
     //유통기한 넘은 내용물 갯수 가져오기
     public String getLifeEndNum(Context context, long id){

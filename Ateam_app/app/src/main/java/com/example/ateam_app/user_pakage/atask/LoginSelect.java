@@ -25,11 +25,12 @@ import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
 public class LoginSelect extends AsyncTask<Void, Void, UserDTO> {
 
-    private String email, pw;
+    private String email, pw, tokenID;
 
-    public LoginSelect(String email, String pw){
+    public LoginSelect(String email, String pw, String tokenID){
         this.email = email;
         this.pw = pw;
+        this.tokenID = tokenID;
     }
 
     HttpClient httpClient;
@@ -47,6 +48,7 @@ public class LoginSelect extends AsyncTask<Void, Void, UserDTO> {
 
             builder.addTextBody("user_email", email, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_pw", pw, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("device_token", tokenID, ContentType.create("Multipart/related", "UTF-8"));
             String postURL = ipConfig + "/ateamappspring/appLogin";
 
             //전송

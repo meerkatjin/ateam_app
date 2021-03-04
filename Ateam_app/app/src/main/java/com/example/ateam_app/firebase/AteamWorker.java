@@ -13,6 +13,7 @@ import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.apache.http.HttpEntity;
@@ -41,26 +42,28 @@ public class AteamWorker extends Worker {
     HttpResponse httpResponse;
     HttpEntity httpEntity;
 
-    String tokenID;
-
     @NonNull
     @Override
     public Result doWork() {
         UserDTO dto
                 = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
 
-        //디바이스 토큰 가져오기
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            return;
-                        }
+//        디바이스 토큰 가져오기         이게 권장이라는데 리스너 밖으로 값을
+//                                     어떻게 빼오는건지 모르겠음
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> task) {
+//                        if (!task.isSuccessful()) {
+//                            return;
+//                        }
+//
+//                        tokenID = task.getResult();
+//                        Log.d("디바이스", "onCreate: " + tokenID);
+//                    }
+//                });
 
-                        tokenID = task.getResult();
-                    }
-                });
+        String tokenID = FirebaseInstanceId.getInstance().getToken();
 
         try {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();

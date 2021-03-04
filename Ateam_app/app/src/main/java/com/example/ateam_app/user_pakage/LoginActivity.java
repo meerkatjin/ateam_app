@@ -1,5 +1,6 @@
 package com.example.ateam_app.user_pakage;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -30,8 +31,11 @@ import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.user_pakage.atask.KakaoLoginSelect;
 import com.example.ateam_app.user_pakage.atask.LoginSelect;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -58,12 +62,16 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox autoLoginCheck;
     ImageView titleImg;
 
+    String tokenID;
+
     private SessionCallback sessionCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        tokenID = FirebaseInstanceId.getInstance().getToken();
 
         sessionCallback = new SessionCallback();
         Session.getCurrentSession().addCallback(sessionCallback);
@@ -106,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
                    if(CommonMethod.isNetworkConnected(LoginActivity.this)){
 
-                       nomalLogin(email,pw);    //로그인 수행
+                       nomalLogin(email,pw, tokenID);    //로그인 수행
 
                        if(loginDTO != null){
                            loginEvent();
@@ -186,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     KakaoLoginDTO.setUser_type("kakao");
                     if(CommonMethod.isNetworkConnected(getApplicationContext())) {
-                        socialLogin(KakaoLoginDTO);
+                        socialLogin(KakaoLoginDTO, tokenID);
                         if (loginDTO != null) {
                             loginEvent();
                         } else {
@@ -283,9 +291,9 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    public UserDTO nomalLogin(String email, String pw){
+    public UserDTO nomalLogin(String email, String pw, String tokenID){
         UserDTO dto = new UserDTO();
-        LoginSelect loginSelect = new LoginSelect(email, pw);
+        LoginSelect loginSelect = new LoginSelect(email, pw, tokenID);
         try {
             dto = loginSelect.execute().get();
         } catch (ExecutionException e) {
@@ -296,8 +304,8 @@ public class LoginActivity extends AppCompatActivity {
         return dto;
     }
 
-    public UserDTO socialLogin(UserDTO dto){
-        KakaoLoginSelect kakaoLoginSelect = new KakaoLoginSelect(dto);
+    public UserDTO socialLogin(UserDTO dto, String tokenID){
+        KakaoLoginSelect kakaoLoginSelect = new KakaoLoginSelect(dto, tokenID);
         try {
             dto = kakaoLoginSelect.execute().get();
         } catch (ExecutionException e) {
@@ -323,9 +331,9 @@ public class LoginActivity extends AppCompatActivity {
                     if(loginDTO.getUser_id() != 0){
                         if(CommonMethod.isNetworkConnected(LoginActivity.this)){
                             if(loginDTO.getUser_type() == "nomal"){
-                                nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw());
+                                nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw(), tokenID);
                             }else{
-                                socialLogin(loginDTO);
+                                socialLogin(loginDTO, tokenID);
                             }
                             loginEvent();
                         }else{

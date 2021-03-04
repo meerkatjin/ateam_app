@@ -25,9 +25,11 @@ import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
 public class KakaoLoginSelect extends AsyncTask<Void, Void, UserDTO> {
     private UserDTO dto;
+    private String tokenID;
 
-    public KakaoLoginSelect(UserDTO dto){
+    public KakaoLoginSelect(UserDTO dto, String tokenID){
         this.dto = dto;
+        this.tokenID = tokenID;
     }
 
     // 데이터베이스에 삽입결과 0보다크면 삽입성공, 같거나 작으면 실패
@@ -53,6 +55,7 @@ public class KakaoLoginSelect extends AsyncTask<Void, Void, UserDTO> {
                 builder.addTextBody("user_pro_img", dto.getUser_pro_img(), ContentType.create("Multipart/related", "UTF-8"));
             }
             builder.addTextBody("user_type", dto.getUser_type(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("device_token", tokenID, ContentType.create("Multipart/related", "UTF-8"));
 
             String postURL = ipConfig + "/ateamappspring/appKakaoLogin";
 

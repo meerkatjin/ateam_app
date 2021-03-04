@@ -56,19 +56,7 @@ public class AteamFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void scheduleJob() {
-//        Constraints constraints = new Constraints.Builder()
-//                .setRequiredNetworkType(NetworkType.UNMETERED)
-//                .setRequiresCharging(true)
-//                .build();
-//
-//        PeriodicWorkRequest work = new PeriodicWorkRequest
-//                .Builder(AteamWorker.class,15, TimeUnit.MINUTES)
-//                .setConstraints(constraints)
-//                .setBackoffCriteria(BackoffPolicy.LINEAR,
-//                        OneTimeWorkRequest.MAX_BACKOFF_MILLIS,
-//                        TimeUnit.MINUTES)
-//                .build();
-//        WorkManager.getInstance(this).enqueue(work);
+
     }
 
     private void hadleNow() {
