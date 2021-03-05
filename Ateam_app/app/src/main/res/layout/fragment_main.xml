@@ -26,12 +26,35 @@
                 android:id="@+id/shelfLifeAlertText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#E91E64"
+                android:background="#f45342"
                 app:autoSizeTextType="uniform"
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="유통기한이 임박한 재료 '1'개가 냉장고 안에 있습니다!"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/cafe24ssurround" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/newContentBenner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/newContentText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f4dc42"
+                app:autoSizeTextType="uniform"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="확인이 필요한 내용물 '1'개가 냉장고 안에 있습니다!"
                 android:textColor="#FFFFFF"
                 android:fontFamily="@font/cafe24ssurround" />
 

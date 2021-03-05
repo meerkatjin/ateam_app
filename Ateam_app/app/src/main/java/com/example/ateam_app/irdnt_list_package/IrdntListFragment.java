@@ -4,11 +4,9 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,14 +19,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.Toast;
 
-import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
-import com.example.ateam_app.user_pakage.LoginActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntLifeEndListATask;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntListDelete;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntListInsert;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntListView;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntNewContentListATask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -42,7 +40,7 @@ public class IrdntListFragment extends Fragment {
 
     String state_insert, state_delete;
     IrdntListAdapter adapter;
-    ArrayList<Long> irdnt_ids;
+    ArrayList<Long> irdnt_ids, new_ids;
     ArrayList<IrdntListDTO> items;
     RecyclerView irdntRecyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -53,6 +51,7 @@ public class IrdntListFragment extends Fragment {
     EditText content_nm;
     IrdntListView irdntListView;
     IrdntLifeEndListATask irdntLifeEndListATask;
+    IrdntNewContentListATask irdntNewContentListATask;
     ProgressDialog progressDialog;
 
     Bundle extra;
@@ -75,8 +74,10 @@ public class IrdntListFragment extends Fragment {
         //유통기한 지난 재료의 아이디 가져오기
         if(isNetworkConnected(context) == true) {
             irdntLifeEndListATask = new IrdntLifeEndListATask(user_id);
+            irdntNewContentListATask = new IrdntNewContentListATask(user_id);
             try {
                 irdnt_ids = irdntLifeEndListATask.execute().get();
+                new_ids = irdntNewContentListATask.execute().get();
             } catch (ExecutionException e) {
                 e.getMessage();
             } catch (InterruptedException e) {
@@ -85,7 +86,7 @@ public class IrdntListFragment extends Fragment {
         }
 
         items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items, irdnt_ids);
+        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids);
 
         //DB에 있는 재료 리스트 가져오기
         irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
@@ -93,7 +94,7 @@ public class IrdntListFragment extends Fragment {
         irdntRecyclerView.setLayoutManager(layoutManager);
 
         items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items, irdnt_ids);
+        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids);
         irdntRecyclerView.setAdapter(adapter);
 
         if(isNetworkConnected(context) == true) {

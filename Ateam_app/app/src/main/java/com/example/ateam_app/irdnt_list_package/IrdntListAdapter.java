@@ -25,12 +25,13 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     Context context;
     ArrayList<IrdntListDTO> items;
     static OnIrdntItemClickListener listener;
-    ArrayList<Long> irdnt_ids;
+    ArrayList<Long> irdnt_ids, new_ids;
 
-    public IrdntListAdapter(Context context, ArrayList<IrdntListDTO> items, ArrayList<Long> irdnt_ids) {
+    public IrdntListAdapter(Context context, ArrayList<IrdntListDTO> items, ArrayList<Long> irdnt_ids, ArrayList<Long> new_ids) {
         this.context = context;
         this.items = items;
         this.irdnt_ids = irdnt_ids;
+        this.new_ids = new_ids;
     }
 
     //화면 연결
@@ -50,10 +51,12 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
 
         holder.irdnt_layout.setBackgroundColor(Color.parseColor("#D9D9D9"));
         holder.shelf_life_end.setTextColor(Color.parseColor("#FF4444"));
-        if(irdnt_ids == null){
+        if(irdnt_ids == null && new_ids == null){
             holder.setItem(item);
-        }else{
-            holder.setItem(item, irdnt_ids);
+        }if(irdnt_ids != null){
+            holder.setItem(item, irdnt_ids, 0);
+        }if(new_ids != null){
+            holder.setItem(item, new_ids, 1);
         }
     }
 
@@ -113,11 +116,20 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
             });
         }
 
-        public void setItem(IrdntListDTO dto, ArrayList<Long> ids) {
-            for (Long id : ids) {
-                if(id == dto.getContent_list_id()){
-                    irdnt_layout.setBackgroundResource(R.drawable.redcard_background_drawer);
-                    shelf_life_end.setTextColor(Color.parseColor("#FFFFFF"));
+        public void setItem(IrdntListDTO dto, ArrayList<Long> ids, int mode) {
+            if (mode == 0){
+                for (Long id : ids) {
+                    if(id == dto.getContent_list_id()){
+                        irdnt_layout.setBackgroundResource(R.drawable.redcard_background_drawer);
+                        shelf_life_end.setTextColor(Color.parseColor("#FFFFFF"));
+                    }
+                }
+            }else{
+                for (Long id : ids) {
+                    if(id == dto.getContent_list_id()){
+                        irdnt_layout.setBackgroundColor(Color.parseColor("#f4dc42"));
+                        shelf_life_end.setTextColor(Color.parseColor("#FFFFFF"));
+                    }
                 }
             }
             //content_list_id.setText(dto.getContent_list_id());

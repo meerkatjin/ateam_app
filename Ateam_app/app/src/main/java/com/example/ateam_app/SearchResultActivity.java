@@ -4,23 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.ateam_app.irdnt_list_package.IrdntLifeEndListATask;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntLifeEndListATask;
 import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
 import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
-import com.example.ateam_app.irdnt_list_package.IrdntListDelete;
-import com.example.ateam_app.irdnt_list_package.IrdntListView;
-import com.example.ateam_app.irdnt_list_package.OnIrdntItemClickListener;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntListView;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntNewContentListATask;
 import com.example.ateam_app.recipe_fragment.OnRecipeItemClickListener;
 import com.example.ateam_app.recipe_fragment.RecipeAdapter;
 import com.example.ateam_app.recipe_fragment.RecipeAtask;
@@ -42,6 +35,7 @@ public class SearchResultActivity extends AppCompatActivity {
     ArrayList<IrdntListDTO> irdntItems;
     IrdntListAdapter irdntListAdapter;
     IrdntLifeEndListATask irdntLifeEndListATask;
+    IrdntNewContentListATask irdntNewContentListATask;
 
     RecipeAtask recipeAtask;
     ArrayList<RecipeItem> recipeItems;
@@ -52,7 +46,7 @@ public class SearchResultActivity extends AppCompatActivity {
     String searchText;
     Long user_id;
 
-    ArrayList<Long> irdnt_ids;
+    ArrayList<Long> irdnt_ids, new_ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +71,10 @@ public class SearchResultActivity extends AppCompatActivity {
         //유통기한 지난 재료의 아이디 가져오기
         if(isNetworkConnected(SearchResultActivity.this) == true) {
             irdntLifeEndListATask = new IrdntLifeEndListATask(user_id);
+            irdntNewContentListATask = new IrdntNewContentListATask(user_id);
             try {
                 irdnt_ids = irdntLifeEndListATask.execute().get();
+                new_ids = irdntNewContentListATask.execute().get();
             } catch (ExecutionException e) {
                 e.getMessage();
             } catch (InterruptedException e) {
@@ -86,7 +82,7 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         }
 
-        irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids);
+        irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids, new_ids);
         searchRecyclerView.setAdapter(irdntListAdapter);
 
         if (isNetworkConnected(this) == true) {
@@ -101,7 +97,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 if (position == 0) {
                     irdntItems = new ArrayList<>();
-                    irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids);
+                    irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids, new_ids);
                     searchRecyclerView.setAdapter(irdntListAdapter);
 
                     if (isNetworkConnected(getApplicationContext()) == true) {

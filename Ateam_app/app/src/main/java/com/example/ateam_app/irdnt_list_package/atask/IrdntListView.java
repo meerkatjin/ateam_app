@@ -1,4 +1,4 @@
-package com.example.ateam_app.irdnt_list_package;
+package com.example.ateam_app.irdnt_list_package.atask;
 
 import android.app.ProgressDialog;
 import android.net.http.AndroidHttpClient;
@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.ateam_app.MainActivity;
+import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
+import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
 import com.example.ateam_app.recipe_fragment.RecipeItem;
 
 import org.apache.http.HttpEntity;

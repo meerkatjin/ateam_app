@@ -16,7 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.ateam_app.irdnt_list_package.IrdntLifeEndNumATask;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntLifeEndNumATask;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntNewContentNumATask;
 import com.example.ateam_app.recipe_fragment.Mainfragment_Recipe_Atask;
 import com.example.ateam_app.recipe_fragment.RecipeItem;
 import java.util.concurrent.ExecutionException;
@@ -24,18 +25,16 @@ import java.util.concurrent.ExecutionException;
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 public class MainFragment extends Fragment {
-    CardView shelfLifeAlertBanner, recipeRecommandBanner, manageTipBanner;
     public static RecipeItem main_recipe_item = null;
-    TextView recipe_id;
-    TextView recipe_nm_ko;
+    CardView shelfLifeAlertBanner,newContentBenner, recipeRecommandBanner, manageTipBanner;
+    TextView recipe_id, recipe_nm_ko, sumry, nation_nm, qnt, calorie, shelfLifeAlertText, newContentText;
     ImageView img_url;
-    TextView sumry;
     LinearLayout linearMainFragment;
-    TextView nation_nm;
-    TextView qnt;
-    TextView calorie;
-    TextView shelfLifeAlertText;
     Bundle extra;
+
+    String endLifeNum = "0";
+    String newContentNum = "0";
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -49,6 +48,8 @@ public class MainFragment extends Fragment {
         //Log.d(TAG, "onCreateView: "+ recipeItem);
         shelfLifeAlertText = rootView.findViewById(R.id.shelfLifeAlertText);
         shelfLifeAlertBanner = rootView.findViewById(R.id.shelfLifeAlertBanner);
+        newContentBenner = rootView.findViewById(R.id.newContentBenner);
+        newContentText = rootView.findViewById(R.id.newContentText);
         recipeRecommandBanner = rootView.findViewById(R.id.recipeRecommandBanner);
         manageTipBanner = rootView.findViewById(R.id.manageTipBanner);
         recipe_nm_ko = rootView.findViewById(R.id.recipe_nm_ko_mf);
@@ -64,10 +65,12 @@ public class MainFragment extends Fragment {
         //앱 끄기 전까지 추천 초기화 X
         if(isNetworkConnected(context) == true) {
             Mainfragment_Recipe_Atask atask = new Mainfragment_Recipe_Atask();
+            IrdntLifeEndNumATask endNum = new IrdntLifeEndNumATask(getUserId());
+            IrdntNewContentNumATask newNum = new IrdntNewContentNumATask(getUserId());
             try {
-                if (main_recipe_item == null) {
                 atask.execute().get();
-                }
+                endLifeNum = endNum.execute().get().trim();
+                newContentNum = newNum.execute().get().trim();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -83,17 +86,27 @@ public class MainFragment extends Fragment {
         qnt.setText(main_recipe_item.getQnt());
         nation_nm.setText(main_recipe_item.getNation_nm());
 
-        if(getLifeEndNum(context).equals("0")) shelfLifeAlertBanner.setVisibility(View.GONE);
+        if(endLifeNum.equals("0")) shelfLifeAlertBanner.setVisibility(View.GONE);
+        else shelfLifeAlertBanner.setVisibility(View.VISIBLE);
+
+        if(newContentNum.equals("0")) newContentBenner.setVisibility(View.GONE);
+        else newContentBenner.setVisibility(View.VISIBLE);
 
         shelfLifeAlertText
-                .setText("유통기한이 임박한 재료 '"+getLifeEndNum(context)+"'개가 냉장고 안에 있습니다!");
+                .setText("유통기한이 임박한 재료 '"+endLifeNum+"'개가 냉장고 안에 있습니다!");
+        newContentText
+                .setText("확인이 필요한 내용물 '"+newContentNum+"'개가 냉장고 안에 있습니다!");
 
         //유통기한 알림 배너 클릭 시 유통기한별 정렬 재료 리스트로 이동
         shelfLifeAlertBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(rootView.getContext(), "유통기한 알림배너", Toast.LENGTH_SHORT).show();
-                //((MainActivity)getActivity()).replaceFragment(IrdntListFragment.newInstance());
+                ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+            }
+        });
+        newContentBenner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
             }
         });
@@ -141,21 +154,5 @@ public class MainFragment extends Fragment {
         }else {
             return 0;
         }
-    }
-
-    //유통기한 넘은 내용물 갯수 가져오기
-    public String getLifeEndNum(Context context){
-        String num = "0";
-        if(isNetworkConnected(context) == true) {
-            IrdntLifeEndNumATask endNum = new IrdntLifeEndNumATask(getUserId());
-            try {
-                num = endNum.execute().get().trim();
-            } catch (ExecutionException e) {
-                e.getMessage();
-            } catch (InterruptedException e) {
-                e.getMessage();
-            }
-        }
-        return num;
     }
 }

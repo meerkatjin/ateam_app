@@ -1,4 +1,4 @@
-package com.example.ateam_app.irdnt_list_package;
+package com.example.ateam_app.irdnt_list_package.atask;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -63,7 +63,6 @@ public class IrdntLifeEndListATask extends AsyncTask<Void, Void, ArrayList<Long>
             }
             msg = stringBuilder.toString();
 
-            Log.d("시발", msg);
             inputStream.close();
 
         }catch (Exception e){

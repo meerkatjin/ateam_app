@@ -1,4 +1,4 @@
-package com.example.ateam_app.irdnt_list_package;
+package com.example.ateam_app.irdnt_list_package.atask;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -17,10 +17,10 @@ import java.io.InputStreamReader;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class IrdntNewContentATask extends AsyncTask<Void, Void, String> {
+public class IrdntNewContentNumATask extends AsyncTask<Void, Void, String> {
     private long id;
 
-    public IrdntNewContentATask(long id) {
+    public IrdntNewContentNumATask(long id) {
         this.id = id;
     }
 

@@ -43,7 +43,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.firebase.AteamWorker;
-import com.example.ateam_app.irdnt_list_package.IrdntLifeEndNumATask;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
@@ -157,18 +156,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().findItem(R.id.admin_item).setVisible(true);
         }
 
-        mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_view);
+        bundle = new Bundle();
+        bundle.putLong("user_id", loginDTO.getUser_id());
+
+        mainFragment = new MainFragment();
+        mainFragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_frame, mainFragment)
+                .commit();
+
         irdntListFragment = new IrdntListFragment();
         camFragment = new CamFragment();
         recipeFragment = new RecipeFragment();
         manageTipFragment = new ManageTipFragment();
         userMnageFragment = new UserMnageFragment();
-
-        endLifeNum = getLifeEndNum(MainActivity.this, loginDTO.getUser_id());
-
-        if(endLifeNum.equals("0")) mainFragment.shelfLifeAlertBanner.setVisibility(View.GONE);
-
-        mainFragment.shelfLifeAlertText.setText("유통기한이 임박한 재료 '"+endLifeNum+"'개가 냉장고 안에 있습니다!");
 
         //하단 메뉴 (Bottom Navigation View)
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -177,9 +179,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.tabMain:
-                        bundle = new Bundle();
-                        bundle.putLong("user_id", loginDTO.getUser_id());
-                        mainFragment.setArguments(bundle);
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
@@ -518,20 +517,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }//if
         }
     }//onBackPressed()
-
-    //유통기한 넘은 내용물 갯수 가져오기
-    public String getLifeEndNum(Context context, long id){
-        String num = "0";
-        if(isNetworkConnected(context) == true) {
-            IrdntLifeEndNumATask endNum = new IrdntLifeEndNumATask(id);
-            try {
-                num = endNum.execute().get().trim();
-            } catch (ExecutionException e) {
-                e.getMessage();
-            } catch (InterruptedException e) {
-                e.getMessage();
-            }
-        }
-        return num;
-    }
 }//class
