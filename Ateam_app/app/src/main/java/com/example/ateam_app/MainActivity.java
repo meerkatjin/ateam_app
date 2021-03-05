@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        alarmCall();    //알람호출
+        //alarmCall();    //알람호출
 
         //측면 메뉴 호출 (Navigation Drawer)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }//onCreate()
 
-    private void alarmCall() {
+    private void alarmCall() {  //사용하지 않게된 메소드
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.UNMETERED)
                 .setRequiresCharging(true)

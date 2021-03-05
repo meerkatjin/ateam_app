@@ -29,7 +29,7 @@ import java.nio.charset.Charset;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class AteamWorker extends Worker {
+public class AteamWorker extends Worker {   //사용하지 않게된 클래스
     private Context context;
 
     public AteamWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
