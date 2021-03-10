@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
@@ -43,6 +44,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.firebase.AteamWorker;
+import com.example.ateam_app.irdnt_list_package.fragment.IrdntDetailFragment;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
@@ -62,9 +64,8 @@ import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import com.example.ateam_app.irdnt_list_package.IrdntListFragment;
+import com.example.ateam_app.irdnt_list_package.fragment.IrdntListFragment;
 
-import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,15 +75,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static final int USERINFO_CODE = 1004;
     int backmode = 0;
 
-    String endLifeNum;
-    String deleteState;
-    MainFragment mainFragment;
-    IrdntListFragment irdntListFragment;
-    CamFragment camFragment;
-    RecipeFragment recipeFragment;
-    ManageTipFragment manageTipFragment;
-    UserMnageFragment userMnageFragment;    //관리자 프레그먼트
-    LoginActivity loginActivity;
+    String deleteState; //회원 탈퇴 유효 여부
+    MainFragment mainFragment;  //메인 프래그먼트
+    IrdntListFragment irdntListFragment;    //냉장고 내부 목록 프래그먼트
+    CamFragment camFragment;    //카메라 프래그먼트(삭제예정)
+    RecipeFragment recipeFragment;  //레시피 프래그먼트
+    ManageTipFragment manageTipFragment;    //관리팁 프래그먼트(게시판으로 변경 예정)
+    UserMnageFragment userMnageFragment;    //관리자 프래그먼트
+    LoginActivity loginActivity;    //로그인 엑티비티
 
     Bundle bundle;
 
@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }//onNavigationItemSelected()
         });//bottomNavigationView.setOnNavigationItemSelectedListener()
 
+        //배터리 최적화 거부(이거 있어야 알람 원활하게 작동된다고 들었음)
         PowerManager pm= (PowerManager) getSystemService(Context.POWER_SERVICE);
         String packageName= getPackageName();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -279,9 +280,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(getApplicationContext(), UserInfoChangeActivity.class);
             intent.putExtra("loginDTO", loginDTO);
             startActivityForResult(intent, USERINFO_CODE);
-        } else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout) { //로그아웃
             logoutMessage();
-        } else if (id == R.id.nav_withdrawal){
+        } else if (id == R.id.nav_withdrawal){  //회원탈퇴
             withdrawalMessage();
         } else if (id == R.id.nav_admin) {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, userMnageFragment).commit();
@@ -517,4 +518,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }//if
         }
     }//onBackPressed()
+
+    //프래그먼트에서 프래그먼트로 이동시키는 메소드
+    public void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
+                .replace(R.id.main_frame, fragment).commit();
+    }
+
+    public void replaceFragment(Fragment fragment, Bundle bundle) {
+        fragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
+                .replace(R.id.main_frame, fragment).commit();
+    }
 }//class

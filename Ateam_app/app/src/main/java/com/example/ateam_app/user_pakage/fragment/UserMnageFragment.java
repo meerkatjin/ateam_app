@@ -1,7 +1,6 @@
 package com.example.ateam_app.user_pakage.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ateam_app.R;
-import com.example.ateam_app.user_pakage.UserInfoChangeActivity;
-import com.example.ateam_app.user_pakage.adapter.OnUserItemClickListener;
 import com.example.ateam_app.user_pakage.adapter.UserAdapter;
 import com.example.ateam_app.user_pakage.atask.GetUserListATask;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
@@ -48,18 +45,7 @@ public class UserMnageFragment extends Fragment {
             aTesk = new GetUserListATask(dtos, adapter);
             aTesk.execute();
         }
-        
-       adapter.setOnItemClicklistener(new OnUserItemClickListener() {
-            @Override
-            public void onItenClick(UserAdapter.ViewHolder holder, View view, int position) {
-                UserDTO dto = adapter.getItem(position);
-                Intent intent = new Intent(getContext(), UserInfoChangeActivity.class);
-                intent.putExtra("loginDTO",dto);
-                intent.putExtra("gradeCheck", 2);
 
-                startActivity(intent);
-            }
-        });
         return rootView;
     }
 }

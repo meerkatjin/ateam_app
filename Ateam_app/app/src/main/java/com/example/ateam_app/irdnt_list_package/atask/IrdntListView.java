@@ -81,14 +81,14 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
             builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
 
             String postURL = null;
-            if (tabSelected > 10) {
+            if (tabSelected > 10) { //타입별
                 builder.addTextBody("content_ty", content_ty, ContentType.create("Multipart/related", "UTF-8"));
                 postURL = ipConfig + "/ateamappspring/irdntListType";
-            } else if (tabSelected == 2) {
+            } else if (tabSelected == 2) {  //날짜별
                 postURL = ipConfig + "/ateamappspring/irdntListDate";
-            } else if (tabSelected == 3) {
+            } else if (tabSelected == 3) {  //이름별
                 postURL = ipConfig + "/ateamappspring/irdntListName";
-            } else if (tabSelected == 0) {
+            } else if (tabSelected == 0) {  //검색시
                 builder.addTextBody("searchText", searchText, ContentType.create("Multipart/related", "UTF-8"));
                 postURL = ipConfig + "/ateamappspring/searchIrdnt";
             }
@@ -155,8 +155,9 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
 
     public IrdntListDTO readMessage(JsonReader reader) throws IOException {
 
-        String content_nm = "", content_ty = "", shelf_life_end = "";
+        String content_nm = "", content_ty = "", shelf_life_start = "", shelf_life_end = "";
         int content_list_id = 0;
+        String image_name = "", image_path = "";
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -167,16 +168,20 @@ public class IrdntListView extends AsyncTask<Void, Void, Void> {
                 content_nm = reader.nextString();
             } else if (readStr.equals("content_ty")) {
                 content_ty = reader.nextString();
+            } else if(readStr.equals("shelf_life_start")) {
+                shelf_life_start = reader.nextString();
             } else if (readStr.equals("shelf_life_end")) {
                 shelf_life_end = reader.nextString();
-            }  else {
+            } else if(readStr.equals("image_name")) {
+                image_name = reader.nextString();
+            } else if(readStr.equals("image_path")) {
+                image_path = reader.nextString();
+            } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
-        return new IrdntListDTO(content_list_id, content_nm, content_ty, shelf_life_end);
-
-
+        return new IrdntListDTO(content_list_id, content_nm, content_ty, shelf_life_start, shelf_life_end, image_name, image_path);
     }
 
 }

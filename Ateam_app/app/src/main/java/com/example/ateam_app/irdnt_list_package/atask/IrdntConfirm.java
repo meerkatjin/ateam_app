@@ -3,6 +3,8 @@ package com.example.ateam_app.irdnt_list_package.atask;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 
+import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -14,18 +16,19 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 
-public class IrdntLifeEndNumATask extends AsyncTask<Void, Void, String> {
+public class IrdntConfirm extends AsyncTask<Void, Void, String> {
 
-    private long id;
+    IrdntListDTO dto;
 
-    public IrdntLifeEndNumATask(long id) {
-        this.id = id;
+    public IrdntConfirm(IrdntListDTO dto) {
+        this.dto = dto;
     }
 
-    String num = "";
+    String check = "";
 
     HttpClient httpClient;
     HttpPost httpPost;
@@ -38,8 +41,12 @@ public class IrdntLifeEndNumATask extends AsyncTask<Void, Void, String> {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
-            builder.addTextBody("user_id", String.valueOf(id), ContentType.create("Multipart/related", "UTF-8"));
-            String postURL = ipConfig + "/ateamappspring/getLifeEndNum";
+            builder.addTextBody("content_list_id", String.valueOf(dto.getContent_list_id()), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("content_nm",dto.getContent_nm(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("content_ty",dto.getContent_ty(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("shelf_life_start",dto.getShelf_life_start(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("shelf_life_end",dto.getShelf_life_end(), ContentType.create("Multipart/related", "UTF-8"));
+            String postURL = ipConfig + "/ateamappspring/irdntConfirm";
 
             //전송
             InputStream inputStream = null;
@@ -57,7 +64,7 @@ public class IrdntLifeEndNumATask extends AsyncTask<Void, Void, String> {
             while ((line = bufferedReader.readLine()) != null){
                 stringBuilder.append(line + "\n");
             }
-            num = stringBuilder.toString();
+            check = stringBuilder.toString();
 
             inputStream.close();
 
@@ -77,11 +84,12 @@ public class IrdntLifeEndNumATask extends AsyncTask<Void, Void, String> {
                 httpClient = null;
             }
         }
-        return num;
+
+        return check;
     }
 
     @Override
-    protected void onPostExecute(String num) {
-        super.onPostExecute(num);
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
     }
 }

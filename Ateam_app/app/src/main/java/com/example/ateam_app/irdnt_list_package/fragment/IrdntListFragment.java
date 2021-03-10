@@ -1,4 +1,4 @@
-package com.example.ateam_app.irdnt_list_package;
+package com.example.ateam_app.irdnt_list_package.fragment;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -21,7 +21,12 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
+import com.example.ateam_app.common.CommonMethod;
+import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
+import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
+import com.example.ateam_app.irdnt_list_package.OnIrdntItemClickListener;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntLifeEndListATask;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntListDelete;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntListInsert;
@@ -54,6 +59,7 @@ public class IrdntListFragment extends Fragment {
     IrdntNewContentListATask irdntNewContentListATask;
     ProgressDialog progressDialog;
 
+    CommonMethod common;
     Bundle extra;
     Long user_id;
     int tabSelected = 2;
@@ -63,6 +69,8 @@ public class IrdntListFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
         Context context = rootView.getContext();
+
+        common = new CommonMethod();
 
         //회원 아이디 가져오기
         extra = this.getArguments();
@@ -228,43 +236,17 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
-        //재료 클릭시 삭제 구현 중
+        //재료 클릭시 디테일로 가게됨
         adapter.setOnItemClickListener(new OnIrdntItemClickListener() {
             @Override
             public void onItemClick(IrdntListAdapter.ViewHolder holder, View view, int position) {
+                Bundle bundle = new Bundle();
+
                 IrdntListDTO dto = adapter.getItem(position);
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("삭제 알림");
-                builder.setMessage("선택하신 " + dto.getContent_nm() + "이/가 삭제됩니다.\n삭제하시겠습니까?");
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                bundle.putSerializable("IrdntListDTO", dto);
+                bundle.putLong("user_id", user_id);
 
-                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        IrdntListDelete delete = new IrdntListDelete(user_id, dto.getContent_list_id());
-                        try {
-                            state_delete = delete.execute().get().trim();
-                            Log.d("main:state : ", state_delete);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        replace();
-                        adapter.notifyDataSetChanged(); // adapter 갱신
-
-                        Toast.makeText(getActivity().getApplicationContext(), "삭제되었습니다!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
             }
         });
 
@@ -301,7 +283,7 @@ public class IrdntListFragment extends Fragment {
                     btnInputTest.setVisibility(View.VISIBLE);
                 }
 
-                replace();
+                common.replace(getFragmentManager().beginTransaction(), IrdntListFragment.this);
                 adapter.notifyDataSetChanged(); // adapter 갱신
             }
         });

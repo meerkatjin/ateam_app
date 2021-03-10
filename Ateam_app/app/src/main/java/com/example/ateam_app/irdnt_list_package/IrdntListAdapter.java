@@ -16,7 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
+import com.example.ateam_app.irdnt_list_package.fragment.IrdntDetailFragment;
 import com.example.ateam_app.recipe_fragment.RecipeItem;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     ArrayList<IrdntListDTO> items;
     static OnIrdntItemClickListener listener;
     ArrayList<Long> irdnt_ids, new_ids;
+    IrdntDetailFragment irdntDetailFragment;
+    MainActivity activity;
 
     public IrdntListAdapter(Context context, ArrayList<IrdntListDTO> items, ArrayList<Long> irdnt_ids, ArrayList<Long> new_ids) {
         this.context = context;
@@ -46,7 +50,7 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
 
     //데이터 연결
     @Override
-    public void onBindViewHolder(@NonNull IrdntListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         IrdntListDTO item = items.get(position);
 
         holder.irdnt_layout.setBackgroundColor(Color.parseColor("#D9D9D9"));
@@ -91,8 +95,8 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView content_list_id, content_nm, content_ty, shelf_life_end;
-        LinearLayout irdnt_layout;
+        public TextView content_list_id, content_nm, content_ty, shelf_life_end;
+        public LinearLayout irdnt_layout;
 
         public ViewHolder(@NonNull View itemView, OnIrdntItemClickListener listener) {
             super(itemView);

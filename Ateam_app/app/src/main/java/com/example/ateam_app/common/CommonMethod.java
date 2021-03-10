@@ -1,15 +1,23 @@
 
 package com.example.ateam_app.common;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.ateam_app.irdnt_list_package.atask.IrdntListDelete;
 
 import java.io.File;
 import java.io.IOException;
@@ -118,4 +126,60 @@ public class CommonMethod {
 
     }
 
+    //긍정버튼 부정버튼 중립버튼 다이얼로그
+    public void dialogMethod(Context context, String title, String message,
+                             String positiveButton, DialogInterface.OnClickListener pdioc,
+                             String negativeButton, DialogInterface.OnClickListener ndioc,
+                             String neutralButton, DialogInterface.OnClickListener ntdioc){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        builder.setPositiveButton(positiveButton, pdioc);
+
+        builder.setNegativeButton(negativeButton, ndioc);
+
+        builder.setNeutralButton(neutralButton, ntdioc);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    //긍정버튼 부정버튼 다이얼로그
+    public void dialogMethod(Context context, String title, String message,
+                             String positiveButton, DialogInterface.OnClickListener pdioc,
+                             String negativeButton, DialogInterface.OnClickListener ndioc){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        builder.setPositiveButton(positiveButton, pdioc);
+
+        builder.setNegativeButton(negativeButton, ndioc);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    //알람만 있는 다이얼로그
+    public void dialogMethod(Context context, String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    //프래그먼트 갱신하는 메소드 굿굿
+    public void replace(FragmentTransaction ft,Fragment fragment){
+//        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(fragment).attach(fragment).commit();
+    }
 }
