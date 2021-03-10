@@ -45,6 +45,8 @@ public class IrdntDetailFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_detail, container, false);
         Context context = rootView.getContext();
 
+        ((MainActivity)getActivity()).backmode = 2;
+
         common = new CommonMethod();
 
         irdnt_image = rootView.findViewById(R.id.irdnt_image);
@@ -164,5 +166,9 @@ public class IrdntDetailFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    void lol(){
+
     }
 }

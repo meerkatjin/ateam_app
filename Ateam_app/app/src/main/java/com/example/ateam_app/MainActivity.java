@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.firebase.AteamWorker;
 import com.example.ateam_app.irdnt_list_package.fragment.IrdntDetailFragment;
@@ -73,12 +74,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
 
     static final int USERINFO_CODE = 1004;
-    int backmode = 0;
+    public int backmode = 0;
 
     String deleteState; //회원 탈퇴 유효 여부
     MainFragment mainFragment;  //메인 프래그먼트
     IrdntListFragment irdntListFragment;    //냉장고 내부 목록 프래그먼트
-    CamFragment camFragment;    //카메라 프래그먼트(삭제예정)
     RecipeFragment recipeFragment;  //레시피 프래그먼트
     ManageTipFragment manageTipFragment;    //관리팁 프래그먼트(게시판으로 변경 예정)
     UserMnageFragment userMnageFragment;    //관리자 프래그먼트
@@ -167,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
 
         irdntListFragment = new IrdntListFragment();
-        camFragment = new CamFragment();
         recipeFragment = new RecipeFragment();
         manageTipFragment = new ManageTipFragment();
         userMnageFragment = new UserMnageFragment();
@@ -196,14 +195,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 .replace(R.id.main_frame, irdntListFragment)
                                 .commit();
                         bottomNavi = 2;
-                        return true;
-                    case R.id.tabCam:
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
-                                .replace(R.id.main_frame, camFragment)
-                                .commit();
-                        bottomNavi = 3;
                         return true;
                     case R.id.tabRecipe:
                         getSupportFragmentManager()
@@ -506,7 +497,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
             bottomNavigationView.setVisibility(View.VISIBLE);
             backmode = 0;
-        }else{
+        } else if(backmode == 2){
+            new CommonMethod().dialogMethod(this, "취소 안내", "작업을 취소 하시겠습니까?",
+                    "예",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+                            backmode = 0;
+                        }
+                    }, "아니오",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        } else{
             //뒤로 버튼을 한 번 누렀을 때 종료하시겠습니까? 알림
             //2초 안에 두 번을 눌렀을 때 앱 종료
             if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
@@ -527,11 +534,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.main_frame, fragment).commit();
     }
 
+    //프래그먼트에서 프래그먼트로 이동시 데이터도 가져가는 메소드
     public void replaceFragment(Fragment fragment, Bundle bundle) {
         fragment.setArguments(bundle);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
-                .replace(R.id.main_frame, fragment).commit();
+        replaceFragment(fragment);
     }
 }//class
