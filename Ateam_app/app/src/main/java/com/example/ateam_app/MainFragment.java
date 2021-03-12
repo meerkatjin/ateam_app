@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntLifeEndNumATask;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntNewContentNumATask;
 import com.example.ateam_app.recipe_fragment.Mainfragment_Recipe_Atask;
@@ -140,6 +142,9 @@ public class MainFragment extends Fragment {
                 ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabManageTip);
             }
         });
+
+        //2초안에 뒤로가기 두번 누르면 앱 종료
+        new CommonMethod().mainFragmentBackPress((MainActivity)getActivity(), requireActivity(), this, context);
 
         // Inflate the layout for this fragment
         return rootView;

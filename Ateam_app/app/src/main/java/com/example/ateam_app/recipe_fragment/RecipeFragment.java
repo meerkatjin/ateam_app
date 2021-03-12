@@ -18,6 +18,7 @@ import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.MainFragment;
 import com.example.ateam_app.R;
 import com.example.ateam_app.RecipeSubActivity;
+import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
@@ -79,6 +80,10 @@ public class RecipeFragment extends Fragment {
                startActivity(intent);
             }
         });
+
+        //백버튼시 메인 프래그먼트로 이동함
+        new CommonMethod().fragmentBackPress((MainActivity)getActivity(),requireActivity(), this, R.id.tabMain);
+
         return viewGroup;
     }
 

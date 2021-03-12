@@ -45,6 +45,7 @@ import com.bumptech.glide.Glide;
 import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.firebase.AteamWorker;
+import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
 import com.example.ateam_app.irdnt_list_package.fragment.IrdntDetailFragment;
 import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
 
     static final int USERINFO_CODE = 1004;
-    public int backmode = 0;
 
     String deleteState; //회원 탈퇴 유효 여부
     MainFragment mainFragment;  //메인 프래그먼트
@@ -277,7 +277,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             withdrawalMessage();
         } else if (id == R.id.nav_admin) {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, userMnageFragment).commit();
-            backmode = 1;
             bottomNavigationView.setVisibility(View.GONE);
         }
 
@@ -490,41 +489,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     long backKeyPressedTime = 0;
 
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        if(backmode == 1){  //1이면 그냥 뒤로가기 모드
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            backmode = 0;
-        } else if(backmode == 2){
-            new CommonMethod().dialogMethod(this, "취소 안내", "작업을 취소 하시겠습니까?",
-                    "예",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
-                            backmode = 0;
-                        }
-                    }, "아니오",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-        } else{
-            //뒤로 버튼을 한 번 누렀을 때 종료하시겠습니까? 알림
-            //2초 안에 두 번을 눌렀을 때 앱 종료
-            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
-                backKeyPressedTime = System.currentTimeMillis();
-                Toast.makeText(this, "뒤로 버튼을 한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
-            } else {
-                ActivityCompat.finishAffinity(this);
-                System.exit(0);
-            }//if
-        }
-    }//onBackPressed()
+//    @Override
+//    public void onBackPressed() {
+//        //super.onBackPressed();
+//        if(backmode == 1){  //1이면 그냥 뒤로가기 모드
+//            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
+//            bottomNavigationView.setVisibility(View.VISIBLE);
+//            backmode = 0;
+//        } else if(backmode == 2){
+//            new CommonMethod().dialogMethod(this, "취소 안내", "작업을 취소 하시겠습니까?",
+//                    "예",
+//                    new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+//                            backmode = 0;
+//                        }
+//                    }, "아니오",
+//                    new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//        } else{
+//            //뒤로 버튼을 한 번 누렀을 때 종료하시겠습니까? 알림
+//            //2초 안에 두 번을 눌렀을 때 앱 종료
+//            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+//                backKeyPressedTime = System.currentTimeMillis();
+//                Toast.makeText(this, "뒤로 버튼을 한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
+//            } else {
+//                ActivityCompat.finishAffinity(this);
+//                System.exit(0);
+//            }//if
+//        }
+//    }//onBackPressed()
 
     //프래그먼트에서 프래그먼트로 이동시키는 메소드
     public void replaceFragment(Fragment fragment) {

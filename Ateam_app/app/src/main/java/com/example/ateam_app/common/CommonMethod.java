@@ -1,6 +1,7 @@
 
 package com.example.ateam_app.common;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,10 +15,16 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.ateam_app.MainActivity;
+import com.example.ateam_app.R;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntListDelete;
+import com.example.ateam_app.irdnt_list_package.fragment.IrdntListFragment;
 
 import java.io.File;
 import java.io.IOException;
@@ -181,5 +188,35 @@ public class CommonMethod {
             ft.setReorderingAllowed(false);
         }
         ft.detach(fragment).attach(fragment).commit();
+    }
+
+    //백버튼시 메인프래그먼트로 이동하는 메소드
+    public void fragmentBackPress(MainActivity activity, FragmentActivity reqActivity, Fragment fragment, int bottomNaviID){
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                activity.bottomNavigationView.setSelectedItemId(bottomNaviID);
+            }
+        };
+        reqActivity.getOnBackPressedDispatcher().addCallback(fragment, onBackPressedCallback);
+    }
+
+    public void mainFragmentBackPress(MainActivity activity, FragmentActivity reqActivity, Fragment fragment, Context context){
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            long backKeyPressedTime = 0;
+            @Override
+            public void handleOnBackPressed() {
+                //뒤로 버튼을 한 번 누렀을 때 종료하시겠습니까? 알림
+                //2초 안에 두 번을 눌렀을 때 앱 종료
+                if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+                    backKeyPressedTime = System.currentTimeMillis();
+                    Toast.makeText(context, "뒤로 버튼을 한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
+                } else {
+                    ActivityCompat.finishAffinity(activity);
+                    System.exit(0);
+                }//if
+            }
+        };
+        reqActivity.getOnBackPressedDispatcher().addCallback(fragment, onBackPressedCallback);
     }
 }

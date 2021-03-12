@@ -45,8 +45,6 @@ public class IrdntDetailFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_detail, container, false);
         Context context = rootView.getContext();
 
-        ((MainActivity)getActivity()).backmode = 2;
-
         common = new CommonMethod();
 
         irdnt_image = rootView.findViewById(R.id.irdnt_image);
@@ -122,7 +120,8 @@ public class IrdntDetailFragment extends Fragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                common.dialogMethod(context, "삭제 안내", "해당 항목을 삭제 하시겠습니까?", "예",
+                common.dialogMethod(context, "삭제 안내", "해당 항목을 삭제 하시겠습니까?",
+                        "예",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -164,6 +163,8 @@ public class IrdntDetailFragment extends Fragment {
                         });
             }
         });
+
+        new CommonMethod().fragmentBackPress((MainActivity)getActivity(), requireActivity(), this, R.id.tabIrdntList);
 
         return rootView;
     }

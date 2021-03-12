@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
+import com.example.ateam_app.common.CommonMethod;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,8 @@ public class ManageTipFragment extends Fragment  {
             dto = new ManagaeDTO("여름", "겨울에는 집에 있자", R.drawable.ic_launcher_background);
             dtos.add(dto);
             addapter.notifyDataSetChanged();
+
+            new CommonMethod().fragmentBackPress((MainActivity)getActivity(), requireActivity(), this, R.id.tabMain);
 
         return viewGroup;
     }

@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
+import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.user_pakage.adapter.UserAdapter;
 import com.example.ateam_app.user_pakage.atask.GetUserListATask;
 import com.example.ateam_app.user_pakage.dto.UserDTO;
@@ -45,6 +47,8 @@ public class UserMnageFragment extends Fragment {
             aTesk = new GetUserListATask(dtos, adapter);
             aTesk.execute();
         }
+        
+        new CommonMethod().fragmentBackPress((MainActivity)getActivity(), requireActivity(), this, R.id.tabMain);
 
         return rootView;
     }

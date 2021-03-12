@@ -7,16 +7,22 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -26,7 +32,10 @@ import com.example.ateam_app.R;
 import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
 import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
+import com.example.ateam_app.irdnt_list_package.OnIrdntItemCheckListener;
 import com.example.ateam_app.irdnt_list_package.OnIrdntItemClickListener;
+import com.example.ateam_app.irdnt_list_package.OnIrdntItemLongClickListener;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntConfirm;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntLifeEndListATask;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntListDelete;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntListInsert;
@@ -41,7 +50,6 @@ import java.util.concurrent.ExecutionException;
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 public class IrdntListFragment extends Fragment {
-    private static final String TAG = "IrdntListFragment";
 
     String state_insert, state_delete;
     IrdntListAdapter adapter;
@@ -58,11 +66,13 @@ public class IrdntListFragment extends Fragment {
     IrdntLifeEndListATask irdntLifeEndListATask;
     IrdntNewContentListATask irdntNewContentListATask;
     ProgressDialog progressDialog;
+    Toolbar irdnt_check_tool;
 
-    CommonMethod common;
+    CommonMethod common = new CommonMethod();
     Bundle extra;
     Long user_id;
     int tabSelected = 2;
+    boolean checkMode = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,17 +80,14 @@ public class IrdntListFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
         Context context = rootView.getContext();
 
-        common = new CommonMethod();
-
         //회원 아이디 가져오기
         extra = this.getArguments();
         if (extra != null) {
-            extra = getArguments();
             user_id = extra.getLong("user_id");
         }
 
         //유통기한 지난 재료의 아이디 가져오기
-        if(isNetworkConnected(context) == true) {
+        if(isNetworkConnected(context)) {
             irdntLifeEndListATask = new IrdntLifeEndListATask(user_id);
             irdntNewContentListATask = new IrdntNewContentListATask(user_id);
             try {
@@ -94,7 +101,7 @@ public class IrdntListFragment extends Fragment {
         }
 
         items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids);
+        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids, checkMode);
 
         //DB에 있는 재료 리스트 가져오기
         irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
@@ -102,13 +109,91 @@ public class IrdntListFragment extends Fragment {
         irdntRecyclerView.setLayoutManager(layoutManager);
 
         items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids);
+        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids, checkMode);
         irdntRecyclerView.setAdapter(adapter);
 
-        if(isNetworkConnected(context) == true) {
+        if(isNetworkConnected(context)) {
             irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
             irdntListView.execute();
         }
+//        setSuport
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            irdnt_check_tool = rootView.findViewById(R.id.irdnt_check_tool);
+            irdnt_check_tool.inflateMenu(R.menu.check_toolbar);
+        }
+
+        irdnt_check_tool.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                ArrayList<IrdntListDTO> list = new ArrayList<>();
+                for(int i = 0; i < adapter.getItemCount(); i++){
+                    IrdntListDTO dto = adapter.getItem(i);
+                    if(dto.isCheck()) list.add(dto);
+                }
+                switch (item.getItemId()){
+                    case R.id.delete_irdnt:
+                        common.dialogMethod(context, "삭제 안내", "선택한 항목을 삭제 하시겠습니까?",
+                                "예",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        for(IrdntListDTO dto : list){
+                                            if(isNetworkConnected(context) == true) {
+                                                IrdntListDelete delete = new IrdntListDelete(user_id, dto.getContent_list_id());
+                                                try {
+                                                    delete.execute().get().trim();
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                        Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                        checkMode = setCheckMode(context, false);
+                                        common.replace(getFragmentManager().beginTransaction(), IrdntListFragment.this);
+                                    }
+                                }, "아니오",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        return true;
+                    case R.id.confirm_irdnt:
+                        common.dialogMethod(context, "확인 안내", "선택한 항목을 확인 처리 하시겠습니까?",
+                                "예",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        for(IrdntListDTO dto : list){
+                                            if(isNetworkConnected(context) == true) {
+                                                IrdntConfirm irdntConfirm = new IrdntConfirm(dto);
+                                                try {
+                                                    irdntConfirm.execute().get().trim();
+                                                } catch (ExecutionException e) {
+                                                    e.printStackTrace();
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                        Toast.makeText(context, "설정 되었습니다.", Toast.LENGTH_SHORT).show();
+                                        checkMode = setCheckMode(context, false);
+                                        common.replace(getFragmentManager().beginTransaction(), IrdntListFragment.this);
+                                    }
+                                }, "아니오",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        return  true;
+                }
+                return false;
+            }
+        });
 
         //재료 탭
         irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
@@ -127,6 +212,7 @@ public class IrdntListFragment extends Fragment {
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류").setIcon(R.drawable.rice));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료/주류").setIcon(R.drawable.beer));
         irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타").setIcon(R.drawable.can));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("미분류").setIcon(R.drawable.unkown));
 
         //재료 탭 선택 리스너
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -162,6 +248,8 @@ public class IrdntListFragment extends Fragment {
                                 tabChange(context, 17, "조미료/주류");
                             } else if (position2 == 7) {    //음료/기타
                                 tabChange(context, 18, "음료/기타");
+                            } else if (position2 == 8) {    //미분류
+                                tabChange(context, 19, "미분류");
                             }
                         }
 
@@ -240,15 +328,54 @@ public class IrdntListFragment extends Fragment {
         adapter.setOnItemClickListener(new OnIrdntItemClickListener() {
             @Override
             public void onItemClick(IrdntListAdapter.ViewHolder holder, View view, int position) {
-                Bundle bundle = new Bundle();
-
                 IrdntListDTO dto = adapter.getItem(position);
-                bundle.putSerializable("IrdntListDTO", dto);
-                bundle.putLong("user_id", user_id);
+                if(checkMode && holder.checkBox.isChecked()){
+                    holder.checkBox.setChecked(false);
+                }else if(checkMode && !holder.checkBox.isChecked()){
+                    holder.checkBox.setChecked(true);
+                }else{
+                    Bundle bundle = new Bundle();
 
-                ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
+                    bundle.putSerializable("IrdntListDTO", dto);
+                    bundle.putLong("user_id", user_id);
+
+                    ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
+                }
             }
         });
+
+        //롱클릭시 이벤트
+        adapter.setOnItemLongClickListener(new OnIrdntItemLongClickListener() {
+            @Override
+            public void onItemLongClick(IrdntListAdapter.ViewHolder holder, View view, int position) {
+                if(!checkMode) {
+                    checkMode = setCheckMode(context, true);
+                }else{
+                    checkMode = setCheckMode(context, false);
+                }
+            }
+        });
+
+        //백버튼 눌렀을때 이벤트
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if(checkMode){
+                    checkMode = setCheckMode(context, false);
+                } else {
+                    ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabMain);
+                }
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+
+        if(checkMode){
+            irdnt_check_tool.setVisibility(View.VISIBLE);
+            irdnt_sort_tab.setVisibility(View.GONE);
+        } else {
+            irdnt_check_tool.setVisibility(View.GONE);
+            irdnt_sort_tab.setVisibility(View.VISIBLE);
+        }
 
         return rootView;
     }//onCreateView()
@@ -322,12 +449,10 @@ public class IrdntListFragment extends Fragment {
         }
     }
 
-    //프래그먼트 갱신하는 메소드 굿굿
-    public void replace(){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        if (Build.VERSION.SDK_INT >= 26) {
-            ft.setReorderingAllowed(false);
-        }
-        ft.detach(this).attach(this).commit();
+    public boolean setCheckMode(Context context,boolean checkMode){
+        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids, checkMode);
+        common.replace(getFragmentManager().beginTransaction(), IrdntListFragment.this);
+        adapter.notifyDataSetChanged(); // adapter 갱신
+        return checkMode;
     }
 }//class

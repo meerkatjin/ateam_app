@@ -47,6 +47,7 @@ public class SearchResultActivity extends AppCompatActivity {
     Long user_id;
 
     ArrayList<Long> irdnt_ids, new_ids;
+    boolean checkMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         }
 
-        irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids, new_ids);
+        irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids, new_ids, checkMode);
         searchRecyclerView.setAdapter(irdntListAdapter);
 
         if (isNetworkConnected(this) == true) {
@@ -97,7 +98,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 if (position == 0) {
                     irdntItems = new ArrayList<>();
-                    irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids, new_ids);
+                    irdntListAdapter = new IrdntListAdapter(getApplicationContext(), irdntItems,irdnt_ids, new_ids, checkMode);
                     searchRecyclerView.setAdapter(irdntListAdapter);
 
                     if (isNetworkConnected(getApplicationContext()) == true) {

@@ -6,6 +6,7 @@ public class IrdntListDTO implements Serializable {
     String content_nm, content_ty, shelf_life_start, shelf_life_end;
     int content_list_id;
     String image_name, image_path;
+    boolean check = false;
 
     public IrdntListDTO() {}
 
@@ -32,6 +33,14 @@ public class IrdntListDTO implements Serializable {
 
     public void setShelf_life_start(String shelf_life_start) {
         this.shelf_life_start = shelf_life_start;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
     }
 
     public String getImage_name() {

@@ -8,66 +8,81 @@
     android:background="@drawable/card_background_drawer">
 
     <LinearLayout
-        android:id="@+id/irdnt_layout"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:orientation="vertical"
-        android:background="@drawable/card_background_drawer"
-        >
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/content_list_id"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:paddingRight="10dp"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:visibility="gone"
-            android:text="Due Date"
-            android:textColor="@android:color/holo_blue_bright"
-            android:fontFamily="@font/cafe24ssurroundair" />
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="top"
+            android:layout_weight="1"
+            android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/content_nm"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:paddingLeft="10dp"
-            android:gravity="center"
-            android:textSize="32sp"
-            android:text="Irdnt Name"
-            android:textColor="@android:color/black"
-            android:fontFamily="@font/cafe24ssurround"
+        <LinearLayout
+            android:id="@+id/irdnt_layout"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="9"
+            android:background="@drawable/card_background_drawer"
+            android:orientation="vertical">
 
-            />
+            <!--        <TextView-->
+            <!--            android:id="@+id/content_list_id"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="50dp"-->
+            <!--            android:paddingRight="10dp"-->
+            <!--            android:layout_gravity="right"-->
+            <!--            android:gravity="center"-->
+            <!--            android:textSize="25sp"-->
+            <!--            android:visibility="gone"-->
+            <!--            android:text="Due Date"-->
+            <!--            android:textColor="@android:color/holo_blue_bright"-->
+            <!--            android:fontFamily="@font/cafe24ssurroundair" />-->
 
-        <TextView
-            android:id="@+id/content_ty"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:paddingRight="10dp"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:visibility="gone"
-            android:text="Due Date"
-            android:textColor="@android:color/holo_blue_bright"
-            android:fontFamily="@font/cafe24ssurroundair" />
+            <TextView
+                android:id="@+id/content_nm"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:fontFamily="@font/cafe24ssurround"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="Irdnt Name"
+                android:textColor="@android:color/black"
+                android:textSize="32sp"
 
-        <TextView
-            android:id="@+id/shelf_life_end"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:paddingRight="10dp"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:text="Shelf Life End"
-            android:textColor="@android:color/holo_red_light"
-            android:fontFamily="@font/cafe24ssurroundair"
+                />
 
-            />
+            <!--        <TextView-->
+            <!--            android:id="@+id/content_ty"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="50dp"-->
+            <!--            android:paddingRight="10dp"-->
+            <!--            android:layout_gravity="right"-->
+            <!--            android:gravity="center"-->
+            <!--            android:textSize="25sp"-->
+            <!--            android:visibility="gone"-->
+            <!--            android:text="Due Date"-->
+            <!--            android:textColor="@android:color/holo_blue_bright"-->
+            <!--            android:fontFamily="@font/cafe24ssurroundair" />-->
 
+            <TextView
+                android:id="@+id/shelf_life_end"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:fontFamily="@font/cafe24ssurroundair"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:text="Shelf Life End"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="25sp"
+
+                />
+
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
