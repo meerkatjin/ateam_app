@@ -37,7 +37,13 @@ public class BoardFragment extends Fragment  {
             vo = (UserDTO) extra.getSerializable("vo");
         }
 
-        String ateamweb = "http://112.164.58.217:8999/ateamweb/testLogin?user_id=1&user_pw=1";
+        String ateamweb = "http://112.164.58.217:8999/ateamweb/list.no";
+
+        if(vo.getUser_type().equals("nomal")){
+            ateamweb = "http://112.164.58.217:8999/ateamweb/appNomalLogin?user_email=1&user_pw=1";
+        }else{
+            ateamweb = "http://112.164.58.217:8999/ateamweb/appKakaoLogin?user_id=1601870606&user_type=kakao";
+        }
 
         webView = viewGroup.findViewById(R.id.webView);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -48,49 +54,6 @@ public class BoardFragment extends Fragment  {
         webView.getSettings().setDatabaseEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
-//        webView.setWebViewClient(new WebViewClient(){
-//            @Override
-//            public void onPageCommitVisible(WebView view, String url) {
-//                if(url.equals(ateamweb)){
-//                    String script = "javascript:function startLoad(){" +
-//                            "var vo = {'user_id':'"+vo.getUser_id()+"'," +
-//                            "'user_pw':'"+vo.getUser_pw()+"'," +
-//                            "'user_nm':'"+vo.getUser_nm()+"',"+
-//                            "'user_addr':'"+vo.getUser_addr()+"',"+
-//                            "'user_pro_img':'"+vo.getUser_pro_img()+"',"+
-//                            "'user_phone_no':'"+vo.getUser_phone_no()+"',"+
-//                            "'user_grade':'"+vo.getUser_grade()+"',"+
-//                            "'user_type':'"+vo.getUser_type()+"'"+
-//                            "};"+
-//                            //"alert('하이브리ㄷ 접속 삥! "+vo.getUser_id()+"');" +
-//                            "sessionStorage.setItem('loginInfo',vo);" +
-//                            "};" +
-//                            "startLoad();";
-//                    view.loadUrl(script);
-//                }
-//            }
-//
-////            @Override
-////            public void onLoadResource(WebView view, String url) {
-////                if(url.equals(ateamweb)){
-////                    String script = "javascript:function startLoad(){" +
-////                            "var vo = {'user_id':'"+vo.getUser_id()+"'," +
-////                            "'user_pw':'"+vo.getUser_pw()+"'," +
-////                            "'user_nm':'"+vo.getUser_nm()+"',"+
-////                            "'user_addr':'"+vo.getUser_addr()+"',"+
-////                            "'user_pro_img':'"+vo.getUser_pro_img()+"',"+
-////                            "'user_phone_no':'"+vo.getUser_phone_no()+"',"+
-////                            "'user_grade':'"+vo.getUser_grade()+"',"+
-////                            "'user_type':'"+vo.getUser_type()+"'"+
-////                            "};"+
-////                            "alert('하이브리ㄷ 접속 삥! "+vo.getUser_id()+"');" +
-////                            "sessionStorage.setItem('loginInfo',vo);" +
-////                            "};" +
-////                            "startLoad();";
-////                    view.loadUrl(script);
-////                }
-////            }
-//        });
 
         webView.loadUrl(ateamweb);
 
