@@ -212,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:fontFamily="@font/cafe24ssurround"
-                        android:text="일일 냉장고 관리 Tip"
+                        android:text="공지사항"
                         android:textSize="18sp" />
 
                     <TextView
@@ -220,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:layout_marginTop="7dp"
-                        android:text="일일 냉장고 관리 Tip 내용\n어쩌고 저쩌고 이러쿵 저러쿵"
+                        android:text="[공지] 속보이는 냉장고 런칭 안내\n\n'속보이는 냉장고'는 2021년 3월 25일 오후 2시 런칭될 예정입니다.\n관심과 이용 바랍니다."
                         android:fontFamily="@font/cafe24ssurroundair" />
 
                 </LinearLayout>
@@ -237,7 +237,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
                         android:foregroundGravity="center"
-                        android:src="@mipmap/ic_launcher_round" />
+                        android:src="@drawable/logo" />
 
                 </LinearLayout>
 

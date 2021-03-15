@@ -26,8 +26,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class CommonMethod {
-    //public static String  ipConfig = "http://121.179.5.99:8989";  //선생님 컴퓨터로 보낼때
-    public static String  ipConfig = "http://112.164.58.217:8999";  //시연용 ip
+    public static String  ipConfig = "http://192.168.0.24:80";  //선생님 컴퓨터로 보낼때
+    //public static String  ipConfig = "http://112.164.58.217:8999";  //시연용 ip
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {
