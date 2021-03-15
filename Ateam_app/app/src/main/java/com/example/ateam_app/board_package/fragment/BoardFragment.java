@@ -40,9 +40,9 @@ public class BoardFragment extends Fragment  {
         String ateamweb = "http://112.164.58.217:8999/ateamweb/list.no";
 
         if(vo.getUser_type().equals("nomal")){
-            ateamweb = "http://112.164.58.217:8999/ateamweb/appNomalLogin?user_email=1&user_pw=1";
-        }else{
-            ateamweb = "http://112.164.58.217:8999/ateamweb/appKakaoLogin?user_id=1601870606&user_type=kakao";
+            ateamweb = "http://112.164.58.217:8999/ateamweb/appNomalLogin?user_email="+vo.getUser_email()+"&user_pw="+vo.getUser_pw();
+        }else if(!vo.getUser_type().equals("nomal") && !vo.getUser_type().equals(null)){
+            ateamweb = "http://112.164.58.217:8999/ateamweb/appKakaoLogin?user_id="+vo.getUser_id()+"&user_type="+vo.getUser_type();
         }
 
         webView = viewGroup.findViewById(R.id.webView);

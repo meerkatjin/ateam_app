@@ -94,11 +94,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String tokenID = FirebaseInstanceId.getInstance().getToken();
         super.onResume();
         loginDTO = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
-        loginActivity = new LoginActivity();
-        SaveSharedPreference.setUserData
-                (getSharedPreferences("userData", Activity.MODE_PRIVATE),
-                        loginActivity.nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw(), tokenID));
-        loginDTO = SaveSharedPreference.getUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -122,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Toast.makeText(this, loginDTO.getUser_email()+", "+loginDTO.getUser_pw(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "메인 : "+loginDTO.getUser_email()+", "+loginDTO.getUser_pw(), Toast.LENGTH_SHORT).show();
 
         //alarmCall();    //알람호출
 
