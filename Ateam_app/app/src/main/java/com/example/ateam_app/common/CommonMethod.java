@@ -1,7 +1,6 @@
 
 package com.example.ateam_app.common;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,9 +21,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ateam_app.MainActivity;
-import com.example.ateam_app.R;
-import com.example.ateam_app.irdnt_list_package.atask.IrdntListDelete;
-import com.example.ateam_app.irdnt_list_package.fragment.IrdntListFragment;
 
 import java.io.File;
 import java.io.IOException;

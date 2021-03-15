@@ -12,14 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.ateam_app.MainActivity;
-import com.example.ateam_app.MainFragment;
 import com.example.ateam_app.R;
 import com.example.ateam_app.RecipeSubActivity;
 import com.example.ateam_app.common.CommonMethod;
-import com.example.ateam_app.manage_tip_package.ManageTipFragment;
 
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 

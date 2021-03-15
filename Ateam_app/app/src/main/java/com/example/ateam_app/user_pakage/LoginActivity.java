@@ -331,9 +331,9 @@ public class LoginActivity extends AppCompatActivity {
                     if(loginDTO.getUser_id() != 0){
                         if(CommonMethod.isNetworkConnected(LoginActivity.this)){
                             if(loginDTO.getUser_type() == "nomal"){
-                                nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw(), tokenID);
+                                loginDTO = nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw(), tokenID);
                             }else{
-                                socialLogin(loginDTO, tokenID);
+                                loginDTO = socialLogin(loginDTO, tokenID);
                             }
                             loginEvent();
                         }else{

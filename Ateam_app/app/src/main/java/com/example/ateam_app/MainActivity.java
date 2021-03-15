@@ -5,7 +5,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
@@ -42,12 +41,9 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
-import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.firebase.AteamWorker;
-import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
-import com.example.ateam_app.irdnt_list_package.fragment.IrdntDetailFragment;
-import com.example.ateam_app.manage_tip_package.ManageTipFragment;
+import com.example.ateam_app.board_package.fragment.BoardFragment;
 import com.example.ateam_app.recipe_fragment.RecipeFragment;
 import com.example.ateam_app.user_pakage.LoginActivity;
 import com.example.ateam_app.user_pakage.UserInfoChangeActivity;
@@ -80,14 +76,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     MainFragment mainFragment;  //메인 프래그먼트
     IrdntListFragment irdntListFragment;    //냉장고 내부 목록 프래그먼트
     RecipeFragment recipeFragment;  //레시피 프래그먼트
-    ManageTipFragment manageTipFragment;    //관리팁 프래그먼트(게시판으로 변경 예정)
+    BoardFragment boardFragment;    //관리팁 프래그먼트(게시판으로 변경 예정)
     UserMnageFragment userMnageFragment;    //관리자 프래그먼트
     LoginActivity loginActivity;    //로그인 엑티비티
 
     Bundle bundle;
 
     public BottomNavigationView bottomNavigationView;
-    int bottomNavi = 1; //하단 네비게이션 바 선택점 저장
 
     @Override
     protected void onStart() {
@@ -126,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager = getFragmentManager();//
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Toast.makeText(this, loginDTO.getUser_email()+", "+loginDTO.getUser_pw(), Toast.LENGTH_SHORT).show();
 
         //alarmCall();    //알람호출
 
@@ -168,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         irdntListFragment = new IrdntListFragment();
         recipeFragment = new RecipeFragment();
-        manageTipFragment = new ManageTipFragment();
+        boardFragment = new BoardFragment();
         userMnageFragment = new UserMnageFragment();
 
         //하단 메뉴 (Bottom Navigation View)
@@ -183,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
                                 .replace(R.id.main_frame, mainFragment)
                                 .commit();
-                        bottomNavi = 1;
                         return true;
                     case R.id.tabIrdntList:
                         bundle = new Bundle();
@@ -194,7 +190,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
                                 .replace(R.id.main_frame, irdntListFragment)
                                 .commit();
-                        bottomNavi = 2;
                         return true;
                     case R.id.tabRecipe:
                         getSupportFragmentManager()
@@ -202,15 +197,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
                                 .replace(R.id.main_frame, recipeFragment)
                                 .commit();
-                        bottomNavi = 4;
                         return true;
-                    case R.id.tabManageTip:
+                    case R.id.board:
+                        bundle = new Bundle();
+                        bundle.putSerializable("vo", loginDTO);
+                        boardFragment.setArguments(bundle);
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
-                                .replace(R.id.main_frame, manageTipFragment)
+                                .replace(R.id.main_frame, boardFragment)
                                 .commit();
-                        bottomNavi = 5;
                         return true;
 
                 }//switch-case

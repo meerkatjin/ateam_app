@@ -24,7 +24,7 @@
         android:title="레시피"/>
 
     <item
-        android:id="@+id/tabManageTip"
+        android:id="@+id/board"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/btn_default"

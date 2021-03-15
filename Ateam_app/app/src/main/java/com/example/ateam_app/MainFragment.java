@@ -139,7 +139,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 //Toast.makeText(rootView.getContext(), "냉장고 관리 팁 배너", Toast.LENGTH_SHORT).show();
                 //((MainActivity)getActivity()).replaceFragment(ManageTipFragment.newInstance());
-                ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabManageTip);
+                ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.board);
             }
         });
 

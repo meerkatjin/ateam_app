@@ -118,11 +118,13 @@ public class IrdntListFragment extends Fragment {
         }
 //        setSuport
 
+        //툴바만들기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             irdnt_check_tool = rootView.findViewById(R.id.irdnt_check_tool);
             irdnt_check_tool.inflateMenu(R.menu.check_toolbar);
         }
 
+        //툴바 아이템 클릭 이벤트
         irdnt_check_tool.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
