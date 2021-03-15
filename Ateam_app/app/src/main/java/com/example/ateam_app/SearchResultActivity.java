@@ -57,7 +57,6 @@ public class SearchResultActivity extends AppCompatActivity {
         searchTab = findViewById(R.id.searchTab);
         searchTab.addTab(searchTab.newTab().setText("내 재료"));
         searchTab.addTab(searchTab.newTab().setText("레시피"));
-        searchTab.addTab(searchTab.newTab().setText("관리 팁"));
 
         intent = getIntent();
         searchText = intent.getStringExtra("searchText");
@@ -135,10 +134,7 @@ public class SearchResultActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
-                } else if (position == 2) {
-
                 }
-
             }
 
             @Override

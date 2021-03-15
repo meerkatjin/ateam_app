@@ -14,7 +14,7 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/btn_default"
-        android:title="재료 리스트"/>
+        android:title="내 냉장고"/>
 
     <item
         android:id="@+id/tabRecipe"
@@ -28,6 +28,6 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/btn_default"
-        android:title="관리 팁"/>
+        android:title="게시판"/>
 
 </menu>
