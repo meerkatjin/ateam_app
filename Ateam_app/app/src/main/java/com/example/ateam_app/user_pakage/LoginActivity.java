@@ -328,12 +328,10 @@ public class LoginActivity extends AppCompatActivity {
                     autoLoginCheck.setChecked(true);
                     loginDTO = SaveSharedPreference.getUserData
                             (getSharedPreferences("userData",Activity.MODE_PRIVATE));
-                    Toast.makeText(LoginActivity.this, "로그인 : "+loginDTO.getUser_email()+", "+loginDTO.getUser_pw(), Toast.LENGTH_SHORT).show();
                     if(loginDTO.getUser_id() != 0){
                         if(CommonMethod.isNetworkConnected(LoginActivity.this)){
                             if(loginDTO.getUser_type().equals("nomal")){
                                 loginDTO = nomalLogin(loginDTO.getUser_email(), loginDTO.getUser_pw(), tokenID);
-                                Toast.makeText(LoginActivity.this, "작동함? : "+loginDTO.getUser_email()+", "+loginDTO.getUser_pw(), Toast.LENGTH_SHORT).show();
                             }else{
                                 loginDTO = socialLogin(loginDTO, tokenID);
                             }
