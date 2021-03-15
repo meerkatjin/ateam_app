@@ -46,9 +46,6 @@ public class BoardFragment extends Fragment  {
         }
 
         webView = viewGroup.findViewById(R.id.webView);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setDisplayZoomControls(false);
-        webView.getSettings().setTextZoom(100);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setDatabaseEnabled(true);
