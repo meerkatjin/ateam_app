@@ -106,7 +106,7 @@ public class JoinActivity extends AppCompatActivity {
         String regexEmail = "^\\w{5,12}@[a-z]{2,10}[\\.][a-z]{2,3}[\\.]?[a-z]{0,2}$";
         //비밀번호 8-15자리 문자 숫자 특수문자중 2개 이상 포함
         String regexPw = "^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$";
-        String regexNm = "^[가-힣\\w]{3,10}$";
+        String regexNm = "^[가-힣\\w]{2,10}$";
         String regexAddr = "^[가-힣\\w\\s]{5,20}$";
         String regexPhone = "^010\\d{8}$";
 

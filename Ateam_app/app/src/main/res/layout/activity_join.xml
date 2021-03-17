@@ -48,7 +48,8 @@
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="이메일"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
                     />
 
@@ -81,7 +82,8 @@
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="비밀번호"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -116,7 +118,8 @@
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="비밀번호 확인"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -153,7 +156,8 @@
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="이름(닉네임)"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -187,7 +191,8 @@
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="주소"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
@@ -221,7 +226,8 @@
                     android:layout_weight="0.7"
                     android:gravity="center"
                     android:text="전화번호"
-                    android:textSize="20sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
                     android:fontFamily="@font/cafe24ssurroundair"
 
                     />
