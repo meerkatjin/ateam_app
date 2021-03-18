@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -54,7 +55,17 @@ public class BoardFragment extends Fragment  {
 
         webView.loadUrl(ateamweb);
 
-        new CommonMethod().fragmentBackPress((MainActivity)getActivity(), requireActivity(), this, R.id.tabMain);
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if(webView.canGoBack()){
+                    webView.goBack();
+                }else{
+                    ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabMain);
+                }
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
         return viewGroup;
     }
 

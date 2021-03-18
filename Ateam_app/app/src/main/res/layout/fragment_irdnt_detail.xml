@@ -73,11 +73,12 @@
                     android:gravity="center"
                     android:textSize="20sp"/>
 
-                <EditText
+                <Spinner
                     android:id="@+id/content_ty"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textAlignment="center"
                     android:gravity="center"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -128,7 +129,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:focusable="false"/>
 
                 <TextView
                     android:id="@+id/textView"
@@ -145,7 +147,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:focusable="false"/>
             </LinearLayout>
 
             <LinearLayout

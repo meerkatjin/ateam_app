@@ -21,13 +21,14 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ateam_app.MainActivity;
+import com.example.ateam_app.board_package.fragment.BoardFragment;
 
 import java.io.File;
 import java.io.IOException;
 
 public class CommonMethod {
-    public static String  ipConfig = "http://192.168.0.24:80";  //선생님 컴퓨터로 보낼때
-    //public static String  ipConfig = "http://112.164.58.217:8999";  //시연용 ip
+    //public static String  ipConfig = "http://192.168.0.24:80";  //선생님 컴퓨터로 보낼때
+    public static String  ipConfig = "http://112.164.58.217:8999";  //시연용 ip
 
     // 네트워크에 연결되어 있는가
     public static boolean isNetworkConnected(Context context) {
@@ -197,6 +198,7 @@ public class CommonMethod {
         reqActivity.getOnBackPressedDispatcher().addCallback(fragment, onBackPressedCallback);
     }
 
+    //메인프래그먼트에서 백버튼 눌렀을때 메소드
     public void mainFragmentBackPress(MainActivity activity, FragmentActivity reqActivity, Fragment fragment, Context context){
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             long backKeyPressedTime = 0;

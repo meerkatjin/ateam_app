@@ -143,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         autoLoginBox();
+        titleImg();
     }
 
     @Override
@@ -233,17 +234,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
-                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
-            } else {
-                ActivityCompat.requestPermissions(this, permissions, 1);
-            }
-        }
+//        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+//            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
+//        } else {
+//            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
+//
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
+//                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
+//            } else {
+//                ActivityCompat.requestPermissions(this, permissions, 1);
+//            }
+//        }
     }
 
     @Override
@@ -343,6 +344,16 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     autoLoginCheck.setChecked(false);
                 }
+            }
+        }, 2000); //딜레이 타임 조절
+    }
+
+    protected void titleImg(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
                 titleImg.setVisibility(View.GONE);
             }
         }, 3000); //딜레이 타임 조절
