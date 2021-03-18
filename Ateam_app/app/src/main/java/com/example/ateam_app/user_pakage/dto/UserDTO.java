@@ -39,12 +39,10 @@ public class UserDTO implements Serializable {
     }
 
     //데이터베이스에 회원가입 정보를 저장할때
-    public UserDTO(String user_email, String user_pw, String user_nm, String user_addr, String user_phone_no) {
+    public UserDTO(String user_email, String user_pw, String user_nm) {
         this.user_email = user_email;
         this.user_pw = user_pw;
         this.user_nm = user_nm;
-        this.user_addr = user_addr;
-        this.user_phone_no = user_phone_no;
     }
 
     public String getUser_type() {

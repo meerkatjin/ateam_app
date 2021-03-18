@@ -26,7 +26,7 @@ public class JoinActivity extends AppCompatActivity {
 
     String state;
 
-    EditText user_email, user_pw, user_pw_cf, user_nm, user_addr, user_phone_no;
+    EditText user_email, user_pw, user_pw_cf, user_nm;
     Button btnJoinConfirm, btnJoinCancle;
 
     @Override
@@ -38,8 +38,6 @@ public class JoinActivity extends AppCompatActivity {
         user_pw = findViewById(R.id.user_pw);
         user_pw_cf = findViewById(R.id.user_pw_cf);
         user_nm = findViewById(R.id.user_nm);
-        user_addr = findViewById(R.id.user_addr);
-        user_phone_no = findViewById(R.id.user_phone_no);
         btnJoinConfirm = findViewById(R.id.btnJoinConfirm);
         btnJoinCancle = findViewById(R.id.btnJoinCancle);
 
@@ -65,8 +63,6 @@ public class JoinActivity extends AppCompatActivity {
         String pw = user_pw.getText().toString().trim();
         String pw_cf = user_pw_cf.getText().toString().trim();
         String name = user_nm.getText().toString().trim();
-        String addr = user_addr.getText().toString().trim();
-        String phone_no = user_phone_no.getText().toString().trim();
 
         boolean check = false;  //유효성검사 결과를 리턴해줌
 
@@ -86,14 +82,8 @@ public class JoinActivity extends AppCompatActivity {
         }else if(name.equals("")){
             joinErrMessage("이름을 입력하셔야합니다!");
             user_nm.requestFocus();
-        }else if(addr.equals("")){
-            joinErrMessage("주소를 입력하셔야합니다!");
-            user_addr.requestFocus();
-        }else if(phone_no.equals("")){
-            joinErrMessage("전화번호를 입력하셔야합니다!");
-            user_phone_no.requestFocus();
-        }else{  // 모든 조건을 충족하였으니 에러 없음 회원가입 수행
-            dto = new UserDTO(email, pw, name, addr, phone_no);
+        } else{  // 모든 조건을 충족하였으니 에러 없음 회원가입 수행
+            dto = new UserDTO(email, pw, name);
             check = joinFormatCheck(dto);
 
             //정말 회원가입 하시겠습니까? 예 누르면 JoinInsert 실행
@@ -103,12 +93,10 @@ public class JoinActivity extends AppCompatActivity {
 
     //유효성 검사를 실행하여 통과 여부를 반환함
     private boolean joinFormatCheck(UserDTO dto) {
-        String regexEmail = "^\\w{5,12}@[a-z]{2,10}[\\.][a-z]{2,3}[\\.]?[a-z]{0,2}$";
-        //비밀번호 8-15자리 문자 숫자 특수문자중 2개 이상 포함
-        String regexPw = "^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$";
+        String regexEmail = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
+        //비밀번호 5-10자리 대문자 소문자 숫자 포함
+        String regexPw = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{5,10}$";
         String regexNm = "^[가-힣\\w]{2,10}$";
-        String regexAddr = "^[가-힣\\w\\s]{5,20}$";
-        String regexPhone = "^010\\d{8}$";
 
         int trueCheck = 0;
 
@@ -125,8 +113,8 @@ public class JoinActivity extends AppCompatActivity {
             trueCheck++;
         }else{
             joinErrMessage("비밀번호 입력 형식이 잘못되었습니다!\n" +
-                    "비밀번호는 8-15자리이며 문자, 숫자, 특수문자중\n" +
-                    "2개 이상 포함 되어야 합니다! ");
+                    "비밀번호는 5-10자리이며 대문자, 소문자, 숫자가\n" +
+                    "모두 포함 되어야 합니다! ");
             user_pw.setText("");
             user_pw_cf.setText("");
             user_pw.requestFocus();
@@ -143,25 +131,7 @@ public class JoinActivity extends AppCompatActivity {
             return false;
         }
 
-        if(dto.getUser_addr().trim().matches(regexAddr)){
-            trueCheck++;
-        }else{
-            joinErrMessage("주소 입력 형식이 잘못되었습니다!");
-            user_addr.setText("");
-            user_addr.requestFocus();
-            return false;
-        }
-
-        if(dto.getUser_phone_no().trim().matches(regexPhone)){
-            trueCheck++;
-        }else{
-            joinErrMessage("휴대전화번호 입력 형식이 잘못되었습니다!");
-            user_phone_no.setText("");
-            user_phone_no.requestFocus();
-            return false;
-        }
-
-        if(trueCheck == 5) return true;
+        if(trueCheck == 3) return true;
 
         return false;
     }//joinFormatCheck()

@@ -48,8 +48,6 @@ public class JoinInsert extends AsyncTask<Void, Void, String> {
             builder.addTextBody("user_email", dto.getUser_email(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_pw", dto.getUser_pw(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("user_nm", dto.getUser_nm(), ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("user_addr", dto.getUser_addr(), ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("user_phone_no", dto.getUser_phone_no(), ContentType.create("Multipart/related", "UTF-8"));
 
             String postURL = ipConfig + "/ateamappspring/appJoin";
             // 전송

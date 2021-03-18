@@ -20,7 +20,6 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -118,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FragmentManager fragmentManager = getFragmentManager();//
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -129,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle
                 = new ActionBarDrawerToggle(this, drawer,
                 toolbar, R.string.navi_drawer_open, R.string.navi_drawer_close);
+        //toolbar.setTitle();
         drawer.addDrawerListener(toggle);
         //햄버거 버튼 색상변경
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
