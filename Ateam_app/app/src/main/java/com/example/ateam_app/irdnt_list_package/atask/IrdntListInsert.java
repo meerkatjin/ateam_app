@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.internal.http.multipart.MultipartEntity;
+import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -24,12 +25,10 @@ import static com.example.ateam_app.common.CommonMethod.ipConfig;
 public class IrdntListInsert extends AsyncTask<Void, Void, String> {
     //재료 추가 기능 수행
     private static final String TAG = "IrdntListInsert";
-    private Long user_id;
-    private String content_nm;
+    private IrdntListDTO dto;
 
-    public IrdntListInsert(String name, Long user_id) {
-        content_nm = name;
-        this.user_id = user_id;
+    public IrdntListInsert(IrdntListDTO dto) {
+        this.dto = dto;
     }
 
     String state = "";
@@ -48,8 +47,11 @@ public class IrdntListInsert extends AsyncTask<Void, Void, String> {
 
             //상품 이름(ex. 양파, 감자, 당근 등)을 넘기면 자동으로 테이블에 정보 추가
             //회원 아이디 정보 넘겨야함
-            builder.addTextBody("content_nm", content_nm, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("user_id", String.valueOf(user_id), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("user_id", String.valueOf(dto.getUser_id()), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("content_nm", dto.getContent_nm(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("content_ty", dto.getContent_ty(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("shelf_life_start", dto.getShelf_life_start(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("shelf_life_end", dto.getShelf_life_end(), ContentType.create("Multipart/related", "UTF-8"));
 
             String postURL = ipConfig + "/ateamappspring/insert";
 

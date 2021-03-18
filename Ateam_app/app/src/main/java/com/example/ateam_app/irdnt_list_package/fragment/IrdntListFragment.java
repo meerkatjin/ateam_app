@@ -51,17 +51,14 @@ import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 public class IrdntListFragment extends Fragment {
 
-    String state_insert, state_delete;
+    String state_insert;
     IrdntListAdapter adapter;
     ArrayList<Long> irdnt_ids, new_ids;
     ArrayList<IrdntListDTO> items;
     RecyclerView irdntRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     TabLayout irdnt_sort_tab, irdnt_sort_type_tab;
-    Button btnIrdntInsert, btnIrdntCancel;
     FloatingActionButton btnInputTest;
-    FrameLayout irdnt_input_frame;
-    EditText content_nm;
     IrdntListView irdntListView;
     IrdntLifeEndListATask irdntLifeEndListATask;
     IrdntNewContentListATask irdntNewContentListATask;
@@ -287,42 +284,13 @@ public class IrdntListFragment extends Fragment {
         //재료 추가 버튼 (임시, 실제는 IoT로 구현)
         btnInputTest = rootView.findViewById(R.id.btnInputTest);
         btnInputTest.bringToFront();
-        irdnt_input_frame = rootView.findViewById(R.id.irdnt_input_frame);
         btnInputTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irdnt_input_frame.setVisibility(View.VISIBLE);
-                btnInputTest.setVisibility(View.GONE);
-            }
-        });
-
-        //재료추가 메뉴 (임시)
-        btnIrdntInsert = rootView.findViewById(R.id.btnIrdntInsert);
-        btnIrdntCancel = rootView.findViewById(R.id.btnIrdntCancel);
-        content_nm = rootView.findViewById(R.id.content_nm);
-        //추가 버튼
-        btnIrdntInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //빈칸일 경우 Toast로 알려주고 입력
-                if (content_nm.getText().toString().trim().equals("")) {
-                    Toast.makeText(rootView.getContext(), "재료이름을 입력해주세요", Toast.LENGTH_SHORT).show();
-                    content_nm.requestFocus();
-                    //값을 입력했을 때 추가 메소드 실행
-                }  else {
-                    String name = content_nm.getText().toString().trim();
-
-                    irdntInsertConfirm(name, user_id);
-                }
-            }
-        });
-
-        //추가 취소 버튼
-        btnIrdntCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                irdnt_input_frame.setVisibility(View.GONE);
-                btnInputTest.setVisibility(View.VISIBLE);
+                Bundle bundle = new Bundle();
+                bundle.putLong("user_id", user_id);
+                bundle.putInt("mode", 2);
+                ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
             }
         });
 
@@ -331,16 +299,15 @@ public class IrdntListFragment extends Fragment {
             @Override
             public void onItemClick(IrdntListAdapter.ViewHolder holder, View view, int position) {
                 IrdntListDTO dto = adapter.getItem(position);
+                dto.setUser_id(user_id);
                 if(checkMode && holder.checkBox.isChecked()){
                     holder.checkBox.setChecked(false);
                 }else if(checkMode && !holder.checkBox.isChecked()){
                     holder.checkBox.setChecked(true);
                 }else{
                     Bundle bundle = new Bundle();
-
                     bundle.putSerializable("IrdntListDTO", dto);
-                    bundle.putLong("user_id", user_id);
-
+                    bundle.putInt("mode", 1);
                     ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
                 }
             }
@@ -381,54 +348,6 @@ public class IrdntListFragment extends Fragment {
 
         return rootView;
     }//onCreateView()
-
-    //재료 추가 메소드 -> IrdntListInsert로 이동
-    private void irdntInsertConfirm(String name, Long user_id) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setTitle("재료 추가");
-        builder.setMessage("재료를 추가하시겠습니까?");
-        builder.setIcon(android.R.drawable.ic_dialog_alert);
-
-        builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                IrdntListInsert insert = new IrdntListInsert(name, user_id);
-                try {
-                    state_insert = insert.execute().get().trim();
-                    Log.d("main:state : ", state_insert);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                if (state_insert.equals(name)) {
-                    Toast.makeText(getActivity().getApplicationContext(), "추가되었습니다!", Toast.LENGTH_SHORT).show();
-                    irdnt_input_frame.setVisibility(View.GONE);
-                    btnInputTest.setVisibility(View.VISIBLE);
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "추가 실패했습니다", Toast.LENGTH_SHORT).show();
-                    irdnt_input_frame.setVisibility(View.GONE);
-                    btnInputTest.setVisibility(View.VISIBLE);
-                }
-
-                common.replace(getFragmentManager().beginTransaction(), IrdntListFragment.this);
-                adapter.notifyDataSetChanged(); // adapter 갱신
-            }
-        });
-
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity().getApplicationContext(), "추가 취소했습니다", Toast.LENGTH_SHORT).show();
-                irdnt_input_frame.setVisibility(View.GONE);
-                btnInputTest.setVisibility(View.VISIBLE);
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
     public static IrdntListFragment newInstance() {
         return new IrdntListFragment();

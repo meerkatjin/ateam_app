@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +28,7 @@ import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntConfirm;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntListDelete;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntListInsert;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,15 +41,18 @@ import static com.example.ateam_app.common.CommonMethod.ipConfig;
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
 public class IrdntDetailFragment extends Fragment {
-    IrdntListDTO dto;
+    IrdntListDTO dto = new IrdntListDTO();
     ImageView irdnt_image;
     EditText content_nm, shelf_life_start, shelf_life_end;
     Spinner content_ty;
     Button confirm, delete, cancel;
+    TextView titleText;
 
     CommonMethod common;
     Bundle extra;
-    long user_id;
+
+    int mode = 0;   //mode 가 0이면 추가, 1이면 수정
+    Long user_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,13 +70,18 @@ public class IrdntDetailFragment extends Fragment {
         confirm = rootView.findViewById(R.id.confirm);
         delete = rootView.findViewById(R.id.delete);
         cancel = rootView.findViewById(R.id.cancel);
+        titleText = rootView.findViewById(R.id.titleText);
 
         //내용물 리스트 프래그먼트에서 값 가져오기
         extra = this.getArguments();
-        if(extra != null){
+        if(extra != null) {
             extra = getArguments();
-            dto = (IrdntListDTO) extra.getSerializable("IrdntListDTO");
-            user_id = extra.getLong("user_id");
+            mode = extra.getInt("mode");
+            if(mode == 1){
+                dto = (IrdntListDTO) extra.getSerializable("IrdntListDTO");
+            }else{
+                user_id = extra.getLong("user_id");
+            }
         }
 
         String[] spiner_data = getResources().getStringArray(R.array.irdnt_ty);
@@ -79,27 +90,31 @@ public class IrdntDetailFragment extends Fragment {
                 R.array.irdnt_ty, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         content_ty.setAdapter(adapter);
-
-        String image = ipConfig + "/ateamiot/resources/" + dto.getImage_path();
-        Glide.with(this).load(image).error(R.drawable.no_image).into(irdnt_image);
-        content_nm.setText(dto.getContent_nm());
-        if(dto.getContent_ty().trim().equals("")){  //내용물 타입이 없을때
-            content_ty.setSelection(8);
-        }else{
-            int i = 0;
-            for(String data : spiner_data){
-                if(data.equals(dto.getContent_ty())){
-                    content_ty.setSelection(i);
-                    break;
+        try {
+            String image = ipConfig + "/ateamiot/resources/" + dto.getImage_path();
+            Glide.with(this).load(image).error(R.drawable.no_image).into(irdnt_image);
+            content_nm.setText(dto.getContent_nm());
+            if(dto.getContent_ty().trim().equals("")){  //내용물 타입이 없을때
+                content_ty.setSelection(0);
+            }else{
+                int i = 0;
+                for(String data : spiner_data){
+                    if(data.equals(dto.getContent_ty())){
+                        content_ty.setSelection(i);
+                        break;
+                    }
+                    i++;
                 }
-                i++;
             }
-        }
-        shelf_life_start.setText(dto.getShelf_life_start());
-        if(dto.getShelf_life_end().trim().equals("")){  //유통기한 종료일이 없을때
+            shelf_life_start.setText(dto.getShelf_life_start());
+            if(dto.getShelf_life_end().trim().equals("")){  //유통기한 종료일이 없을때
+                shelf_life_end.setText("정해지지 않음");
+            }else{
+                shelf_life_end.setText(dto.getShelf_life_end());
+            }
+        }catch (NullPointerException exception){
             shelf_life_end.setText("정해지지 않음");
-        }else{
-            shelf_life_end.setText(dto.getShelf_life_end());
+            titleText.setText("내용 추가");
         }
 
         shelf_life_start.setOnClickListener(new View.OnClickListener() {
@@ -119,38 +134,73 @@ public class IrdntDetailFragment extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                common.dialogMethod(context, "확인 안내", "해당 항목을 확인/수정 하시겠습니까?", "예",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String check = "";
-                                dto.setContent_nm(content_nm.getText().toString());
-                                dto.setContent_ty((String) content_ty.getSelectedItem());
-                                dto.setShelf_life_start(shelf_life_start.getText().toString());
-                                dto.setShelf_life_end(shelf_life_end.getText().toString());
-                                if(isNetworkConnected(context) == true) {
-                                    IrdntConfirm irdntConfirm = new IrdntConfirm(dto);
-                                    try {
-                                        check = irdntConfirm.execute().get().trim();
-                                    } catch (ExecutionException e) {
-                                        e.printStackTrace();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
+                if(mode == 1){
+                    common.dialogMethod(context, "확인 안내", "해당 항목을 확인/수정 하시겠습니까?", "예",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String check = "";
+                                    dto.setContent_nm(content_nm.getText().toString());
+                                    dto.setContent_ty((String) content_ty.getSelectedItem());
+                                    dto.setShelf_life_start(shelf_life_start.getText().toString());
+                                    dto.setShelf_life_end(shelf_life_end.getText().toString());
+                                    if(isNetworkConnected(context) == true) {
+                                        IrdntConfirm irdntConfirm = new IrdntConfirm(dto);
+                                        try {
+                                            check = irdntConfirm.execute().get().trim();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(!check.equals("1")){
+                                        Toast.makeText(context, "다시 시도해주십시오", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
                                     }
                                 }
-                                if(!check.equals("1")){
-                                    Toast.makeText(context, "다시 시도해주십시오", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+                            }, "아니오",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
                                 }
-                            }
-                        }, "아니오",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
+                            });
+                }else{
+                    common.dialogMethod(context, "추가 안내", "항목을 추가 하시겠습니까?", "예",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String check = "";
+                                    dto.setUser_id(user_id);
+                                    dto.setContent_nm(content_nm.getText().toString());
+                                    dto.setContent_ty((String) content_ty.getSelectedItem());
+                                    dto.setShelf_life_start(shelf_life_start.getText().toString());
+                                    dto.setShelf_life_end(shelf_life_end.getText().toString());
+                                    if(isNetworkConnected(context) == true) {
+                                        IrdntListInsert insert = new IrdntListInsert(dto);
+                                        try {
+                                            check = insert.execute().get().trim();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(!check.equals("1")){
+                                        Toast.makeText(context, "다시 시도해주십시오", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+                                    }
+                                }
+                            }, "아니오",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                }
+
             }
         });
 
@@ -163,7 +213,7 @@ public class IrdntDetailFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if(isNetworkConnected(context) == true) {
-                                    IrdntListDelete delete = new IrdntListDelete(user_id, dto.getContent_list_id());
+                                    IrdntListDelete delete = new IrdntListDelete(dto.getUser_id(), dto.getContent_list_id());
                                     try {
                                         delete.execute().get().trim();
                                     } catch (Exception e) {

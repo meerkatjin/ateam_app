@@ -11,6 +11,7 @@
     </array>
     
     <string-array name="irdnt_ty">
+        <item>미분류</item>
         <item>고기</item>
         <item>수산물</item>
         <item>채소</item>
@@ -19,7 +20,6 @@
         <item>곡류</item>
         <item>조미료/주류</item>
         <item>음료/기타</item>
-        <item>미분류</item>
     </string-array>
 
 </resources>

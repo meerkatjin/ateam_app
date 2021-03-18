@@ -3,6 +3,7 @@ package com.example.ateam_app.irdnt_list_package;
 import java.io.Serializable;
 
 public class IrdntListDTO implements Serializable {
+    long user_id;
     String content_nm, content_ty, shelf_life_start, shelf_life_end;
     int content_list_id;
     String image_name, image_path;
@@ -25,6 +26,14 @@ public class IrdntListDTO implements Serializable {
         this.content_nm = content_nm;
         this.content_ty = content_ty;
         this.shelf_life_end = shelf_life_end;
+    }
+
+    public long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
     public String getShelf_life_start() {
