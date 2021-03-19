@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -193,6 +194,7 @@ public class CommonMethod {
             @Override
             public void handleOnBackPressed() {
                 activity.bottomNavigationView.setSelectedItemId(bottomNaviID);
+                activity.bottomNavigationView.setVisibility(View.VISIBLE);
             }
         };
         reqActivity.getOnBackPressedDispatcher().addCallback(fragment, onBackPressedCallback);

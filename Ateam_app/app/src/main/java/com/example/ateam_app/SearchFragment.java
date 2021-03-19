@@ -1,47 +1,40 @@
-package com.example.ateam_app.irdnt_list_package.fragment;
+package com.example.ateam_app;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.ateam_app.MainActivity;
-import com.example.ateam_app.R;
 import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.irdnt_list_package.IrdntListAdapter;
 import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
-import com.example.ateam_app.irdnt_list_package.OnIrdntItemCheckListener;
 import com.example.ateam_app.irdnt_list_package.OnIrdntItemClickListener;
 import com.example.ateam_app.irdnt_list_package.OnIrdntItemLongClickListener;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntConfirm;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntLifeEndListATask;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntListDelete;
-import com.example.ateam_app.irdnt_list_package.atask.IrdntListInsert;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntListView;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntNewContentListATask;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.ateam_app.irdnt_list_package.fragment.IrdntDetailFragment;
+import com.example.ateam_app.irdnt_list_package.fragment.IrdntListFragment;
+import com.example.ateam_app.recipe_fragment.OnRecipeItemClickListener;
+import com.example.ateam_app.recipe_fragment.RecipeAdapter;
+import com.example.ateam_app.recipe_fragment.RecipeAtask;
+import com.example.ateam_app.recipe_fragment.RecipeItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -49,39 +42,64 @@ import java.util.concurrent.ExecutionException;
 
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
-public class IrdntListFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
-    String state_insert;
-    IrdntListAdapter adapter;
-    ArrayList<Long> irdnt_ids, new_ids;
-    ArrayList<IrdntListDTO> items;
-    RecyclerView irdntRecyclerView;
+    TabLayout searchTab;
+    RecyclerView searchRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    TabLayout irdnt_sort_tab, irdnt_sort_type_tab;
-    FloatingActionButton btnInputTest;
+    ProgressDialog progressDialog;
+
     IrdntListView irdntListView;
+    ArrayList<IrdntListDTO> irdntItems;
+    IrdntListAdapter irdntListAdapter;
     IrdntLifeEndListATask irdntLifeEndListATask;
     IrdntNewContentListATask irdntNewContentListATask;
-    ProgressDialog progressDialog;
+
+    RecipeAtask recipeAtask;
+    ArrayList<RecipeItem> recipeItems;
+    RecipeAdapter recipeAdapter;
+
     Toolbar irdnt_check_tool;
 
-    CommonMethod common = new CommonMethod();
-    Bundle extra;
+    Intent intent;
+
+    String searchText;
     Long user_id;
-    int tabSelected = 2;
+
+    ArrayList<Long> irdnt_ids, new_ids;
+
     boolean checkMode = false;
+    int position = 0;
+
+    Bundle extra;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_irdnt_list, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_search, container, false);
         Context context = rootView.getContext();
 
-        //회원 아이디 가져오기
+        searchTab = rootView.findViewById(R.id.searchTab);
+        searchTab.addTab(searchTab.newTab().setText("내 재료"));
+        searchTab.addTab(searchTab.newTab().setText("레시피"));
+
+//        intent = getIntent();
+//        searchText = intent.getStringExtra("searchText");
+//        user_id = intent.getLongExtra("user_id", 0);
+
         extra = this.getArguments();
         if (extra != null) {
+            searchText = extra.getString("searchText");
             user_id = extra.getLong("user_id");
         }
+
+        ((MainActivity)getActivity()).bottomNavigationView.setVisibility(View.GONE);
+
+        searchRecyclerView = rootView.findViewById(R.id.searchRecyclerView);
+        layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        searchRecyclerView.setLayoutManager(layoutManager);
+
+        irdntItems = new ArrayList<>();
 
         //유통기한 지난 재료의 아이디 가져오기
         if(isNetworkConnected(context)) {
@@ -97,20 +115,11 @@ public class IrdntListFragment extends Fragment {
             }
         }
 
-        items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids, checkMode);
+        irdntListAdapter = new IrdntListAdapter(context, irdntItems,irdnt_ids, new_ids, checkMode);
+        searchRecyclerView.setAdapter(irdntListAdapter);
 
-        //DB에 있는 재료 리스트 가져오기
-        irdntRecyclerView = rootView.findViewById(R.id.irdntRecyclerView);
-        layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-        irdntRecyclerView.setLayoutManager(layoutManager);
-
-        items = new ArrayList<>();
-        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids, checkMode);
-        irdntRecyclerView.setAdapter(adapter);
-
-        if(isNetworkConnected(context)) {
-            irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
+        if (isNetworkConnected(context) == true) {
+            irdntListView = new IrdntListView(searchText, irdntItems, irdntListAdapter, progressDialog, user_id);
             irdntListView.execute();
         }
 
@@ -125,13 +134,13 @@ public class IrdntListFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 ArrayList<IrdntListDTO> list = new ArrayList<>();
-                for(int i = 0; i < adapter.getItemCount(); i++){
-                    IrdntListDTO dto = adapter.getItem(i);
+                for(int i = 0; i < irdntListAdapter.getItemCount(); i++){
+                    IrdntListDTO dto = irdntListAdapter.getItem(i);
                     if(dto.isCheck()) list.add(dto);
                 }
                 switch (item.getItemId()){
                     case R.id.delete_irdnt:
-                        common.dialogMethod(context, "삭제 안내", "선택한 항목을 삭제 하시겠습니까?",
+                        new CommonMethod().dialogMethod(context, "삭제 안내", "선택한 항목을 삭제 하시겠습니까?",
                                 "예",
                                 new DialogInterface.OnClickListener() {
                                     @Override
@@ -148,7 +157,7 @@ public class IrdntListFragment extends Fragment {
                                         }
                                         Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                                         checkMode = setCheckMode(context, false);
-                                        common.replace(getFragmentManager().beginTransaction(), IrdntListFragment.this);
+                                        new CommonMethod().replace(getFragmentManager().beginTransaction(), SearchFragment.this);
                                     }
                                 }, "아니오",
                                 new DialogInterface.OnClickListener() {
@@ -159,7 +168,7 @@ public class IrdntListFragment extends Fragment {
                                 });
                         return true;
                     case R.id.confirm_irdnt:
-                        common.dialogMethod(context, "확인 안내", "선택한 항목을 확인 처리 하시겠습니까?",
+                        new CommonMethod().dialogMethod(context, "확인 안내", "선택한 항목을 확인 처리 하시겠습니까?",
                                 "예",
                                 new DialogInterface.OnClickListener() {
                                     @Override
@@ -178,7 +187,7 @@ public class IrdntListFragment extends Fragment {
                                         }
                                         Toast.makeText(context, "설정 되었습니다.", Toast.LENGTH_SHORT).show();
                                         checkMode = setCheckMode(context, false);
-                                        common.replace(getFragmentManager().beginTransaction(), IrdntListFragment.this);
+                                        new CommonMethod().replace(getFragmentManager().beginTransaction(), SearchFragment.this);
                                     }
                                 }, "아니오",
                                 new DialogInterface.OnClickListener() {
@@ -193,81 +202,53 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
-        //재료 탭
-        irdnt_sort_tab = rootView.findViewById(R.id.irdnt_sort_tab);
-
-        irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("유통기한별"));
-        irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("종류별"));
-        irdnt_sort_tab.addTab(irdnt_sort_tab.newTab().setText("이름별"));
-        //재료 탭(종류 세부)
-        irdnt_sort_type_tab = rootView.findViewById(R.id.irdnt_sort_type_tab);
-
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("고기").setIcon(R.drawable.meat));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("수산물").setIcon(R.drawable.fish));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("채소").setIcon(R.drawable.vegetable));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("과일").setIcon(R.drawable.fruit));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("유제품").setIcon(R.drawable.milk));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류").setIcon(R.drawable.rice));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료/주류").setIcon(R.drawable.beer));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타").setIcon(R.drawable.can));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("미분류").setIcon(R.drawable.unkown));
-
-        //재료 탭 선택 리스너
-        irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        searchTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
+                position = tab.getPosition();
 
-                //유통기한별 탭
                 if (position == 0) {
-                    tabChange(context, 2);
-                    //종류별 탭 선택 시 세부 탭 보여주기
+                    irdntItems = new ArrayList<>();
+                    irdntListAdapter = new IrdntListAdapter(context, irdntItems,irdnt_ids, new_ids, checkMode);
+                    searchRecyclerView.setAdapter(irdntListAdapter);
+
+                    if (isNetworkConnected(context)) {
+                        irdntListView = new IrdntListView(searchText, irdntItems, irdntListAdapter, progressDialog, user_id);
+                        irdntListView.execute();
+                    }
+
                 } else if (position == 1) {
-                    irdnt_sort_type_tab.setVisibility(View.VISIBLE);
-                    tabChange(context, 11, "고기");
-                    irdnt_sort_type_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    recipeItems = new ArrayList<>();
+                    recipeAdapter = new RecipeAdapter(context, recipeItems);
+                    searchRecyclerView.setAdapter(recipeAdapter);
+
+                    if (isNetworkConnected(context)) {
+                        recipeAtask = new RecipeAtask(searchText, recipeItems, recipeAdapter, progressDialog);
+                        recipeAtask.execute();
+                    }
+
+                    recipeAdapter.setOnItemClicklistener(new OnRecipeItemClickListener() {
                         @Override
-                        public void onTabSelected(TabLayout.Tab tab) {
-                            int position2 = tab.getPosition();
+                        public void onItemClick(RecipeAdapter.ViewHolder holder, View view, int position) {
+                            RecipeItem item = recipeAdapter.getItem(position);
+                            Intent intent = new Intent(context, RecipeSubActivity.class);
+                            intent.putExtra("recipe_id", item.getRecipe_id());
+                            intent.putExtra("recipe_nm_ko", item.getRecipe_nm_ko());
+                            intent.putExtra("sumry", item.getSumry());
+                            intent.putExtra("nation_nm", item.getNation_nm());
+                            intent.putExtra("ty_nm", item.getTy_nm());
+                            intent.putExtra("cooking_time", item.getCooking_time());
+                            intent.putExtra("calorie", item.getCalorie());
+                            intent.putExtra("qnt", item.getQnt());
+                            intent.putExtra("level_nm", item.getLevel_nm());
+                            intent.putExtra("irdnt_code", item.getIrdnt_code());
+                            //intent.putExtra("img_url", item.getRecipe_id());
 
-                            if (position2 == 0) {   //고기
-                                tabChange(context, 11, "고기");
-                            } else if (position2 == 1) {    //수산물
-                                tabChange(context, 12, "수산물");
-                            } else if (position2 == 2) {    //채소
-                                tabChange(context, 13, "채소");
-                            } else if (position2 == 3) {    //과일
-                                tabChange(context, 14, "과일");
-                            } else if (position2 == 4) {    //유제품
-                                tabChange(context, 15, "유제품");
-                            } else if (position2 == 5) {    //곡류
-                                tabChange(context, 15, "곡류");
-                            } else if (position2 == 6) {    //조미료/주류
-                                tabChange(context, 17, "조미료/주류");
-                            } else if (position2 == 7) {    //음료/기타
-                                tabChange(context, 18, "음료/기타");
-                            } else if (position2 == 8) {    //미분류
-                                tabChange(context, 19, "미분류");
-                            }
-                        }
-
-                        @Override
-                        public void onTabUnselected(TabLayout.Tab tab) {
-
-                        }
-
-                        @Override
-                        public void onTabReselected(TabLayout.Tab tab) {
-
+                            startActivity(intent);
                         }
                     });
-
-                    //이름별 탭
-                } else if (position == 2) {
-                    tabChange(context,3);
                 }
             }
-
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -280,24 +261,19 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
-        //재료 추가 버튼 (임시, 실제는 IoT로 구현)
-        btnInputTest = rootView.findViewById(R.id.btnInputTest);
-        btnInputTest.bringToFront();
-        btnInputTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putLong("user_id", user_id);
-                bundle.putInt("mode", 2);
-                ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
-            }
-        });
+        if(checkMode){
+            irdnt_check_tool.setVisibility(View.VISIBLE);
+            searchTab.setVisibility(View.GONE);
+        } else {
+            irdnt_check_tool.setVisibility(View.GONE);
+            searchTab.setVisibility(View.VISIBLE);
+        }
 
         //재료 클릭시 디테일로 가게됨
-        adapter.setOnItemClickListener(new OnIrdntItemClickListener() {
+        irdntListAdapter.setOnItemClickListener(new OnIrdntItemClickListener() {
             @Override
             public void onItemClick(IrdntListAdapter.ViewHolder holder, View view, int position) {
-                IrdntListDTO dto = adapter.getItem(position);
+                IrdntListDTO dto = irdntListAdapter.getItem(position);
                 dto.setUser_id(user_id);
                 if(checkMode && holder.checkBox.isChecked()){
                     holder.checkBox.setChecked(false);
@@ -307,13 +283,14 @@ public class IrdntListFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("IrdntListDTO", dto);
                     bundle.putInt("mode", 1);
+                    bundle.putString("searchText", searchText);
                     ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
                 }
             }
         });
 
         //롱클릭시 이벤트
-        adapter.setOnItemLongClickListener(new OnIrdntItemLongClickListener() {
+        irdntListAdapter.setOnItemLongClickListener(new OnIrdntItemLongClickListener() {
             @Override
             public void onItemLongClick(IrdntListAdapter.ViewHolder holder, View view, int position) {
                 if(!checkMode) {
@@ -332,47 +309,19 @@ public class IrdntListFragment extends Fragment {
                     checkMode = setCheckMode(context, false);
                 } else {
                     ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabMain);
+                    ((MainActivity)getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
                 }
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
-
-        if(checkMode){
-            irdnt_check_tool.setVisibility(View.VISIBLE);
-            irdnt_sort_tab.setVisibility(View.GONE);
-        } else {
-            irdnt_check_tool.setVisibility(View.GONE);
-            irdnt_sort_tab.setVisibility(View.VISIBLE);
-        }
+        requireActivity().getOnBackPressedDispatcher().addCallback(SearchFragment.this, onBackPressedCallback);
 
         return rootView;
-    }//onCreateView()
-
-    public static IrdntListFragment newInstance() {
-        return new IrdntListFragment();
-    }
-
-    public void tabChange(Context context, int tabSelected, String content_ty){
-        if(isNetworkConnected(context) == true) {
-            irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected, content_ty);
-            irdntListView.execute();
-        }
-    }
-
-    public void tabChange(Context context, int tabSelected){
-        irdnt_sort_type_tab.setVisibility(View.GONE);
-        if(isNetworkConnected(context) == true) {
-            if(isNetworkConnected(context) == true) {
-                irdntListView = new IrdntListView(items, adapter, progressDialog, user_id, tabSelected);
-                irdntListView.execute();
-            }
-        }
     }
 
     public boolean setCheckMode(Context context,boolean checkMode){
-        adapter = new IrdntListAdapter(context, items, irdnt_ids, new_ids, checkMode);
-        common.replace(getFragmentManager().beginTransaction(), IrdntListFragment.this);
-        adapter.notifyDataSetChanged(); // adapter 갱신
+        irdntListAdapter = new IrdntListAdapter(context, irdntItems, irdnt_ids, new_ids, checkMode);
+        new CommonMethod().replace(getFragmentManager().beginTransaction(), SearchFragment.this);
+        irdntListAdapter.notifyDataSetChanged(); // adapter 갱신
         return checkMode;
     }
-}//class
+}
