@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,7 +72,7 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
         });
 
         holder.irdnt_layout.setBackgroundColor(Color.parseColor("#D9D9D9"));
-        holder.shelf_life_end.setTextColor(Color.parseColor("#FF4444"));
+        holder.shelf_life_end.setTextColor(Color.parseColor("#000000"));
         if(irdnt_ids == null && new_ids == null){
             holder.setItem(item, checkMode);
         }if(irdnt_ids != null){
@@ -128,7 +129,8 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView content_list_id, content_nm, content_ty, shelf_life_end;
+        public TextView content_list_id, content_nm, shelf_life_end;
+        public ImageView content_ty;
         public LinearLayout irdnt_layout;
         public CheckBox checkBox;
 
@@ -140,7 +142,7 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
             irdnt_layout = itemView.findViewById(R.id.irdnt_layout);
 //            content_list_id = itemView.findViewById(R.id.content_list_id);
             content_nm = itemView.findViewById(R.id.content_nm);
-//            content_ty = itemView.findViewById(R.id.content_ty);
+            content_ty = itemView.findViewById(R.id.content_ty);
             shelf_life_end = itemView.findViewById(R.id.shelf_life_end);
             checkBox = itemView.findViewById(R.id.checkBox);
 
@@ -186,14 +188,14 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
                 for (Long id : ids) {
                     if(id == dto.getContent_list_id()){
                         irdnt_layout.setBackgroundResource(R.drawable.redcard_background_drawer);
-                        shelf_life_end.setTextColor(Color.parseColor("#FFFFFF"));
+                        shelf_life_end.setTextColor(Color.parseColor("#000000"));
                     }
                 }
             }else{
                 for (Long id : ids) {
                     if(id == dto.getContent_list_id()){
-                        irdnt_layout.setBackgroundColor(Color.parseColor("#f4dc42"));
-                        shelf_life_end.setTextColor(Color.parseColor("#FFFFFF"));
+                        irdnt_layout.setBackgroundResource(R.drawable.yellowcard_background_drawer);
+                        shelf_life_end.setTextColor(Color.parseColor("#000000"));
                     }
                 }
             }
@@ -202,7 +204,25 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
 
             //content_list_id.setText(dto.getContent_list_id());
             content_nm.setText(dto.getContent_nm());
-//            content_ty.setText(dto.getContent_ty());
+            if(dto.getContent_ty().equals("고기")) {
+                content_ty.setImageResource(R.drawable.icon_meat);
+            } else if (dto.getContent_ty().equals("수산물")) {
+                content_ty.setImageResource(R.drawable.icon_fish);
+            } else if (dto.getContent_ty().equals("채소")) {
+                content_ty.setImageResource(R.drawable.icon_vegetable);
+            } else if (dto.getContent_ty().equals("과일")) {
+                content_ty.setImageResource(R.drawable.icon_fruit);
+            } else if (dto.getContent_ty().equals("유제품")) {
+                content_ty.setImageResource(R.drawable.icon_milk);
+            } else if (dto.getContent_ty().equals("곡류")) {
+                content_ty.setImageResource(R.drawable.icon_grain);
+            } else if (dto.getContent_ty().equals("조미료/주류")) {
+                content_ty.setImageResource(R.drawable.icon_seasoning);
+            } else if (dto.getContent_ty().equals("음료/기타")) {
+                content_ty.setImageResource(R.drawable.icon_beverage);
+            } else if (dto.getContent_ty().equals("미분류")) {
+                content_ty.setImageResource(R.drawable.icon_unknown);
+            }
             shelf_life_end.setText(dto.getShelf_life_end());
         }
         public void setItem(IrdntListDTO dto, boolean checkMode) {
