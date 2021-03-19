@@ -17,6 +17,7 @@ import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
 import com.example.ateam_app.RecipeSubActivity;
 import com.example.ateam_app.common.CommonMethod;
+import com.example.ateam_app.irdnt_list_package.atask.IrdntListView;
 
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
 
@@ -33,11 +34,9 @@ public class RecipeFragment extends Fragment {
     RecyclerView.LayoutManager mLayoutManager;
     ProgressDialog progressDialog;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_recipe, container, false);
         Context context = viewGroup.getContext();
@@ -51,10 +50,9 @@ public class RecipeFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        if(isNetworkConnected(context) == true) {
+        if(isNetworkConnected(context)) {
             recipeAtask = new RecipeAtask(items, adapter, progressDialog);
             recipeAtask.execute();
-
         }
 
       adapter.setOnItemClicklistener(new OnRecipeItemClickListener() {

@@ -24,16 +24,6 @@
                 android:layout_height="wrap_content"
                 android:theme="@style/ThemeOverlay.AppCompat">
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/searchToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@drawable/background_drawer"
-                    app:popupTheme="@style/Widget.AppCompat.Toolbar"
-                    app:titleTextColor="#FFFFFF"
-                    app:title="검 색 결 과"
-                    />
-
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/searchTab"
                     android:layout_width="match_parent"

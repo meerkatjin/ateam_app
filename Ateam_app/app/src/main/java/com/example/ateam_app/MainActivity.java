@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.common.SaveSharedPreference;
 import com.example.ateam_app.firebase.AteamWorker;
 import com.example.ateam_app.board_package.fragment.BoardFragment;
@@ -314,6 +315,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if(deleteState.equals("1")){
                         Toast.makeText(MainActivity.this, "회원탈퇴 하였습니다.", Toast.LENGTH_SHORT).show();
+                        SaveSharedPreference.clearUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
+                        Intent logout = new Intent(MainActivity.this, LoginActivity.class);
+                        loginDTO = null;
+                        startActivity(logout);
                         finish();
                     }else{
                         Toast.makeText(MainActivity.this, "화원탈퇴 실패하였습니다 !!!", Toast.LENGTH_SHORT).show();
@@ -375,6 +380,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         public void onSuccess(Long result) {
                             if(deleteState.equals("1")){
                                 Toast.makeText(MainActivity.this, "회원탈퇴 하였습니다.", Toast.LENGTH_SHORT).show();
+                                SaveSharedPreference.clearUserData(getSharedPreferences("userData", Activity.MODE_PRIVATE));
+                                Intent logout = new Intent(MainActivity.this, LoginActivity.class);
+                                loginDTO = null;
+                                startActivity(logout);
                                 finish();
                             }else{
                                 Toast.makeText(MainActivity.this, "화원탈퇴 실패하였습니다 !!!", Toast.LENGTH_SHORT).show();
@@ -462,10 +471,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
-                Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
-                intent.putExtra("searchText", searchText.trim());
-                intent.putExtra("user_id", loginDTO.getUser_id());
-                startActivity(intent);
+                bundle = new Bundle();
+                bundle.putString("searchText", searchText.trim());
+                bundle.putLong("user_id", loginDTO.getUser_id());
+//                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.main_frame);
+//                if(fragment instanceof IrdntListFragment){
+//                    fragment.setArguments(bundle);
+//                    new CommonMethod().replace(getSupportFragmentManager().beginTransaction(), fragment);
+//                }else if(fragment instanceof RecipeFragment){
+//                    fragment.setArguments(bundle);
+//                    new CommonMethod().replace(getSupportFragmentManager().beginTransaction(), fragment);
+//                }
+                SearchFragment fragment  = new SearchFragment();
+                replaceFragment(fragment,bundle);
 
                 return true;
             }
@@ -476,47 +494,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-
         return true;
     }//onCreateOptionsMenu()
 
-    long backKeyPressedTime = 0;
-
-//    @Override
-//    public void onBackPressed() {
-//        //super.onBackPressed();
-//        if(backmode == 1){  //1이면 그냥 뒤로가기 모드
-//            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, mainFragment).commit();
-//            bottomNavigationView.setVisibility(View.VISIBLE);
-//            backmode = 0;
-//        } else if(backmode == 2){
-//            new CommonMethod().dialogMethod(this, "취소 안내", "작업을 취소 하시겠습니까?",
-//                    "예",
-//                    new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
-//                            backmode = 0;
-//                        }
-//                    }, "아니오",
-//                    new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            dialog.dismiss();
-//                        }
-//                    });
-//        } else{
-//            //뒤로 버튼을 한 번 누렀을 때 종료하시겠습니까? 알림
-//            //2초 안에 두 번을 눌렀을 때 앱 종료
-//            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
-//                backKeyPressedTime = System.currentTimeMillis();
-//                Toast.makeText(this, "뒤로 버튼을 한 번 더 누르면 종료됩니다", Toast.LENGTH_SHORT).show();
-//            } else {
-//                ActivityCompat.finishAffinity(this);
-//                System.exit(0);
-//            }//if
-//        }
-//    }//onBackPressed()
 
     //프래그먼트에서 프래그먼트로 이동시키는 메소드
     public void replaceFragment(Fragment fragment) {

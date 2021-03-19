@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.ateam_app.MainActivity;
 import com.example.ateam_app.R;
+import com.example.ateam_app.SearchFragment;
 import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.irdnt_list_package.IrdntListDTO;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntConfirm;
@@ -39,6 +41,7 @@ import java.util.concurrent.ExecutionException;
 
 import static com.example.ateam_app.common.CommonMethod.ipConfig;
 import static com.example.ateam_app.common.CommonMethod.isNetworkConnected;
+import static com.example.ateam_app.user_pakage.LoginActivity.loginDTO;
 
 public class IrdntDetailFragment extends Fragment {
     IrdntListDTO dto = new IrdntListDTO();
@@ -53,6 +56,7 @@ public class IrdntDetailFragment extends Fragment {
 
     int mode = 0;   //mode 가 0이면 추가, 1이면 수정
     Long user_id;
+    String searchText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,11 +76,14 @@ public class IrdntDetailFragment extends Fragment {
         cancel = rootView.findViewById(R.id.cancel);
         titleText = rootView.findViewById(R.id.titleText);
 
+        ((MainActivity)getActivity()).bottomNavigationView.setVisibility(View.GONE);
+
         //내용물 리스트 프래그먼트에서 값 가져오기
         extra = this.getArguments();
         if(extra != null) {
             extra = getArguments();
             mode = extra.getInt("mode");
+            searchText = extra.getString("searchText");
             if(mode == 1){
                 dto = (IrdntListDTO) extra.getSerializable("IrdntListDTO");
             }else{
@@ -251,8 +258,23 @@ public class IrdntDetailFragment extends Fragment {
             }
         });
 
-        new CommonMethod().fragmentBackPress((MainActivity)getActivity(), requireActivity(), this, R.id.tabIrdntList);
+        if(searchText == null || searchText.isEmpty()){
+            new CommonMethod().fragmentBackPress((MainActivity)getActivity(), requireActivity(), this, R.id.tabIrdntList);
+        }else{
+            OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("searchText", searchText.trim());
+                    bundle.putLong("user_id", loginDTO.getUser_id());
 
+                    SearchFragment fragment  = new SearchFragment();
+                    ((MainActivity)getActivity()).replaceFragment(fragment,bundle);
+                    ((MainActivity)getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
+                }
+            };
+            requireActivity().getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+        }
         return rootView;
     }
 
