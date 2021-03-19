@@ -6,28 +6,28 @@
         android:id="@+id/tabMain"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/btn_default"
+        android:icon="@drawable/icon_home"
         android:title="메인"/>
 
     <item
         android:id="@+id/tabIrdntList"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/btn_default"
+        android:icon="@drawable/icon_fridge"
         android:title="내 냉장고"/>
 
     <item
         android:id="@+id/tabRecipe"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/btn_default"
+        android:icon="@drawable/icon_recipe"
         android:title="레시피"/>
 
     <item
         android:id="@+id/board"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/btn_default"
+        android:icon="@drawable/icon_board"
         android:title="게시판"/>
 
 </menu>
