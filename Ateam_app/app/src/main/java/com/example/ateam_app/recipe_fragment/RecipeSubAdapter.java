@@ -109,15 +109,21 @@ public class RecipeSubAdapter extends RecyclerView.Adapter<RecipeSubAdapter.View
 
 
                 //cooking_dc.setText("");
-
-
-
+                if (item.getStep_tip().trim().length() == 0) {
+                    step_tip.setVisibility(View.GONE);
+                } else {
+                    step_tip.setVisibility(View.VISIBLE);
+                }
                 step_tip.setText(item.getStep_tip());
 
                 //step_tip.setText("");
 
 
-
+            if (item.getStre_step_image_url().trim().length() == 0) {
+                stre_step_image_url_im.setVisibility(View.GONE);
+            } else {
+                stre_step_image_url_im.setVisibility(View.VISIBLE);
+            }
             Glide.with(itemView).load(item.getStre_step_image_url()).into(stre_step_image_url_im);
 
 
