@@ -85,7 +85,7 @@ public class RecipeAtask extends AsyncTask<Void, Void, Void> {
             inputStream = httpEntity.getContent();
 
             readJsonStream(inputStream);
-
+            inputStream.close();
         } catch (Exception e) {
             Log.d("Sub1", e.getMessage());
             e.printStackTrace();

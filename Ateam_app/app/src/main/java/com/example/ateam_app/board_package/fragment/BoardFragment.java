@@ -28,6 +28,7 @@ public class BoardFragment extends Fragment  {
 
     Bundle extra;
     UserDTO vo;
+    int board_no;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class BoardFragment extends Fragment  {
         extra = this.getArguments();
         if(extra != null){
             vo = (UserDTO) extra.getSerializable("vo");
+            board_no = extra.getInt("board_no");
         }
 
         String ateamweb = "http://112.164.58.217:8999/ateamweb/list.no";
@@ -44,6 +46,10 @@ public class BoardFragment extends Fragment  {
             ateamweb = "http://112.164.58.217:8999/ateamweb/appNomalLogin?user_email="+vo.getUser_email()+"&user_pw="+vo.getUser_pw();
         }else if(!vo.getUser_type().equals("nomal") && !vo.getUser_type().equals(null)){
             ateamweb = "http://112.164.58.217:8999/ateamweb/appKakaoLogin?user_id="+vo.getUser_id()+"&user_type="+vo.getUser_type();
+        }
+
+        if(board_no != 0){
+            ateamweb = "http://112.164.58.217:8999/ateamweb/view.ap?board_no="+ board_no;
         }
 
         webView = viewGroup.findViewById(R.id.webView);

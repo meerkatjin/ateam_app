@@ -511,4 +511,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragment.setArguments(bundle);
         replaceFragment(fragment);
     }
+
+    public void gotoNotice(Fragment fragment, Bundle bundle){
+        fragment.setArguments(bundle);
+        bottomNavigationView.setSelectedItemId(R.id.board);
+    }
 }//class

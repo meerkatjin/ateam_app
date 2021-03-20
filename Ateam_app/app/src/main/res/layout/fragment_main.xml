@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainFragment">
+    tools:context=".MainFragment"
+    android:fillViewport="true">
 
     <!-- 유통기한 임박 알림 -->
     <LinearLayout
@@ -197,49 +198,85 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:background="@drawable/card_background_drawer"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:weightSum="6.3">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1.5">
-
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.3"
+                    android:orientation="horizontal">
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:fontFamily="@font/cafe24ssurround"
-                        android:text="공지사항"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:layout_marginTop="7dp"
-                        android:text="[공지] 속보이는 냉장고 런칭 안내\n\n'속보이는 냉장고'는 2021년 3월 25일 오후 2시 런칭될 예정입니다.\n관심과 이용 바랍니다."
-                        android:fontFamily="@font/cafe24ssurroundair" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="7dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_gravity="start"
-                        android:foregroundGravity="center"
-                        android:src="@drawable/logo" />
+                        android:layout_weight="0.5"
+                        android:text="공지 사항"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
 
+                    <TextView
+                        android:id="@+id/notice_more"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="더보기 >"
+                        android:textSize="18sp"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/notice_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:orientation="vertical"/>
+
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_weight="5"/>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_weight="1.5">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="left"-->
+<!--                        android:fontFamily="@font/cafe24ssurround"-->
+<!--                        android:text="공지사항"-->
+<!--                        android:textSize="18sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="left"-->
+<!--                        android:layout_marginTop="7dp"-->
+<!--                        android:text="[공지] 속보이는 냉장고 런칭 안내\n\n'속보이는 냉장고'는 2021년 3월 25일 오후 2시 런칭될 예정입니다.\n관심과 이용 바랍니다."-->
+<!--                        android:fontFamily="@font/cafe24ssurroundair" />-->
+
+<!--                </LinearLayout>-->
+
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_marginLeft="7dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="start"-->
+<!--                        android:foregroundGravity="center"-->
+<!--                        android:src="@drawable/logo" />-->
+
+<!--                </LinearLayout>-->
 
             </LinearLayout>
 
@@ -247,4 +284,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>
