@@ -132,9 +132,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         //햄버거 버튼 색상변경
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
-            toggle.getDrawerArrowDrawable().setColor(getColor(R.color.white));
+            toggle.getDrawerArrowDrawable().setColor(getColor(R.color.black));
         }else {
-            toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
+            toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.black));
         }
         toggle.syncState();
 

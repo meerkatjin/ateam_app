@@ -58,7 +58,6 @@ public class IrdntListFragment extends Fragment {
     RecyclerView irdntRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     TabLayout irdnt_sort_tab, irdnt_sort_type_tab;
-    FloatingActionButton btnInputTest;
     IrdntListView irdntListView;
     IrdntLifeEndListATask irdntLifeEndListATask;
     IrdntNewContentListATask irdntNewContentListATask;
@@ -130,6 +129,7 @@ public class IrdntListFragment extends Fragment {
                     if(dto.isCheck()) list.add(dto);
                 }
                 switch (item.getItemId()){
+                    //재료 삭제
                     case R.id.delete_irdnt:
                         common.dialogMethod(context, "삭제 안내", "선택한 항목을 삭제 하시겠습니까?",
                                 "예",
@@ -158,6 +158,7 @@ public class IrdntListFragment extends Fragment {
                                     }
                                 });
                         return true;
+                    //재료 확인
                     case R.id.confirm_irdnt:
                         common.dialogMethod(context, "확인 안내", "선택한 항목을 확인 처리 하시겠습니까?",
                                 "예",
@@ -188,6 +189,13 @@ public class IrdntListFragment extends Fragment {
                                     }
                                 });
                         return  true;
+                    //재료 추가 버튼 (임시, 실제는 IoT로 구현)
+                    case R.id.add_irdnt:
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("user_id", user_id);
+                        bundle.putInt("mode", 2);
+                        ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
+                        return true;
                 }
                 return false;
             }
@@ -202,15 +210,15 @@ public class IrdntListFragment extends Fragment {
         //재료 탭(종류 세부)
         irdnt_sort_type_tab = rootView.findViewById(R.id.irdnt_sort_type_tab);
 
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("고기").setIcon(R.drawable.meat));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("수산물").setIcon(R.drawable.fish));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("채소").setIcon(R.drawable.vegetable));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("과일").setIcon(R.drawable.fruit));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("유제품").setIcon(R.drawable.milk));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류").setIcon(R.drawable.rice));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료/주류").setIcon(R.drawable.beer));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타").setIcon(R.drawable.can));
-        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("미분류").setIcon(R.drawable.unkown));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("고기").setIcon(R.drawable.icon_meat));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("수산물").setIcon(R.drawable.icon_fish));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("채소").setIcon(R.drawable.icon_vegetable));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("과일").setIcon(R.drawable.icon_fruit));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("유제품").setIcon(R.drawable.icon_milk));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("곡류").setIcon(R.drawable.icon_grain));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("조미료/주류").setIcon(R.drawable.icon_seasoning));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("음료/기타").setIcon(R.drawable.icon_beverage));
+        irdnt_sort_type_tab.addTab(irdnt_sort_type_tab.newTab().setText("미분류").setIcon(R.drawable.icon_unknown));
 
         //재료 탭 선택 리스너
         irdnt_sort_tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -280,7 +288,7 @@ public class IrdntListFragment extends Fragment {
             }
         });
 
-        //재료 추가 버튼 (임시, 실제는 IoT로 구현)
+        /*//재료 추가 버튼 (임시, 실제는 IoT로 구현)
         btnInputTest = rootView.findViewById(R.id.btnInputTest);
         btnInputTest.bringToFront();
         btnInputTest.setOnClickListener(new View.OnClickListener() {
@@ -291,7 +299,7 @@ public class IrdntListFragment extends Fragment {
                 bundle.putInt("mode", 2);
                 ((MainActivity)getActivity()).replaceFragment(new IrdntDetailFragment(), bundle);
             }
-        });
+        });*/
 
         //재료 클릭시 디테일로 가게됨
         adapter.setOnItemClickListener(new OnIrdntItemClickListener() {
