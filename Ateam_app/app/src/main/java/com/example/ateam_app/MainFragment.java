@@ -182,7 +182,8 @@ public class MainFragment extends Fragment {
         params.setMargins(0,10,0,0);
         final TextView view = new TextView(getContext());
         view.setText(dto.getBoard_title());
-        view.setTextSize(20);
+        view.setTextSize(17);
+        view.setPadding(0, 0, 0, 10);
         view.setLayoutParams(params);
         view.setMaxLines(1);
         view.setEllipsize(TextUtils.TruncateAt.END);
