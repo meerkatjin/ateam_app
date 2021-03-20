@@ -3,6 +3,7 @@ package com.example.ateam_app;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.icu.number.ScientificNotation;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,22 +11,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ateam_app.board_package.atask.Notice_Atask;
 import com.example.ateam_app.board_package.dto.BoardDTO;
-import com.example.ateam_app.board_package.fragment.BoardFragment;
 import com.example.ateam_app.common.CommonMethod;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntLifeEndNumATask;
 import com.example.ateam_app.irdnt_list_package.atask.IrdntNewContentNumATask;
@@ -189,6 +186,7 @@ public class MainFragment extends Fragment {
         view.setLayoutParams(params);
         view.setMaxLines(1);
         view.setEllipsize(TextUtils.TruncateAt.END);
+        view.setTypeface(sumry.getTypeface(), Typeface.NORMAL);
         view.setId(position + 1);
         int board_no = dto.getBoard_no();
         

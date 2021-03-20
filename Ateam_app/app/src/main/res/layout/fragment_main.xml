@@ -100,6 +100,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/recoment_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
@@ -214,7 +215,8 @@
                         android:layout_weight="0.5"
                         android:text="공지 사항"
                         android:textSize="30sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:fontFamily="@font/cafe24ssurround"/>
 
                     <TextView
                         android:id="@+id/notice_more"
@@ -223,7 +225,8 @@
                         android:layout_weight="0.5"
                         android:gravity="right"
                         android:text="더보기 >"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp"
+                        android:fontFamily="@font/cafe24ssurround"/>
                 </LinearLayout>
 
                 <LinearLayout
