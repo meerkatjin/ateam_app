@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     UserMnageFragment userMnageFragment;    //관리자 프래그먼트
     LoginActivity loginActivity;    //로그인 엑티비티
 
+    int board_no = 0;
+
     Bundle bundle;
 
     public BottomNavigationView bottomNavigationView;
@@ -199,12 +201,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.board:
                         bundle = new Bundle();
                         bundle.putSerializable("vo", loginDTO);
+                        if(board_no != 0){
+                            bundle.putInt("board_no", board_no);
+                        }
                         boardFragment.setArguments(bundle);
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                                 .replace(R.id.main_frame, boardFragment)
                                 .commit();
+                        board_no = 0;
                         return true;
 
                 }//switch-case
@@ -512,8 +518,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         replaceFragment(fragment);
     }
 
-    public void gotoNotice(Fragment fragment, Bundle bundle){
-        fragment.setArguments(bundle);
-        bottomNavigationView.setSelectedItemId(R.id.board);
+    public void setBoard_no(int board_no){
+        this.board_no = board_no;
     }
 }//class

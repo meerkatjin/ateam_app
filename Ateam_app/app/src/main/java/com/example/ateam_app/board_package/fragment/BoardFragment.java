@@ -28,7 +28,7 @@ public class BoardFragment extends Fragment  {
 
     Bundle extra;
     UserDTO vo;
-    int board_no;
+    int board_no = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,13 +43,9 @@ public class BoardFragment extends Fragment  {
         String ateamweb = "http://112.164.58.217:8999/ateamweb/list.no";
 
         if(vo.getUser_type().equals("nomal")){
-            ateamweb = "http://112.164.58.217:8999/ateamweb/appNomalLogin?user_email="+vo.getUser_email()+"&user_pw="+vo.getUser_pw();
+            ateamweb = "http://112.164.58.217:8999/ateamweb/appNomalLogin?user_email="+vo.getUser_email()+"&user_pw="+vo.getUser_pw()+"&board_no="+board_no;
         }else if(!vo.getUser_type().equals("nomal") && !vo.getUser_type().equals(null)){
-            ateamweb = "http://112.164.58.217:8999/ateamweb/appKakaoLogin?user_id="+vo.getUser_id()+"&user_type="+vo.getUser_type();
-        }
-
-        if(board_no != 0){
-            ateamweb = "http://112.164.58.217:8999/ateamweb/view.ap?board_no="+ board_no;
+            ateamweb = "http://112.164.58.217:8999/ateamweb/appKakaoLogin?user_id="+vo.getUser_id()+"&user_type="+vo.getUser_type()+"&board_no="+board_no;
         }
 
         webView = viewGroup.findViewById(R.id.webView);

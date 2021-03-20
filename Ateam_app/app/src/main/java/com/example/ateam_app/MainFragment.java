@@ -195,9 +195,8 @@ public class MainFragment extends Fragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("board_no", board_no);
-                ((MainActivity)getActivity()).gotoNotice(new BoardFragment(), bundle);
+                ((MainActivity)getActivity()).setBoard_no(board_no);
+                ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.board);
             }
         });
 
