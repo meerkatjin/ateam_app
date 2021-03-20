@@ -100,6 +100,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/recoment_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
@@ -226,6 +227,7 @@
                         android:fontFamily="@font/cafe24ssurround"
                         android:text="더보기 >"
                         android:textSize="20sp"/>
+
                 </LinearLayout>
 
                 <LinearLayout
