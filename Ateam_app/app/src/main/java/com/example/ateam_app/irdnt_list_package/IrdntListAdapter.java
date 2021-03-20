@@ -220,7 +220,7 @@ public class IrdntListAdapter extends RecyclerView.Adapter<IrdntListAdapter.View
                 content_ty.setImageResource(R.drawable.icon_seasoning);
             } else if (dto.getContent_ty().equals("음료/기타")) {
                 content_ty.setImageResource(R.drawable.icon_beverage);
-            } else if (dto.getContent_ty().equals("미분류")) {
+            } else {
                 content_ty.setImageResource(R.drawable.icon_unknown);
             }
             shelf_life_end.setText(dto.getShelf_life_end());
