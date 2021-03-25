@@ -247,6 +247,7 @@ public class IrdntDetailFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+                                ((MainActivity)getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
                             }
                         }, "아니오",
                         new DialogInterface.OnClickListener() {
