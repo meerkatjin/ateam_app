@@ -165,6 +165,7 @@ public class IrdntDetailFragment extends Fragment {
                                         Toast.makeText(context, "다시 시도해주십시오", Toast.LENGTH_SHORT).show();
                                     }else{
                                         ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+                                        ((MainActivity)getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
                                     }
                                 }
                             }, "아니오",
@@ -197,6 +198,7 @@ public class IrdntDetailFragment extends Fragment {
                                         Toast.makeText(context, "다시 시도해주십시오", Toast.LENGTH_SHORT).show();
                                     }else{
                                         ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+                                        ((MainActivity)getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
                                     }
                                 }
                             }, "아니오",
@@ -228,6 +230,7 @@ public class IrdntDetailFragment extends Fragment {
                                     }
                                 }
                                 ((MainActivity)getActivity()).bottomNavigationView.setSelectedItemId(R.id.tabIrdntList);
+                                ((MainActivity)getActivity()).bottomNavigationView.setVisibility(View.VISIBLE);
                             }
                         }, "아니오",
                         new DialogInterface.OnClickListener() {
